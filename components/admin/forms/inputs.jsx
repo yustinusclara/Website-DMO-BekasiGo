@@ -101,6 +101,71 @@ export function SelectField({ value, onChange, options }) {
   )
 }
 
+/* MultiSelect — pick multiple items from a fixed list of options.
+   options: [{ value, label, hint? }]
+   value: array of selected value strings
+*/
+export function MultiSelectField({ value = [], onChange, options, placeholder = 'Search and add…', emptyLabel = 'No matches.' }) {
+  const [query, setQuery] = useState('')
+  const [open, setOpen]   = useState(false)
+  const selectedSet = new Set(value)
+  const available = options.filter((o) => {
+    if (selectedSet.has(o.value)) return false
+    if (!query.trim()) return true
+    return o.label.toLowerCase().includes(query.trim().toLowerCase())
+  })
+  const selectedItems = value.map((v) => options.find((o) => o.value === v)).filter(Boolean)
+
+  const add = (v) => { onChange([...value, v]); setQuery(''); setOpen(false) }
+  const remove = (v) => onChange(value.filter((x) => x !== v))
+
+  return (
+    <div className="space-y-2">
+      {selectedItems.length > 0 && (
+        <div className="flex flex-wrap gap-1.5">
+          {selectedItems.map((item) => (
+            <span key={item.value}
+              className="inline-flex items-center gap-1.5 rounded-full bg-bekasi-emerald-900/8 text-bekasi-emerald-900 pl-2.5 pr-1 py-0.5 text-[12px] font-medium">
+              {item.label}
+              <button type="button" onClick={() => remove(item.value)}
+                className="h-4 w-4 inline-flex items-center justify-center rounded-full hover:bg-bekasi-emerald-900/15">
+                <X className="h-2.5 w-2.5" />
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
+      <div className="relative">
+        <input
+          value={query}
+          onFocus={() => setOpen(true)}
+          onChange={(e) => { setQuery(e.target.value); setOpen(true) }}
+          placeholder={placeholder}
+          className={cn(inputCls, 'w-full px-3 border border-bekasi-emerald-900/15')}
+        />
+        {open && (
+          <>
+            <div className="fixed inset-0 z-10" onClick={() => setOpen(false)} />
+            <div className="absolute left-0 right-0 top-full mt-1 z-20 max-h-56 overflow-auto rounded-md border border-bekasi-emerald-900/15 bg-white shadow-lg">
+              {available.length === 0 ? (
+                <div className="px-3 py-3 text-[12.5px] text-bekasi-ink/50">{emptyLabel}</div>
+              ) : (
+                available.slice(0, 30).map((o) => (
+                  <button key={o.value} type="button" onClick={() => add(o.value)}
+                    className="w-full text-left px-3 py-2 hover:bg-bekasi-cream inline-flex items-center gap-2">
+                    <Plus className="h-3.5 w-3.5 text-bekasi-emerald-700 shrink-0" />
+                    <span className="text-[13px] text-bekasi-ink truncate">{o.label}</span>
+                    {o.hint && <span className="ml-auto text-[11px] text-bekasi-ink/45 truncate">{o.hint}</span>}
+                  </button>
+                ))
+              )}
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
 /* Switch */
 export function SwitchField({ checked, onChange, label, description }) {
   return (

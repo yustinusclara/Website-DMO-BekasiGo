@@ -109,6 +109,29 @@ user_problem_statement: |
   Homepage Manager, Destinations Manager, and more (per Prompt Pack E-01..E-27+).
 
 frontend:
+  - task: "E-29 CMS Blog Manager (List + Create + Edit + Relations + SEO + Canonical)"
+    implemented: true
+    working: true
+    file: "app/admin/blog/page.js, app/admin/blog/new/page.js, app/admin/blog/[slug]/page.js, components/admin/BlogList.jsx, components/admin/BlogForm.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: |
+          Verified via screenshot tool at 1920x900. Distinctly different from Stories manager:
+          - Categories = Guides/News/Tips/Openings/Updates/Reviews (Stories used Columns).
+          - Byline = team name + role (not personal editor).
+          - NEW section "Related content · Cross-link with BekasiGo":
+            * Related destinations — MultiSelectField pulling from DESTINATIONS (chip picker + search dropdown)
+            * Related events — MultiSelectField pulling from EVENTS
+            * Related restaurants — TagsField (freeform, restaurant dataset not yet built)
+          - SEO section has Canonical URL (Stories didn't).
+          - Sidebar has both Publish date + Last updated (Stories only had Publish date).
+          - Edit page pre-populates relatedDestinations from `relatedDestinationSlug` in mock data.
+          - Added `MultiSelectField` primitive in components/admin/forms/inputs.jsx (reusable chip picker with search).
+
   - task: "E-28 CMS Stories Manager (List + Create + Edit + Delete + Publish + SEO)"
     implemented: true
     working: true
