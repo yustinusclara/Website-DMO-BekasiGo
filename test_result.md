@@ -109,6 +109,42 @@ user_problem_statement: |
   Homepage Manager, Destinations Manager, and more (per Prompt Pack E-01..E-27+).
 
 frontend:
+  - task: "E-34 Smart Planner Form Module (3-step wizard, chip-based)"
+    implemented: true
+    working: true
+    file: "components/sections/planner/PlannerFormModule.jsx, components/sections/planner/PlannerShell.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: |
+          Rebuilt initial planner form as a chip/select-based 3-step wizard with
+          progressive disclosure. Replaces the previous long single-page form.
+          Verified all three steps + chips + summary + Generate CTA at 1920x1000.
+
+          Fields wired (per requirement):
+            Step 1 · Basics       — duration (5 pills incl. Half day/1..4+),
+                                    travel style (7 icon chips)
+            Step 2 · Interests    — 12 interest chips (multi-select), counter
+                                    "N/12", skip-to-surprise-me hint
+            Step 3 · Fine-tune    — budget (4 pills), starting point (7 cards
+                                    incl. KRL/LRT/malls/Alun-Alun/Jakarta/Surprise),
+                                    family mode toggle (optional), environment
+                                    preference (Any/Prefer indoor/Prefer outdoor,
+                                    optional)
+
+          UX polish:
+            - Sticky progress bar showing done ✓ / current gold / upcoming muted
+            - Click a completed step to jump back
+            - Animated step transition (Framer Motion slide-in)
+            - Sticky footer with Back + Live summary chips + Continue / Generate
+            - Final CTA is gold pill "Generate my plan" with Sparkles icon
+            - Chip touch targets min-h-40px for mobile
+            - Fully responsive (grid sm:grid-cols-2 → md:grid-cols-2)
+            - Optional labels visually de-emphasized on family + environment
+
   - task: "E-33 Smart Trip Planner Page Shell (/planner)"
     implemented: true
     working: true

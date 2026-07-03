@@ -10,6 +10,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import PlannerFormModule from './PlannerFormModule'
 
 // -----------------------------------------------------------------------------
 // Config
@@ -100,7 +101,29 @@ export default function PlannerShell() {
       <PlannerHero />
 
       {phase === 'input' && (
-        <PlannerForm form={form} set={set} onGenerate={generate} />
+        <PlannerFormModule
+          initial={{
+            duration: form.days,
+            style: form.style,
+            interests: form.interests,
+            budget: form.budget,
+            familyMode: form.withKids,
+          }}
+          onGenerate={(next) => {
+            setForm({
+              days: next.duration,
+              style: next.style,
+              partySize: form.partySize,
+              withKids: next.familyMode,
+              budget: next.budget,
+              startDate: form.startDate,
+              interests: next.interests,
+              startingPoint: next.startingPoint,
+              environment: next.environment,
+            })
+            generate()
+          }}
+        />
       )}
 
       {phase === 'generating' && <PlannerGenerating form={form} />}
