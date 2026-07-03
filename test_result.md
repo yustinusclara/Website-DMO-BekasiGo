@@ -109,6 +109,36 @@ user_problem_statement: |
   Homepage Manager, Destinations Manager, and more (per Prompt Pack E-01..E-27+).
 
 frontend:
+  - task: "E-31 Supabase Schema Foundation (SQL migrations)"
+    implemented: true
+    working: true
+    file: "supabase/migrations/0001_init.sql, supabase/migrations/0002_seed_baseline.sql, supabase/README.md"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: |
+          Wrote schema-only files (Supabase not yet provisioned):
+          - 0001_init.sql (628 lines): 20 tables covering all requested entities +
+            junction tables, enums (content_status, media_type, trip_style, transport_kind),
+            trigram indexes, updated_at trigger helper, RLS enabled on all content tables
+            (policies deferred to 0003_rls_policies.sql once auth is wired).
+          - 0002_seed_baseline.sql: destination_categories, blog_categories,
+            homepage_sections, navigation_items pre-seeded to match the mock data.
+          - README.md: deployment steps (Supabase CLI + Studio), extensions
+            (pgcrypto/pg_trgm/postgis optional), design decisions doc.
+          All entities requested in E-31 covered: user_profiles, roles, destinations,
+          destination_categories, events, restaurants, hotels, transport_nodes, stories,
+          blogs, blog_categories, tags, media_assets, homepage_sections,
+          homepage_section_items, navigation_items, site_settings, trip_plans,
+          trip_plan_items, trip_plan_refinements. Every content table has slug,
+          summary/excerpt, body (jsonb blocks), district+lat+lng, featured flag,
+          status enum, SEO fields inline (title/description/canonical/og_image_id),
+          created_at + updated_at + updated_by. Trip plan includes ai_model + ai_summary
+          + planner_priority on destinations.
+
   - task: "E-30 CMS Media Library (Grid + List + Preview + Upload + Cloudinary)"
     implemented: true
     working: true
