@@ -1,0 +1,226 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   BekasiGo Design System
+   - Tokens live in tailwind.config.js + lib/design/tokens.js
+   - Semantic shadcn tokens use HSL vars below
+   - Reusable component classes live under @layer components
+   ========================================================================== */
+
+@layer base {
+  :root {
+    --background: 40 33% 96%;
+    --foreground: 168 55% 6%;
+    --card: 0 0% 100%;
+    --card-foreground: 168 55% 6%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 168 55% 6%;
+    --primary: 173 62% 15%;
+    --primary-foreground: 40 40% 97%;
+    --secondary: 40 30% 92%;
+    --secondary-foreground: 173 62% 15%;
+    --muted: 40 20% 92%;
+    --muted-foreground: 168 12% 35%;
+    --accent: 40 60% 56%;
+    --accent-foreground: 173 62% 12%;
+    --destructive: 0 74% 42%;
+    --destructive-foreground: 40 40% 97%;
+    --border: 40 15% 86%;
+    --input: 40 15% 86%;
+    --ring: 173 62% 25%;
+    --chart-1: 173 62% 25%;
+    --chart-2: 40 60% 56%;
+    --chart-3: 12 71% 62%;
+    --chart-4: 192 42% 69%;
+    --chart-5: 168 25% 35%;
+    --radius: 0.75rem;
+    --sidebar-background: 173 62% 12%;
+    --sidebar-foreground: 40 40% 97%;
+    --sidebar-primary: 40 60% 56%;
+    --sidebar-primary-foreground: 173 62% 12%;
+    --sidebar-accent: 173 40% 20%;
+    --sidebar-accent-foreground: 40 40% 97%;
+    --sidebar-border: 173 40% 20%;
+    --sidebar-ring: 40 60% 56%;
+  }
+  .dark {
+    --background: 168 55% 6%;
+    --foreground: 40 40% 97%;
+    --card: 173 40% 10%;
+    --card-foreground: 40 40% 97%;
+    --popover: 173 40% 10%;
+    --popover-foreground: 40 40% 97%;
+    --primary: 40 60% 56%;
+    --primary-foreground: 173 62% 12%;
+    --secondary: 173 40% 18%;
+    --secondary-foreground: 40 40% 97%;
+    --muted: 173 40% 15%;
+    --muted-foreground: 40 15% 70%;
+    --accent: 40 60% 56%;
+    --accent-foreground: 173 62% 12%;
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 40 40% 97%;
+    --border: 173 40% 18%;
+    --input: 173 40% 18%;
+    --ring: 40 60% 56%;
+  }
+
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background-color: #D4A94C; color: #0B3D3A; }
+
+  h1, h2, h3, h4 { @apply font-display tracking-tight; }
+}
+
+@layer components {
+  /* -------- Typography helpers -------- */
+  .heading-display { @apply font-display tracking-tight; font-feature-settings: 'ss01', 'ss02'; }
+  .heading-1 { @apply heading-display text-display-xl text-balance; }
+  .heading-2 { @apply heading-display text-display-lg text-balance; }
+  .heading-3 { @apply heading-display text-display-md text-balance; }
+  .heading-4 { @apply heading-display text-display-sm; }
+  .body-lg   { @apply text-lg md:text-xl leading-relaxed; }
+  .body      { @apply text-base leading-relaxed; }
+  .body-sm   { @apply text-sm leading-relaxed; }
+  .mono      { @apply font-mono text-xs uppercase tracking-[0.25em]; }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-eyebrow uppercase font-medium;
+  }
+  .eyebrow-dot::before {
+    content: '';
+    @apply inline-block h-1.5 w-1.5 rounded-full bg-bekasi-gold-500;
+  }
+
+  /* -------- Backgrounds / gradients -------- */
+  .gradient-emerald {
+    background: linear-gradient(135deg, #062E2B 0%, #0B3D3A 40%, #124F4A 100%);
+  }
+  .gradient-cream {
+    background: linear-gradient(180deg, #FBF7EE 0%, #F7F1E6 100%);
+  }
+  .gradient-gold {
+    background: linear-gradient(135deg, #F0D69B 0%, #D4A94C 45%, #B48A2D 100%);
+  }
+  .hairline         { @apply h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent; }
+  .hairline-invert  { @apply h-px w-full bg-gradient-to-r from-transparent via-white/15 to-transparent; }
+
+  /* -------- Buttons -------- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all
+           disabled:opacity-50 disabled:pointer-events-none focus-visible:outline-none
+           focus-visible:ring-2 focus-visible:ring-bekasi-gold-400 focus-visible:ring-offset-2
+           focus-visible:ring-offset-bekasi-cream;
+  }
+  .btn-sm { @apply h-9  px-4 text-sm; }
+  .btn-md { @apply h-11 px-6 text-sm; }
+  .btn-lg { @apply h-12 px-7 text-sm; }
+  .btn-xl { @apply h-14 px-8 text-base; }
+
+  .btn-primary   { @apply btn bg-bekasi-gold-500   hover:bg-bekasi-gold-400   text-bekasi-emerald-900 shadow-gold-sm hover:shadow-gold; }
+  .btn-secondary { @apply btn bg-bekasi-emerald-900 hover:bg-bekasi-emerald-800 text-white; }
+  .btn-outline   { @apply btn border border-current bg-transparent hover:bg-black/5; }
+  .btn-outline-invert { @apply btn border border-white/40 bg-transparent text-white hover:bg-white/10; }
+  .btn-ghost     { @apply btn hover:bg-black/[0.04] text-bekasi-ink; }
+  .btn-ghost-invert { @apply btn hover:bg-white/10 text-white/85 hover:text-white; }
+  .btn-cms       { @apply inline-flex items-center justify-center gap-2 h-9 px-4 rounded-md text-sm font-medium bg-bekasi-emerald-900 hover:bg-bekasi-emerald-800 text-white transition-colors focus-visible:ring-2 focus-visible:ring-bekasi-emerald-700 focus-visible:ring-offset-2; }
+  .btn-cms-ghost { @apply inline-flex items-center justify-center gap-2 h-9 px-3 rounded-md text-sm font-medium text-bekasi-ink/75 hover:bg-black/[0.04] hover:text-bekasi-ink transition-colors; }
+
+  /* -------- Pills / Chips / Tags -------- */
+  .pill {
+    @apply inline-flex items-center gap-1.5 rounded-full text-xs font-medium transition-colors;
+  }
+  .pill-light { @apply pill bg-black/[0.04]   text-bekasi-ink   px-3.5 py-1.5 hover:bg-black/[0.08]; }
+  .pill-dark  { @apply pill bg-white/10       text-white        px-3.5 py-1.5 border border-white/20 backdrop-blur hover:bg-white/20; }
+  .pill-gold  { @apply pill bg-bekasi-gold-500 text-bekasi-emerald-900 px-3.5 py-1.5 hover:bg-bekasi-gold-400; }
+  .pill-emerald { @apply pill bg-bekasi-emerald-900 text-white px-3.5 py-1.5 hover:bg-bekasi-emerald-800; }
+
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full text-chip uppercase font-medium px-2.5 py-1;
+  }
+  .chip-light { @apply chip bg-bekasi-emerald-900/[0.06] text-bekasi-emerald-800; }
+  .chip-dark  { @apply chip bg-white/10 text-white border border-white/20 backdrop-blur; }
+  .chip-gold  { @apply chip bg-bekasi-gold-500/10 text-bekasi-gold-700 border border-bekasi-gold-500/30; }
+  .chip-solid { @apply chip bg-bekasi-emerald-900 text-bekasi-gold-400; }
+
+  .tag-cat {
+    @apply inline-flex items-center gap-1 text-[10px] uppercase tracking-[0.25em] font-medium
+           px-3 py-1 rounded-full border;
+  }
+  .tag-cat--overlay { @apply tag-cat text-white/95 bg-black/30 backdrop-blur border-white/20; }
+
+  /* -------- Surfaces -------- */
+  .surface {
+    @apply rounded-2xl bg-white border border-black/[0.04] shadow-soft;
+  }
+  .surface-elevated { @apply surface shadow-elevated; }
+  .surface-flat     { @apply rounded-2xl bg-white border border-black/[0.04]; }
+  .surface-invert   {
+    @apply rounded-2xl bg-white/[0.04] border border-white/10 backdrop-blur-xl text-white;
+  }
+  .surface-cream    { @apply rounded-2xl bg-bekasi-cream border border-black/[0.04]; }
+  .surface-cms      { @apply rounded-lg bg-white border border-border shadow-sm; }
+  .surface-cms-flat { @apply rounded-lg bg-white border border-border; }
+
+  /* -------- Form fields -------- */
+  .field {
+    @apply h-11 w-full rounded-md border border-input bg-background px-3 text-sm outline-none
+           transition-colors placeholder:text-bekasi-ink/40
+           focus-visible:ring-2 focus-visible:ring-bekasi-emerald-700 focus-visible:ring-offset-0;
+  }
+  .field-round { @apply field rounded-full h-12 px-5 bg-bekasi-cream border-transparent; }
+  .field-invert {
+    @apply h-11 w-full rounded-md border border-white/20 bg-white/5 px-3 text-sm text-white outline-none
+           placeholder:text-white/40 transition-colors
+           focus-visible:ring-2 focus-visible:ring-bekasi-gold-400 focus-visible:ring-offset-0;
+  }
+  .field-cms {
+    @apply h-10 w-full rounded-md border border-border bg-white px-3 text-sm outline-none
+           transition-colors focus-visible:ring-2 focus-visible:ring-bekasi-emerald-700;
+  }
+  .label-cms  { @apply text-xs font-medium text-bekasi-ink/70 uppercase tracking-wider; }
+  .helper     { @apply text-xs text-bekasi-ink/50 mt-1; }
+
+  /* -------- CMS Panels -------- */
+  .cms-panel      { @apply surface-cms p-5 md:p-6; }
+  .cms-panel-head { @apply flex items-center justify-between pb-4 mb-4 border-b border-border; }
+  .cms-title      { @apply text-base font-semibold text-bekasi-ink; }
+  .cms-subtle     { @apply text-xs text-bekasi-ink/55; }
+
+  /* -------- Section rhythm -------- */
+  .section-pad     { @apply py-16 md:py-24 lg:py-28; }
+  .section-pad-sm  { @apply py-10 md:py-14; }
+  .section-pad-xl  { @apply py-20 md:py-28 lg:py-36; }
+
+  /* -------- Media / imagery utilities -------- */
+  .img-cover { @apply absolute inset-0 h-full w-full object-cover; }
+
+  /* -------- Micro-interactions -------- */
+  .link-underline {
+    @apply relative inline-flex items-center gap-1.5 font-medium;
+  }
+  .link-underline::after {
+    content: '';
+    @apply absolute -bottom-1 left-0 h-px w-full bg-current opacity-30
+           transition-all duration-300 ease-out;
+  }
+  .link-underline:hover::after { @apply opacity-100; }
+
+  .card-lift  { @apply transition-all duration-500 ease-out hover:-translate-y-1 hover:shadow-elevated; }
+  .img-zoom   { @apply transition-transform duration-1200 ease-out group-hover:scale-110; }
+  .img-zoom-slow { @apply transition-transform duration-1500 ease-out group-hover:scale-105; }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .text-balance { text-wrap: balance; }
+  .mask-fade-r { mask-image: linear-gradient(to right, black 82%, transparent 100%); }
+  .mask-fade-b { mask-image: linear-gradient(to bottom, black 82%, transparent 100%); }
+}
