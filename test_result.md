@@ -109,6 +109,30 @@ user_problem_statement: |
   Homepage Manager, Destinations Manager, and more (per Prompt Pack E-01..E-27+).
 
 frontend:
+  - task: "E-27 CMS Events Manager (List + Create + Edit + Delete + Publish)"
+    implemented: true
+    working: true
+    file: "app/admin/events/page.js, app/admin/events/new/page.js, app/admin/events/[slug]/page.js, components/admin/EventsList.jsx, components/admin/EventForm.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: |
+          Verified via screenshot tool at 1920x900:
+          - /admin/events: toolbar (search + status pills + When dropdown + category select + New event),
+            table with Event/When/Venue/Category/Status/Actions, star icon for featured, ongoing/upcoming/past
+            micro-labels, delete confirm modal, publish/draft toggle via row menu.
+          - /admin/events/new: sticky action bar (Save as draft / Publish + auto Preview when slug present),
+            sections Basics / Content / Schedule (start+end date + time) / Location (Venue) / Media /
+            Call to action (label+URL). Sidebar with Status radio + Featured switch.
+          - /admin/events/[slug]: loads existing event, pre-fills startDate/endDate/time/venue, PUBLISHED
+            pill, Featured switch ON for featured items, Danger Zone with Delete event button.
+          - Added new DateField primitive (native input[type=date]) in components/admin/forms/inputs.jsx
+          - Validation: title/slug/summary/venue/startDate/image required; endDate must be >= startDate;
+            CTA URL must be http(s) if provided.
+
   - task: "E-26 CMS Destinations Manager (List + Create + Edit)"
     implemented: true
     working: true

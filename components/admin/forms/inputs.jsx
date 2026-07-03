@@ -72,6 +72,14 @@ export function NumberField({ value, onChange, min, max, step = 'any', ...props 
   )
 }
 
+/* Date (yyyy-mm-dd) */
+export function DateField({ value, onChange, ...props }) {
+  return (
+    <Input type="date" value={value ?? ''} onChange={(e) => onChange(e.target.value)}
+      className={inputCls} {...props} />
+  )
+}
+
 /* Textarea */
 export function TextareaField({ value, onChange, rows = 4, ...props }) {
   return (
