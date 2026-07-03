@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { NAV } from '@/lib/content/homepage'
 import { categories as CAT } from '@/lib/design/tokens'
+import AuthAvatar from '@/components/auth/AuthAvatar'
 
 /**
  * SiteHeader
@@ -175,6 +176,7 @@ export default function SiteHeader() {
           >
             <Search className="h-4 w-4" />
           </button>
+          <AuthAvatar />
           <Link href={NAV.cta.href} className="hidden sm:block">
             <Button className="h-10 rounded-full bg-bekasi-gold-500 hover:bg-bekasi-gold-400 text-bekasi-emerald-900 font-medium px-4 md:px-5 shadow-lg shadow-bekasi-gold-500/20 gap-2">
               <Sparkles className="h-4 w-4" />

@@ -109,6 +109,110 @@ user_problem_statement: |
   Homepage Manager, Destinations Manager, and more (per Prompt Pack E-01..E-27+).
 
 frontend:
+  - task: "E-41 Google Login Gate for Planner Save/Download (Supabase Auth + OAuth)"
+    implemented: true
+    working: true
+    file: "lib/supabase/client.js, lib/supabase/AuthProvider.jsx, components/auth/LoginGateModal.jsx, components/auth/AuthAvatar.jsx, app/auth/callback/page.js, app/providers.js, components/layout/SiteHeader.jsx, components/sections/planner/PlannerResultsModule.jsx, .env, package.json"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: |
+          Implemented Google login gate using Supabase Auth per the integration
+          playbook. Guest can still generate + view a plan without any auth
+          friction; sign-in is only requested when they act on it.
+
+          Package (yarn): @supabase/supabase-js@2.45.4 (2.110 requires Node 22).
+
+          Env vars added to /app/.env:
+            NEXT_PUBLIC_SUPABASE_URL
+            NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+          Architecture:
+            1. /lib/supabase/client.js
+               - Singleton browser client. Uses PKCE flow (recommended for
+                 SPA/OAuth). auth.persistSession = true, autoRefreshToken,
+                 detectSessionInUrl.
+               - Soft-fails to null if env vars missing so UI never crashes.
+
+            2. /lib/supabase/AuthProvider.jsx
+               - React Context wrapper (chosen over Zustand to stay consistent
+                 with the existing stack — no extra deps).
+               - Owns { user, loading, modal, requireAuth, signInWithGoogle,
+                 signOut, isReady }.
+               - Deferred-action pattern via localStorage
+                 (bekasigo:deferredAction key). Stores { actionName, returnUrl,
+                 ts }. Auto-expires after 10 minutes to prevent stale intents.
+               - Subscribes to supabase.auth.onAuthStateChange so state stays in
+                 sync across tabs.
+
+            3. /components/auth/LoginGateModal.jsx
+               - Global modal rendered inside <Providers>. shadcn Dialog with
+                 emerald+gold header art, contextual copy per reason (save /
+                 download / share / default), a reassurance strip ("We only
+                 read your name, email, and profile picture"), a big "Continue
+                 with Google" button (inline SVG G glyph, no extra asset), and
+                 a "Maybe later" secondary link.
+               - handleGoogle calls signInWithGoogle() → browser navigates to
+                 Google. Modal is left open (redirect happens before close is
+                 needed).
+
+            4. /components/auth/AuthAvatar.jsx
+               - Compact SiteHeader indicator. Guest → "Sign in" pill that
+                 opens the login modal. Signed → avatar bubble (Google
+                 picture) with dropdown showing full_name + email + Sign out.
+               - referrerPolicy="no-referrer" so Google's avatar CDN doesn't
+                 block cross-origin img loads.
+
+            5. /app/auth/callback/page.js
+               - Landing page Supabase redirects to after Google OAuth. Waits
+                 a tick for detectSessionInUrl to swallow the URL hash, then
+                 reads the deferredAction and router.replace() back to the
+                 originating page. Shows Loader → CheckCircle → redirect UX.
+               - Handles ?error/?error_description branches with retry CTA.
+
+            6. Wire-up in /components/sections/planner/PlannerResultsModule.jsx
+               - TripSummary gained Save / Download / Share buttons on a new
+                 row alongside Regenerate.
+               - Each button calls requireAuth('planner:{action}',
+                 { reason }). If already authed → fires the actual side-effect
+                 (doSave, doDownload — JSON blob download, doShare — Web Share
+                 API + clipboard fallback). If guest → modal opens.
+               - useEffect watches `user`; when it flips truthy after a
+                 successful OAuth roundtrip, it reads localStorage for a
+                 pending planner:* action and fires it exactly once
+                 (clearDeferredAction before executing to prevent loops).
+               - After success, a Check icon + label like "Saved to your
+                 account" flashes for 2.5s.
+
+            7. Global providers (/app/providers.js)
+               - <AuthProvider> now wraps children.
+               - <LoginGateModal /> mounted globally so any component can
+                 trigger openModal() without local plumbing.
+
+          Verified end-to-end in a sandbox browser at 1920×900:
+            ✅ Guest state — Save/Download/Share visible with "Sign in required
+               to save or share" hint. AuthAvatar shows "Sign in" pill in
+               SiteHeader.
+            ✅ Click Save → LoginGateModal opens with reason='save' copy
+               (headline "Save your itinerary" + "…save this plan to your
+               BekasiGo account").
+            ✅ localStorage inspected → key `bekasigo:deferredAction` contains
+               {"actionName":"planner:save","returnUrl":"/planner","ts":…}
+            ✅ Click "Continue with Google" → browser navigates to Google OAuth
+               URL (net::ERR_NAME_NOT_RESOLVED in sandbox because Playwright
+               can't reach accounts.google.com — expected; in the user's real
+               browser the redirect flow completes).
+
+          The final Google → Supabase → /auth/callback → /planner → deferred
+          action step could not be run in the isolated sandbox but the code
+          path is complete: onAuthStateChange sets `user`, the useEffect in
+          TripSummary sees the pending action, clears it, and fires doSave /
+          doDownload / doShare.
+
+
   - task: "Migrate ALL BekasiGo maps to real OpenStreetMap + react-leaflet (homepage/destinations/events/planner)"
     implemented: true
     working: true

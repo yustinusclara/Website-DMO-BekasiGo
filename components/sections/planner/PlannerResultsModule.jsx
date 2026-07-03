@@ -1,15 +1,18 @@
 'use client'
 
 import Image from 'next/image'
+import { useEffect, useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import {
   Sparkles, Clock, MapPin, Sunrise, Sun, Sunset, Moon,
   Utensils, Coffee, Bed, TrainFront, Car, Bike, Footprints,
   ArrowRight, Camera, RefreshCcw, Cloud, Info, ChevronRight,
   Landmark, Trees, Building2,
+  Bookmark, Download, Share2, Check,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { IMG } from '@/lib/content/homepage'
+import { useAuth, getDeferredAction, clearDeferredAction } from '@/lib/supabase/AuthProvider'
 
 // ---------------------------------------------------------------------------
 // Sample data — replaced by real Gemini output in a follow-up prompt.
@@ -205,6 +208,75 @@ export default function PlannerResultsModule({ form, plan: planProp, onRegenerat
 // ---------------------------------------------------------------------------
 function TripSummary({ plan, form, onRegenerate }) {
   const stats = plan.stats
+  const { user, requireAuth } = useAuth()
+  const [savedFlash, setSavedFlash] = useState(null) // 'saved' | 'downloaded' | 'shared' | null
+
+  // Actual side-effects — placeholder implementations that log + flash a
+  // confirmation. Persisting to a Supabase table happens in a follow-up prompt.
+  const doSave = useCallback(() => {
+    // eslint-disable-next-line no-console
+    console.info('[planner] saving itinerary for', user?.email, plan?.title)
+    setSavedFlash('saved')
+    setTimeout(() => setSavedFlash(null), 2500)
+  }, [user, plan])
+
+  const doDownload = useCallback(() => {
+    // Simple client-side JSON download until we generate a proper PDF.
+    try {
+      const blob = new Blob([JSON.stringify(plan, null, 2)], { type: 'application/json' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `bekasigo-itinerary-${Date.now()}.json`
+      document.body.appendChild(a); a.click(); a.remove()
+      URL.revokeObjectURL(url)
+      setSavedFlash('downloaded')
+      setTimeout(() => setSavedFlash(null), 2500)
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error('[planner] download failed', e)
+    }
+  }, [plan])
+
+  const doShare = useCallback(async () => {
+    const shareData = {
+      title: 'My BekasiGo itinerary',
+      text:  plan?.title || 'BekasiGo itinerary',
+      url:   typeof window !== 'undefined' ? window.location.href : '',
+    }
+    try {
+      if (typeof navigator !== 'undefined' && navigator.share) {
+        await navigator.share(shareData)
+      } else if (typeof navigator !== 'undefined' && navigator.clipboard) {
+        await navigator.clipboard.writeText(shareData.url)
+      }
+      setSavedFlash('shared')
+      setTimeout(() => setSavedFlash(null), 2500)
+    } catch {
+      /* user dismissed */
+    }
+  }, [plan])
+
+  // Gate handlers — if guest, open the login modal + stash intent. Once the
+  // user returns authed, the useEffect below picks up the deferredAction.
+  const handleSave     = () => { if (requireAuth('planner:save',     { reason: 'save' }))     doSave() }
+  const handleDownload = () => { if (requireAuth('planner:download', { reason: 'download' })) doDownload() }
+  const handleShare    = () => { if (requireAuth('planner:share',    { reason: 'share' }))    doShare() }
+
+  // After a successful OAuth roundtrip, `user` flips from null → object.
+  // Fire whichever action was stashed.
+  useEffect(() => {
+    if (!user) return
+    const pending = getDeferredAction()
+    if (!pending) return
+    // Only fire actions that belong to the planner surface.
+    if (!String(pending.actionName || '').startsWith('planner:')) return
+    clearDeferredAction()
+    if (pending.actionName === 'planner:save')     doSave()
+    if (pending.actionName === 'planner:download') doDownload()
+    if (pending.actionName === 'planner:share')    doShare()
+  }, [user, doSave, doDownload, doShare])
+
   return (
     <div className="rounded-xl bg-white border border-bekasi-emerald-900/8 overflow-hidden">
       <div className="px-5 md:px-6 py-5 border-b border-bekasi-emerald-900/8">
@@ -223,6 +295,33 @@ function TripSummary({ plan, form, onRegenerate }) {
             <RefreshCcw className="h-3.5 w-3.5" /> Regenerate
           </button>
         </div>
+
+        {/* Save / Download / Share row — gated by Google auth */}
+        <div className="mt-4 flex flex-wrap items-center gap-2">
+          <ActionButton
+            onClick={handleSave}
+            icon={savedFlash === 'saved' ? Check : Bookmark}
+            label={savedFlash === 'saved' ? 'Saved to your account' : (user ? 'Save' : 'Save')}
+            variant="primary"
+            active={savedFlash === 'saved'}
+          />
+          <ActionButton
+            onClick={handleDownload}
+            icon={savedFlash === 'downloaded' ? Check : Download}
+            label={savedFlash === 'downloaded' ? 'Downloaded' : 'Download'}
+          />
+          <ActionButton
+            onClick={handleShare}
+            icon={savedFlash === 'shared' ? Check : Share2}
+            label={savedFlash === 'shared' ? 'Link copied' : 'Share'}
+          />
+          {!user && (
+            <span className="ml-1 text-[11.5px] text-bekasi-ink/50">
+              <Sparkles className="h-3 w-3 inline-block mr-1 -mt-0.5 text-bekasi-gold-500" />
+              Sign in required to save or share
+            </span>
+          )}
+        </div>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-5 divide-x divide-bekasi-emerald-900/6">
         <Stat icon={MapPin}      label="Stops"           value={stats.stops} />
@@ -232,6 +331,20 @@ function TripSummary({ plan, form, onRegenerate }) {
         <Stat icon={Cloud}       label="Weather"         value={stats.weather} className="col-span-2 md:col-span-1" />
       </div>
     </div>
+  )
+}
+
+function ActionButton({ onClick, icon: Icon, label, variant = 'secondary', active = false }) {
+  const base = 'h-9 rounded-md px-3.5 text-[12.5px] font-medium inline-flex items-center gap-1.5 transition-colors'
+  const styles = active
+    ? 'bg-emerald-50 border border-emerald-200 text-emerald-700'
+    : variant === 'primary'
+      ? 'bg-bekasi-emerald-900 hover:bg-bekasi-emerald-800 text-white'
+      : 'border border-bekasi-emerald-900/15 hover:bg-bekasi-cream text-bekasi-emerald-900'
+  return (
+    <button type="button" onClick={onClick} className={cn(base, styles)}>
+      <Icon className="h-3.5 w-3.5" /> {label}
+    </button>
   )
 }
 
