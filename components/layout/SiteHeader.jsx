@@ -57,14 +57,15 @@ export default function SiteHeader() {
       className={cn(
         'fixed inset-x-0 top-0 z-50 transition-all duration-300',
         scrolled || megaOpen
-          ? 'bg-bekasi-emerald-900/90 backdrop-blur-xl border-b border-white/10'
-          : 'bg-gradient-to-b from-black/40 via-black/10 to-transparent',
+          ? 'bg-bekasi-emerald-900/92 backdrop-blur-xl border-b border-white/10 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.35)]'
+          : 'bg-gradient-to-b from-black/65 via-black/35 to-transparent backdrop-blur-[2px]',
       )}
     >
       {/* ─── Utility bar ─────────────────────────────────────────── */}
       <div
         className={cn(
-          'hidden md:block text-[11px] uppercase tracking-[0.22em] text-white/70 border-b border-white/10',
+          'hidden md:block text-[11px] uppercase tracking-[0.22em] text-white/75 border-b border-white/10',
+          !(scrolled || megaOpen) && '[text-shadow:0_1px_2px_rgba(0,0,0,0.45)]',
         )}
       >
         <div className="container flex items-center justify-between py-2">
@@ -94,7 +95,10 @@ export default function SiteHeader() {
 
       {/* ─── Main bar ────────────────────────────────────────────── */}
       <div
-        className="container flex items-center justify-between h-16 md:h-20"
+        className={cn(
+          'container flex items-center justify-between h-16 md:h-20',
+          !(scrolled || megaOpen) && '[&_span]:[text-shadow:0_1px_3px_rgba(0,0,0,0.55)]',
+        )}
         onMouseLeave={scheduleClose}
       >
         {/* Brand */}

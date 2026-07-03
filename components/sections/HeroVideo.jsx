@@ -117,14 +117,10 @@ export default function HeroVideo() {
       </div>
 
       {/* --- CENTER CONTENT --- */}
-      <div className="relative z-10 h-full container flex flex-col justify-end pb-24 md:pb-32">
+      <div className="relative z-10 h-full container flex flex-col justify-end pt-40 md:pt-44 pb-24 md:pb-32">
         <div className="max-w-3xl">
-          <div className="opacity-0 animate-fade-up" style={{ animationDelay: '400ms' }}>
-            <span className="eyebrow eyebrow-dot text-bekasi-gold-400">{HERO.eyebrow}</span>
-          </div>
-
           <h1
-            className="mt-6 heading-display text-display-xl leading-[0.95] tracking-tight text-balance opacity-0 animate-fade-up"
+            className="heading-display text-[clamp(3rem,7vw,6.5rem)] leading-[0.95] tracking-tight text-balance opacity-0 animate-fade-up"
             style={{ animationDelay: '550ms' }}
           >
             {HERO.title}
