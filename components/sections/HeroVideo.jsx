@@ -101,26 +101,20 @@ export default function HeroVideo() {
         <div aria-hidden className="absolute inset-0 bg-noise opacity-[0.07] mix-blend-overlay pointer-events-none" />
       </div>
 
-      {/* --- TOP FRAME MARKERS --- */}
-      <div className="absolute inset-x-0 top-24 md:top-32 pointer-events-none z-10">
-        <div className="container flex items-center justify-between text-[10px] uppercase tracking-[0.28em] text-white/55">
-          <div className="flex items-center gap-3 opacity-0 animate-fade-up" style={{ animationDelay: '250ms' }}>
-            <span className="inline-block h-px w-8 bg-bekasi-gold-500/60" />
+      {/* --- CENTER CONTENT --- */}
+      <div className="relative z-10 h-full container flex flex-col justify-end pt-28 md:pt-32 pb-20 md:pb-28">
+        <div className="max-w-3xl">
+          {/* Chapter marker — sits INSIDE the content flow so it never collides with the title */}
+          <div
+            className="flex items-center gap-3 text-[10px] uppercase tracking-[0.28em] text-white/60 opacity-0 animate-fade-up"
+            style={{ animationDelay: '400ms' }}
+          >
+            <span className="inline-block h-px w-8 bg-bekasi-gold-500/70" />
             <span>Chapter 01 · The Signature</span>
           </div>
-          <div className="hidden md:flex items-center gap-6 opacity-0 animate-fade-up" style={{ animationDelay: '350ms' }}>
-            <span>N 6°14′ · E 106°59′</span>
-            <span className="opacity-40">|</span>
-            <span>Est. 1996 · A City of 2.5M</span>
-          </div>
-        </div>
-      </div>
 
-      {/* --- CENTER CONTENT --- */}
-      <div className="relative z-10 h-full container flex flex-col justify-end pt-40 md:pt-44 pb-24 md:pb-32">
-        <div className="max-w-3xl">
           <h1
-            className="heading-display text-[clamp(3rem,7vw,6.5rem)] leading-[0.95] tracking-tight text-balance opacity-0 animate-fade-up"
+            className="mt-5 heading-display text-[clamp(2.75rem,6vw,5rem)] leading-[0.95] tracking-tight text-balance opacity-0 animate-fade-up"
             style={{ animationDelay: '550ms' }}
           >
             {HERO.title}
