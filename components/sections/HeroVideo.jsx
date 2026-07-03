@@ -19,23 +19,14 @@ import { HERO } from '@/lib/content/homepage'
  */
 export default function HeroVideo() {
   const videoRef = useRef(null)
-  const [videoReady, setVideoReady] = useState(false)
   const [muted, setMuted] = useState(true)
 
   useEffect(() => {
     const v = videoRef.current
     if (!v) return
-    const onCanPlay = () => setVideoReady(true)
-    const onPlaying = () => setVideoReady(true)
-    v.addEventListener('canplay', onCanPlay)
-    v.addEventListener('playing', onPlaying)
-    // Kick off playback (some browsers need explicit .play())
+    // Kick off playback ASAP (some browsers need explicit .play() even with autoplay)
     const p = v.play()
     if (p && typeof p.catch === 'function') p.catch(() => {})
-    return () => {
-      v.removeEventListener('canplay', onCanPlay)
-      v.removeEventListener('playing', onPlaying)
-    }
   }, [])
 
   const toggleMute = () => {
@@ -56,13 +47,11 @@ export default function HeroVideo() {
     >
       {/* --- MEDIA LAYER --- */}
       <div className="absolute inset-0">
-        {/* Actual video (no poster image — plays directly) */}
+        {/* Actual video — plays immediately, no fade gate */}
         {HERO.videoUrl && (
           <video
             ref={videoRef}
-            className={`img-cover transition-opacity duration-[1200ms] ease-out ${
-              videoReady ? 'opacity-100' : 'opacity-0'
-            }`}
+            className="img-cover opacity-100"
             src={HERO.videoUrl}
             autoPlay
             loop
