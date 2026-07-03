@@ -1,84 +1,204 @@
 'use client'
 
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
-import { Play, ChevronDown, Sparkles } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import {
+  Play, ChevronDown, Sparkles, Volume2, VolumeX, ArrowRight,
+} from 'lucide-react'
 import { HERO } from '@/lib/content/homepage'
 
+/**
+ * BekasiGo Hero — cinematic destination-brand opener.
+ *
+ * Loading strategy:
+ *  1. Poster image paints immediately (Cloudinary Floating Smart City).
+ *  2. <video> preloads metadata only; starts playing muted on canplay.
+ *  3. Ken Burns anim on poster is used while video isn't ready — keeps the
+ *     frame alive even on slow networks. Once video plays, poster fades out.
+ *  4. Audio is off by default; a discreet mute toggle lets users opt-in.
+ */
 export default function HeroVideo() {
+  const videoRef = useRef(null)
+  const [videoReady, setVideoReady] = useState(false)
+  const [muted, setMuted] = useState(true)
+
+  useEffect(() => {
+    const v = videoRef.current
+    if (!v) return
+    const onCanPlay = () => setVideoReady(true)
+    const onPlaying = () => setVideoReady(true)
+    v.addEventListener('canplay', onCanPlay)
+    v.addEventListener('playing', onPlaying)
+    // Kick off playback (some browsers need explicit .play())
+    const p = v.play()
+    if (p && typeof p.catch === 'function') p.catch(() => {})
+    return () => {
+      v.removeEventListener('canplay', onCanPlay)
+      v.removeEventListener('playing', onPlaying)
+    }
+  }, [])
+
+  const toggleMute = () => {
+    const v = videoRef.current
+    if (!v) return
+    v.muted = !v.muted
+    setMuted(v.muted)
+    // Retry play in case iOS suspended it
+    const p = v.play()
+    if (p && typeof p.catch === 'function') p.catch(() => {})
+  }
+
   return (
-    <section className="relative h-[100svh] min-h-[640px] w-full overflow-hidden text-white">
-      {/* Media layer */}
+    <section
+      id="hero"
+      className="relative w-full h-[100svh] min-h-[640px] overflow-hidden text-white bg-bekasi-emerald-900"
+      aria-label="BekasiGo hero"
+    >
+      {/* --- MEDIA LAYER --- */}
       <div className="absolute inset-0">
-        {HERO.videoUrl ? (
+        {/* Poster with ken-burns — always mounted, fades out when video plays */}
+        <img
+          src={HERO.poster}
+          alt=""
+          aria-hidden="true"
+          className={`img-cover animate-kenburns transition-opacity duration-[1200ms] ease-out ${
+            videoReady ? 'opacity-0' : 'opacity-100'
+          }`}
+        />
+        {/* Actual video */}
+        {HERO.videoUrl && (
           <video
-            autoPlay muted loop playsInline poster={HERO.poster}
-            className="h-full w-full object-cover"
-          >
-            <source src={HERO.videoUrl} type="video/mp4" />
-          </video>
-        ) : (
-          <img
-            src={HERO.poster}
-            alt="Kota Bekasi cityscape"
-            className="h-full w-full object-cover animate-kenburns"
+            ref={videoRef}
+            className={`img-cover transition-opacity duration-[1200ms] ease-out ${
+              videoReady ? 'opacity-100' : 'opacity-0'
+            }`}
+            src={HERO.videoUrl}
+            poster={HERO.poster}
+            autoPlay
+            loop
+            muted={muted}
+            playsInline
+            preload="metadata"
+            aria-hidden="true"
           />
         )}
-        {/* Layered overlays */}
-        <div className="absolute inset-0 bg-gradient-to-b from-bekasi-emerald-900/70 via-bekasi-emerald-900/40 to-bekasi-emerald-900/95" />
-        <div className="absolute inset-0 bg-gradient-to-r from-bekasi-emerald-900/60 via-transparent to-transparent" />
-        <div aria-hidden className="absolute inset-0 bg-noise opacity-[0.08] mix-blend-overlay" />
+
+        {/* --- OVERLAYS for readability --- */}
+        {/* vertical top-to-bottom */}
+        <div className="absolute inset-0 bg-gradient-to-b from-bekasi-emerald-900/70 via-bekasi-emerald-900/30 to-bekasi-emerald-900" />
+        {/* left content vignette */}
+        <div className="absolute inset-0 bg-gradient-to-r from-bekasi-emerald-900/75 via-bekasi-emerald-900/10 to-transparent" />
+        {/* radial vignette for corners */}
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            background:
+              'radial-gradient(120% 80% at 50% 30%, transparent 40%, rgba(6,46,43,0.55) 100%)',
+          }}
+        />
+        {/* subtle film grain */}
+        <div aria-hidden className="absolute inset-0 bg-noise opacity-[0.07] mix-blend-overlay pointer-events-none" />
       </div>
 
-      {/* Frame markers */}
-      <div className="absolute inset-x-0 top-28 md:top-36 pointer-events-none">
-        <div className="container flex items-center justify-between text-[10px] uppercase tracking-[0.28em] text-white/50">
-          <span>N 6°14′ · E 106°59′</span>
-          <span>Est. 1996 · A city of 2.5M</span>
+      {/* --- TOP FRAME MARKERS --- */}
+      <div className="absolute inset-x-0 top-24 md:top-32 pointer-events-none z-10">
+        <div className="container flex items-center justify-between text-[10px] uppercase tracking-[0.28em] text-white/55">
+          <div className="flex items-center gap-3 opacity-0 animate-fade-up" style={{ animationDelay: '250ms' }}>
+            <span className="inline-block h-px w-8 bg-bekasi-gold-500/60" />
+            <span>Chapter 01 · The Signature</span>
+          </div>
+          <div className="hidden md:flex items-center gap-6 opacity-0 animate-fade-up" style={{ animationDelay: '350ms' }}>
+            <span>N 6°14′ · E 106°59′</span>
+            <span className="opacity-40">|</span>
+            <span>Est. 1996 · A City of 2.5M</span>
+          </div>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="relative h-full container flex flex-col justify-end pb-24 md:pb-32">
+      {/* --- CENTER CONTENT --- */}
+      <div className="relative z-10 h-full container flex flex-col justify-end pb-24 md:pb-32">
         <div className="max-w-3xl">
-          <span className="eyebrow eyebrow-dot text-bekasi-gold-400">{HERO.eyebrow}</span>
-          <h1 className="mt-6 heading-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight text-balance">
+          <div className="opacity-0 animate-fade-up" style={{ animationDelay: '400ms' }}>
+            <span className="eyebrow eyebrow-dot text-bekasi-gold-400">{HERO.eyebrow}</span>
+          </div>
+
+          <h1
+            className="mt-6 heading-display text-display-xl leading-[0.95] tracking-tight text-balance opacity-0 animate-fade-up"
+            style={{ animationDelay: '550ms' }}
+          >
             {HERO.title}
           </h1>
-          <p className="mt-6 text-lg md:text-xl text-white/80 max-w-2xl leading-relaxed">
+
+          <p
+            className="mt-6 body-lg text-white/80 max-w-2xl opacity-0 animate-fade-up"
+            style={{ animationDelay: '750ms' }}
+          >
             {HERO.subtitle}
           </p>
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <Link href={HERO.primaryCta.href}>
-              <Button className="h-12 rounded-full bg-bekasi-gold-500 hover:bg-bekasi-gold-400 text-bekasi-emerald-900 px-7 text-sm font-medium shadow-xl shadow-bekasi-gold-500/25">
-                <Sparkles className="h-4 w-4 mr-2" /> {HERO.primaryCta.label}
-              </Button>
+
+          <div
+            className="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4 opacity-0 animate-fade-up"
+            style={{ animationDelay: '900ms' }}
+          >
+            <Link href={HERO.primaryCta.href} className="w-full sm:w-auto">
+              <button className="btn-primary btn-lg w-full sm:w-auto group">
+                <Sparkles className="h-4 w-4" /> {HERO.primaryCta.label}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </button>
             </Link>
             <Link href={HERO.secondaryCta.href} className="group inline-flex items-center gap-3 text-white/90 hover:text-white">
-              <span className="h-11 w-11 rounded-full border border-white/40 flex items-center justify-center group-hover:bg-white/10 transition-colors">
-                <Play className="h-4 w-4 fill-white" />
+              <span className="h-11 w-11 rounded-full border border-white/40 flex items-center justify-center group-hover:bg-white/10 group-hover:border-white/70 transition-all">
+                <Play className="h-4 w-4 fill-white ml-0.5" />
               </span>
               <span className="text-sm font-medium">{HERO.secondaryCta.label}</span>
             </Link>
           </div>
         </div>
 
-        {/* Bottom row: stats + scroll cue */}
-        <div className="mt-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+        {/* --- BOTTOM ROW: stats + audio + scroll cue --- */}
+        <div
+          className="mt-16 flex flex-col md:flex-row md:items-end md:justify-between gap-8 opacity-0 animate-fade-up"
+          style={{ animationDelay: '1100ms' }}
+        >
           <div className="grid grid-cols-3 gap-8 md:gap-16 max-w-xl">
-            {HERO.stats.map((s) => (
-              <div key={s.v}>
-                <div className="font-display text-3xl md:text-4xl text-bekasi-gold-400">{s.k}</div>
-                <div className="mt-1 text-xs uppercase tracking-[0.2em] text-white/60">{s.v}</div>
+            {HERO.stats.map((s, i) => (
+              <div key={s.v} className="relative">
+                {i > 0 && (
+                  <span aria-hidden className="absolute -left-4 top-0 bottom-0 w-px bg-white/15 hidden md:block" />
+                )}
+                <div className="font-display text-3xl md:text-4xl text-bekasi-gold-400 leading-none">{s.k}</div>
+                <div className="mt-2 text-eyebrow uppercase text-white/60">{s.v}</div>
               </div>
             ))}
           </div>
-          <a href="#quick-explore" className="hidden md:inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-white/60 hover:text-white group">
-            Scroll to explore
-            <ChevronDown className="h-4 w-4 animate-bounce" />
-          </a>
+
+          <div className="flex items-center gap-4">
+            {HERO.videoUrl && (
+              <button
+                onClick={toggleMute}
+                aria-label={muted ? 'Unmute video' : 'Mute video'}
+                className="group inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-white/60 hover:text-white transition-colors"
+              >
+                <span className="h-10 w-10 rounded-full border border-white/20 flex items-center justify-center group-hover:border-white/60 group-hover:bg-white/10 transition-all">
+                  {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+                </span>
+                <span className="hidden md:inline">{muted ? 'Sound off' : 'Sound on'}</span>
+              </button>
+            )}
+            <a
+              href="#quick-explore"
+              className="hidden md:inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-white/60 hover:text-white group"
+            >
+              Scroll to explore
+              <ChevronDown className="h-4 w-4 animate-bounce group-hover:text-bekasi-gold-400" />
+            </a>
+          </div>
         </div>
       </div>
+
+      {/* Bottom hairline into next section — blends into the cream ground */}
+      <div aria-hidden className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-bekasi-emerald-900/80 pointer-events-none" />
     </section>
   )
 }
