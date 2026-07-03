@@ -109,6 +109,85 @@ user_problem_statement: |
   Homepage Manager, Destinations Manager, and more (per Prompt Pack E-01..E-27+).
 
 frontend:
+  - task: "E-39 upgrade — swap SVG map with real OpenStreetMap via react-leaflet"
+    implemented: true
+    working: true
+    file: "components/sections/map/ExploreMapCanvas.jsx, components/sections/map/ExploreMapCanvasImpl.jsx, components/sections/map/ExploreMapShell.jsx, components/sections/map/ExplorePreviewCard.jsx, lib/map/positions.js, app/globals.css, next.config.js, package.json"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: |
+          Migrated ExploreMapCanvas from a hand-drawn SVG to a real interactive
+          OpenStreetMap via react-leaflet@4.2.1 + leaflet@1.9.4. All parent-
+          side logic (filters, selectedId sync, side-panel highlight, preview
+          card) preserved unchanged — only the canvas rendering swapped.
+
+          Architecture:
+            - ExploreMapCanvas.jsx  → 'use client' thin wrapper that
+              next/dynamic-imports the real impl with { ssr: false } and
+              renders a spinner during code-split load.
+            - ExploreMapCanvasImpl.jsx → the actual <MapContainer> + <TileLayer>
+              (OSM standard tile URL) + <Marker> for every filtered destination,
+              built with L.divIcon() HTML so we can render category-specific
+              inline SVG icons in the pin (Landmark, Utensils, TreePine, Baby,
+              Store, Sparkles, MapPin, +transit/sport). Includes:
+                * fly-to on selectedId change (via useMap() + <MapFlyTo>)
+                * marker click → parent's onSelect
+                * popup with title + meta + excerpt
+                * legend overlay (kept from previous version)
+
+          Positions upgrade:
+            - lib/map/positions.js gained real WGS84 lat/lng anchors per
+              kecamatan (Bekasi Timur/Barat/Utara/Selatan/Medan Satria/
+              Jatisampurna/Pondok Gede/Jatiasih/Mustika Jaya/Bantar Gebang/
+              Rawalumbu/Pondok Melati) + KOTA_BEKASI_CENTER centroid.
+            - latLngFor(dest, i) exports lat/lng with a small deterministic
+              spiral so co-located pins spread ~600 m–1.5 km apart.
+            - Legacy normalized (x, y) positionFor() kept for the Smart Planner
+              mock map (backward compatible).
+
+          Style hooks (app/globals.css):
+            - .bekasigo-pin overrides reset Leaflet default marker background
+              and outline, plus a smooth hover-scale.
+            - .bekasigo-pin-active runs a subtle white-ring pulse animation.
+            - .leaflet-popup-content-wrapper rounded to match brand.
+            - Attribution styled semi-opaque.
+
+          StrictMode fix:
+            - React 18 + react-leaflet has a well-known "Map container is
+              already initialized" dev-time error caused by React StrictMode's
+              intentional double-invoke. Solved by setting
+              reactStrictMode: false in next.config.js (dev-only concern; has
+              no effect on production behaviour). Combined with mount guard
+              + containerRef cleanup for HMR safety.
+
+          Z-index fix:
+            - Bumped floating <ExplorePreviewCard> to z-[900] and added mb-8
+              so it sits above the Leaflet legend and inside the map viewport.
+
+          Visual verification at 1920×1080:
+            ✅ OSM tiles render (street names, kecamatan labels, roads visible)
+            ✅ Zoom control (+/-) top-left, "Leaflet | © OpenStreetMap contributors" bottom-right
+            ✅ 24 custom BekasiGo pins visible across all mapped districts
+            ✅ Category legend bar unchanged
+            ✅ Click side-panel item → map flies to that pin (zoom 15), pin
+                pulses white, preview card slides in with title/meta/excerpt/
+                CTAs (View details, Add to plan)
+            ✅ Click preview close (X) → clears selection, map flies back to
+                city centroid (zoom 12)
+            ✅ Filter chips still narrow the visible pins live
+            ✅ No console errors after fix (previously two pageerrors from
+                StrictMode double-init)
+
+          Dependencies added (yarn):
+            - leaflet@1.9.4
+            - react-leaflet@4.2.1 (v4 because we're on React 18; v5 requires
+              React 19)
+
+
   - task: "E-39 Explore Map Page Shell (/map — filters + list + canvas + preview card)"
     implemented: true
     working: true

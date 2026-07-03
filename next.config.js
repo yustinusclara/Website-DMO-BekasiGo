@@ -1,5 +1,6 @@
 const nextConfig = {
   output: 'standalone',
+  reactStrictMode: false, // react-leaflet + StrictMode double-invoke incompatibility (dev only)
   images: {
     unoptimized: true,
     remotePatterns: [

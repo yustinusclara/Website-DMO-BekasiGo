@@ -224,3 +224,38 @@
   .mask-fade-r { mask-image: linear-gradient(to right, black 82%, transparent 100%); }
   .mask-fade-b { mask-image: linear-gradient(to bottom, black 82%, transparent 100%); }
 }
+
+/* --------------------------------------------------------------------------
+   Leaflet — Explore Map overrides
+   -------------------------------------------------------------------------- */
+.bekasigo-pin {
+  background: transparent !important;
+  border: 0 !important;
+}
+.bekasigo-pin .bekasigo-pin-inner {
+  transition: transform 0.2s ease-out;
+}
+.bekasigo-pin:hover .bekasigo-pin-inner {
+  transform: scale(1.08);
+}
+.bekasigo-pin .bekasigo-pin-active {
+  animation: bekasigo-pin-pulse 1.6s ease-in-out infinite;
+}
+@keyframes bekasigo-pin-pulse {
+  0%, 100% { box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 0 0 rgba(255, 255, 255, 0.6); }
+  50%      { box-shadow: 0 4px 12px rgba(0,0,0,0.35), 0 0 0 10px rgba(255, 255, 255, 0); }
+}
+
+/* Popup polish */
+.leaflet-popup-content-wrapper {
+  border-radius: 12px;
+  padding: 4px 6px;
+}
+.leaflet-popup-content { margin: 10px 12px; }
+
+/* Zoom control – push away from bottom legend */
+.leaflet-top.leaflet-left { top: 12px; left: 12px; }
+.leaflet-control-attribution {
+  font-size: 10px !important;
+  background: rgba(255,255,255,0.85) !important;
+}

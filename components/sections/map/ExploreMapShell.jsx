@@ -8,7 +8,7 @@ import ExploreFilters from './ExploreFilters'
 import ExploreSidePanel from './ExploreSidePanel'
 import ExploreMapCanvas from './ExploreMapCanvas'
 import ExplorePreviewCard from './ExplorePreviewCard'
-import { positionFor } from '@/lib/map/positions'
+import { latLngFor } from '@/lib/map/positions'
 import { Map as MapIcon, List, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -26,7 +26,7 @@ export default function ExploreMapShell() {
 
   // Attach normalized positions once — stable per session.
   const placed = useMemo(
-    () => DESTINATIONS.map((d, i) => ({ ...d, pos: positionFor(d, i) })),
+    () => DESTINATIONS.map((d, i) => ({ ...d, pos: latLngFor(d, i) })),
     [],
   )
 

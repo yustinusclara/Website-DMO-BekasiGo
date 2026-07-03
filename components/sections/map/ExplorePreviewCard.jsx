@@ -8,8 +8,8 @@ import { districtLabel } from '@/lib/map/positions'
 export default function ExplorePreviewCard({ destination, onClose }) {
   const d = destination
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-40 hidden md:block">
-      <div className="pointer-events-auto mx-3 mb-3 overflow-hidden rounded-2xl border border-white/10 bg-white/95 shadow-2xl backdrop-blur">
+    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[900] hidden md:block">
+      <div className="pointer-events-auto mx-3 mb-8 overflow-hidden rounded-2xl border border-white/10 bg-white/95 shadow-2xl backdrop-blur">
         <div className="flex gap-4 p-3">
           <div className="relative h-24 w-32 shrink-0 overflow-hidden rounded-lg bg-[color:var(--ink-forest,#0B3D3A)]/8">
             {d.image ? (
