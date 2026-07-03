@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button'
 import PlannerFormModule from './PlannerFormModule'
 import PlannerResultsModule from './PlannerResultsModule'
 import PlannerRefineModule from './PlannerRefineModule'
+import PlannerMapPanel from './PlannerMapPanel'
 
 // -----------------------------------------------------------------------------
 // Config
@@ -380,7 +381,7 @@ function PlannerReady({ form, onReset }) {
           <PlannerRefineModule />
         </div>
         <div className="space-y-4 lg:sticky lg:top-28 self-start">
-          <MapPanel />
+          <PlannerMapPanel />
           <SaveActions />
         </div>
       </div>

@@ -109,6 +109,45 @@ user_problem_statement: |
   Homepage Manager, Destinations Manager, and more (per Prompt Pack E-01..E-27+).
 
 frontend:
+  - task: "E-37 Smart Planner Map Panel (numbered markers + legend + day switcher)"
+    implemented: true
+    working: true
+    file: "components/sections/planner/PlannerMapPanel.jsx, lib/content/planner-sample.js, components/sections/planner/PlannerShell.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: |
+          Rebuilt planner map as its own module. Extracted the shared sample plan
+          into /lib/content/planner-sample.js so results and map read from the
+          same source of truth (day switcher on the map ↔ same numbered stops
+          the results timeline shows).
+
+          Verified at 1920x1100 (Day 1 view).
+
+          Features:
+            - Header with day switcher (◀ Day 1/2 ▶) + Maximize handle
+            - SVG mock map with:
+              * Grid overlay + soft radial glows (emerald + gold)
+              * 4 marker kinds each with distinct color + icon glyph:
+                - Destination — gold fill with dark ring, NUMBERED (1,2,3…)
+                - Restaurant  — brown fill, NUMBERED
+                - Hotel       — emerald fill, "H" glyph
+                - Transport   — dark green fill with gold ring, "T" glyph
+              * Dashed gold route path connecting stops in visit order
+                (with a translucent underglow for premium feel)
+              * Click a marker → tooltip card with kind label, "Stop N",
+                title, kicker, time, duration + close (X)
+            - Legend at the bottom showing every marker kind + Route order dashes
+            - "Interactive Google Map lands with E-38 · positions are illustrative"
+              annotation (sets expectation for the real Google Maps swap)
+
+          Shared data model /lib/content/planner-sample.js exports PLANNER_SAMPLE
+          with normalized (0..1) positions per stop, so real coords can drop in
+          without touching UI.
+
   - task: "E-36 Smart Planner Conversational Refinement (AI copilot module)"
     implemented: true
     working: true
