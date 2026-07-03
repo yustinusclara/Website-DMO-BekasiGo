@@ -4,18 +4,34 @@ import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   MapPin, Landmark, Utensils, Bed, TrainFront, X, ChevronLeft, ChevronRight,
-  Layers, Maximize2,
+  Maximize2,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { PLANNER_SAMPLE } from '@/lib/content/planner-sample'
 import { adaptApiPlan } from '@/lib/planner/adapt'
+import LeafletMap from '@/components/map/LeafletMap'
+import { normalizedToLatLng, KOTA_BEKASI_CENTER } from '@/lib/map/positions'
 
-// Marker style per kind
+// Legend-only style map (icons for kind chips).
 const KIND_STYLE = {
   destination: { fill: '#B48A2D', ring: '#0B3D3A', Icon: Landmark,   label: 'Destination' },
   restaurant:  { fill: '#A34E2B', ring: '#ffffff', Icon: Utensils,   label: 'Restaurant'  },
   hotel:       { fill: '#1E7A72', ring: '#ffffff', Icon: Bed,        label: 'Hotel'       },
-  transport:   { fill: '#0B3D3A', ring: '#E1B547', Icon: TrainFront, label: 'Transport'   },
+  transport:   { fill: '#334155', ring: '#E1B547', Icon: TrainFront, label: 'Transport'   },
+}
+
+// Convert a marker with normalized pos {x, y} into a Leaflet point.
+function toPoint(m) {
+  const ll = normalizedToLatLng(m.pos)
+  return {
+    id: m.id,
+    lat: ll.lat,
+    lng: ll.lng,
+    category: m.kind || 'destination',
+    title: m.title || m.name,
+    kicker: m.kicker,
+    order: m.order,
+  }
 }
 
 export default function PlannerMapPanel({ plan: planProp }) {
@@ -33,12 +49,9 @@ export default function PlannerMapPanel({ plan: planProp }) {
 
   // Aggregate all markers for the current day + hotel + transport hubs.
   const markers = useMemo(() => {
-    const stops = day.stops.map((s, i) => ({
-      ...s,
-      order: i + 1,
-    }))
+    const stops = day.stops.map((s, i) => ({ ...s, order: i + 1 }))
     const hotelMarker = plan.hotel ? { ...plan.hotel, kind: 'hotel', order: null } : null
-    const transportMarkers = plan.transportHubs.map((h) => ({
+    const transportMarkers = (plan.transportHubs || []).map((h) => ({
       ...h, kind: 'transport', order: null,
     }))
     return {
@@ -48,6 +61,18 @@ export default function PlannerMapPanel({ plan: planProp }) {
       all: [...stops, ...(hotelMarker ? [hotelMarker] : []), ...transportMarkers],
     }
   }, [day, plan])
+
+  const points = useMemo(
+    () => markers.all.filter((m) => m.pos).map(toPoint),
+    [markers],
+  )
+  const route = useMemo(
+    () => markers.stops.filter((s) => s.pos).map((s) => {
+      const ll = normalizedToLatLng(s.pos)
+      return [ll.lat, ll.lng]
+    }),
+    [markers.stops],
+  )
 
   const selected = markers.all.find((m) => m.id === selectedId)
 
@@ -65,7 +90,6 @@ export default function PlannerMapPanel({ plan: planProp }) {
           </div>
         </div>
         <div className="flex items-center gap-1.5">
-          {/* Day switcher */}
           <button onClick={() => setDayIndex((i) => Math.max(0, i - 1))} disabled={dayIndex === 0}
             className={cn('h-7 w-7 rounded-md inline-flex items-center justify-center',
               dayIndex === 0 ? 'text-bekasi-ink/25 cursor-not-allowed' : 'text-bekasi-emerald-900 hover:bg-bekasi-emerald-900/[0.06]')}>
@@ -83,36 +107,18 @@ export default function PlannerMapPanel({ plan: planProp }) {
         </div>
       </div>
 
-      {/* Map canvas */}
-      <div className="relative aspect-[4/3] bg-gradient-to-br from-bekasi-emerald-900 via-[#0F4A46] to-bekasi-emerald-800 overflow-hidden">
-        {/* Grid overlay */}
-        <div className="absolute inset-0 opacity-25 pointer-events-none"
-          style={{
-            backgroundImage: 'linear-gradient(0deg, rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)',
-            backgroundSize: '32px 32px',
-          }} />
-
-        {/* Soft radial "district" glow */}
-        <div className="absolute -bottom-16 -left-16 h-64 w-64 rounded-full bg-bekasi-gold-500/[0.06] blur-3xl pointer-events-none" />
-        <div className="absolute -top-16 -right-16 h-64 w-64 rounded-full bg-bekasi-emerald-500/[0.10] blur-3xl pointer-events-none" />
-
-        <svg viewBox="0 0 400 300" className="absolute inset-0 w-full h-full">
-          {/* Route line connecting stops in order */}
-          <RoutePath stops={markers.stops} />
-
-          {/* Transport hub markers */}
-          {markers.transport.map((m) => (
-            <MarkerDot key={m.id} marker={m} onClick={() => setSelectedId(m.id)} isSelected={selectedId === m.id} />
-          ))}
-          {/* Hotel marker */}
-          {markers.hotel && (
-            <MarkerDot marker={markers.hotel} onClick={() => setSelectedId(markers.hotel.id)} isSelected={selectedId === markers.hotel.id} />
-          )}
-          {/* Stop markers (numbered) */}
-          {markers.stops.map((m) => (
-            <MarkerDot key={m.id} marker={m} onClick={() => setSelectedId(m.id)} isSelected={selectedId === m.id} />
-          ))}
-        </svg>
+      {/* Map canvas — real Leaflet + OSM */}
+      <div className="relative">
+        <LeafletMap
+          points={points}
+          route={route}
+          center={KOTA_BEKASI_CENTER}
+          zoom={12}
+          selectedId={selectedId}
+          onMarkerClick={setSelectedId}
+          heightClass="aspect-[4/3]"
+          interactive
+        />
 
         {/* Selected marker tooltip */}
         <AnimatePresence>
@@ -122,70 +128,17 @@ export default function PlannerMapPanel({ plan: planProp }) {
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 6 }}
-              className="absolute top-3 left-3 right-3 md:right-auto md:max-w-xs rounded-lg bg-white/95 backdrop-blur border border-white/20 shadow-lg overflow-hidden"
+              className="absolute top-3 left-3 right-3 md:right-auto md:max-w-xs z-[900] rounded-lg bg-white/95 backdrop-blur border border-white/20 shadow-lg overflow-hidden"
             >
               <SelectedCard marker={selected} onClose={() => setSelectedId(null)} />
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* Bottom annotation */}
-        <div className="absolute bottom-2.5 left-3 right-3 rounded-md bg-black/40 backdrop-blur-sm px-3 py-1.5 text-[10.5px] uppercase tracking-[0.2em] text-white/70 inline-flex items-center justify-center gap-2">
-          <Layers className="h-3 w-3" />
-          Interactive Google Map lands with E-38 · positions are illustrative
-        </div>
       </div>
 
       {/* Legend */}
       <Legend />
     </div>
-  )
-}
-
-// ---------------------------------------------------------------------------
-// SVG helpers
-// ---------------------------------------------------------------------------
-function RoutePath({ stops }) {
-  if (stops.length < 2) return null
-  const d = stops
-    .map((s, i) => `${i === 0 ? 'M' : 'L'} ${s.pos.x * 400} ${s.pos.y * 300}`)
-    .join(' ')
-  return (
-    <>
-      <path d={d} stroke="rgba(225,181,71,0.35)" strokeWidth="4" strokeLinecap="round" fill="none" />
-      <path d={d} stroke="#E1B547" strokeWidth="2.5" strokeDasharray="4 6" strokeLinecap="round" fill="none" />
-    </>
-  )
-}
-
-function MarkerDot({ marker, onClick, isSelected }) {
-  const style = KIND_STYLE[marker.kind] || KIND_STYLE.destination
-  const cx = marker.pos.x * 400
-  const cy = marker.pos.y * 300
-  const isStop = marker.kind === 'destination' || marker.kind === 'restaurant'
-
-  return (
-    <g onClick={onClick} className="cursor-pointer" style={{ transition: 'all 200ms ease' }}>
-      {/* Halo when selected */}
-      {isSelected && (
-        <circle cx={cx} cy={cy} r={16} fill={style.fill} fillOpacity="0.18" />
-      )}
-      {/* Base circle */}
-      <circle cx={cx} cy={cy} r={isStop ? 10 : 8} fill={style.fill} stroke={style.ring} strokeWidth={2} />
-      {/* Number for stops in order */}
-      {marker.order != null ? (
-        <text x={cx} y={cy + 3.5} textAnchor="middle" fill="#0B3D3A" fontSize="10" fontWeight="700">
-          {marker.order}
-        </text>
-      ) : (
-        // Small kind glyph for hotel/transport (via HTML fallback below because we can't embed lucide as svg-in-svg easily)
-        <text x={cx} y={cy + 2.5} textAnchor="middle" fill="#ffffff" fontSize="8" fontWeight="700">
-          {marker.kind === 'hotel'     ? 'H'
-           : marker.kind === 'transport' ? 'T'
-           : '•'}
-        </text>
-      )}
-    </g>
   )
 }
 

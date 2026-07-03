@@ -109,6 +109,93 @@ user_problem_statement: |
   Homepage Manager, Destinations Manager, and more (per Prompt Pack E-01..E-27+).
 
 frontend:
+  - task: "Migrate ALL BekasiGo maps to real OpenStreetMap + react-leaflet (homepage/destinations/events/planner)"
+    implemented: true
+    working: true
+    file: "components/map/LeafletMap.jsx, components/map/LeafletMapImpl.jsx, components/sections/MapPreview.jsx, components/sections/destinations/detail/DestinationMap.jsx, components/sections/events/detail/EventMap.jsx, components/sections/planner/PlannerMapPanel.jsx, lib/map/positions.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: |
+          Migrated the remaining 4 fake SVG maps across BekasiGo to the same
+          Leaflet+OSM stack introduced in the Explore Map upgrade. Created
+          a shared reusable pair:
+
+            /app/components/map/LeafletMap.jsx     — thin next/dynamic wrapper
+                                                     (ssr:false + loading UI).
+            /app/components/map/LeafletMapImpl.jsx — real Leaflet impl with
+                                                     StrictMode/HMR guard, per-
+                                                     category divIcon pins,
+                                                     optional numbered order
+                                                     badge, popup, dashed
+                                                     Polyline for planner
+                                                     routes, fly-to on select,
+                                                     light/dark tile toggle
+                                                     (OSM standard vs CARTO
+                                                     dark_all), and legend.
+
+          Props: points (id/lat/lng/category/title/kicker/order?), center,
+          zoom, minZoom, selectedId, onMarkerClick, route ([lat,lng] pairs),
+          interactive (locks drag/scroll when false), tileStyle, showLegend,
+          showAttribution, heightClass, overlays.
+
+          Migrations:
+            1) components/sections/MapPreview.jsx (Homepage "The city, at
+               a glance."):
+               - Kept the filter chips (All/Heritage/Urban/Nature/Events/Transit),
+                 info panel ("Now viewing"), and "Nearby on the map" list.
+               - Geocoded MAP_PREVIEW.pins via new percentToLatLng() using the
+                 Kota Bekasi bounding box.
+               - Removed the hand-drawn SVG grid + fake roads block entirely.
+               - Clicking a marker or a nearby-list item now updates selectedId
+                 and the info card in unison.
+
+            2) components/sections/destinations/detail/DestinationMap.jsx:
+               - Uses dest.coords.lat / dest.coords.lng directly (real
+                 coordinates already in destinations.js).
+               - Single active pin, zoom 15, category color inferred from
+                 dest.category.
+               - Address + "Get directions" / "Open Explore Map" CTAs preserved.
+
+            3) components/sections/events/detail/EventMap.jsx:
+               - Same pattern as DestinationMap but for evt.venue.coords.
+               - Pin category = 'events' (gold).
+
+            4) components/sections/planner/PlannerMapPanel.jsx:
+               - "Live route" card, day switcher, tooltip on selected marker,
+                 and legend all preserved.
+               - PLANNER_SAMPLE.days[].stops[].pos.{x,y} normalized (0..1)
+                 values are projected to lat/lng via new normalizedToLatLng()
+                 that maps into the Kota Bekasi bounding box.
+               - Dashed gold Polyline connects the day's stops in order.
+               - Numbered "order" badge added to stop pins (top-right on
+                 divIcon).
+               - Removed the "Interactive Google Map lands with E-38 ·
+                 positions are illustrative" placeholder banner.
+
+          Shared helper /lib/map/positions.js gained:
+            - KOTA_BEKASI_BBOX (north/south/east/west)
+            - normalizedToLatLng(p)  — 0..1 (x, y) → lat/lng
+            - percentToLatLng(p)     — 0..100 (x, y) → lat/lng
+
+          Verified visually at 1920×1080:
+            ✅ Homepage /            — MapPreview renders OSM tiles with pins,
+                                       filter chips + info panel + nearby list
+                                       all still wired to activePin state.
+            ✅ /planner              — After Generate, Live route panel shows
+                                       real OSM tiles + numbered pins + dashed
+                                       route + day switcher.
+            ✅ /destinations/hok-lay-kiong — Single OSM map centered on the
+                                       Klenteng at -6.2903, 106.9732.
+            ✅ /events/bekasi-cultural-festival-2026 — OSM map centered on
+                                       Alun-Alun Kota Bekasi at -6.2465,
+                                       106.9982.
+            ✅ No console errors, no residual SVG grid / fake roads anywhere.
+
+
   - task: "E-39 upgrade — swap SVG map with real OpenStreetMap via react-leaflet"
     implemented: true
     working: true
