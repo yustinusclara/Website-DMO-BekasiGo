@@ -109,6 +109,43 @@ user_problem_statement: |
   Homepage Manager, Destinations Manager, and more (per Prompt Pack E-01..E-27+).
 
 frontend:
+  - task: "E-36 Smart Planner Conversational Refinement (AI copilot module)"
+    implemented: true
+    working: true
+    file: "components/sections/planner/PlannerRefineModule.jsx, components/sections/planner/PlannerShell.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: |
+          Rebuilt the refinement chat as an AI copilot module (not a generic
+          chatbot). Extracted from inline RefineChat into its own module.
+          Verified interactions at 1920x1100.
+
+          Distinguishing "copilot" traits:
+            - Persistent "BekasiGo Copilot" branded header with Bot avatar (gradient),
+              gold notification dot, and green ACTIVE pill
+            - Suggestion chips ALWAYS visible (top of module, before messages)
+              — 6 chips: Family / Culinary / Station / Relaxed / Heritage / Sunset,
+              each with its own icon + brand color
+            - Assistant replies are STRUCTURED (not just text):
+              * Summary bubble (cream) — natural-language TL;DR
+              * "Changes applied" card with per-change icon:
+                 swap / add / remove / shift / reorder / note
+              * Each change row: strong entity name + soft italic note
+            - Gold "Refine" CTA (not blue "Send") — matches planner voice
+            - Loading state "Refining your plan…" with spinner (not "Typing…")
+            - Empty state: "Tap a suggestion above or type your own refinement.
+              The copilot will re-plan only what you ask — the rest of your
+              itinerary stays intact." → sets copilot mental model
+            - Auto-scroll to newest message on both user + assistant additions
+
+          Fake response generator maps each suggestion id → preset structured
+          changes payload so the UI density feels real. Real Gemini wire lands
+          in a follow-up prompt.
+
   - task: "E-35 Smart Planner Results Module (summary + timeline + hotel + transport)"
     implemented: true
     working: true

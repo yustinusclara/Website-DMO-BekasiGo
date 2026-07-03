@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import PlannerFormModule from './PlannerFormModule'
 import PlannerResultsModule from './PlannerResultsModule'
+import PlannerRefineModule from './PlannerRefineModule'
 
 // -----------------------------------------------------------------------------
 // Config
@@ -130,14 +131,7 @@ export default function PlannerShell() {
       {phase === 'generating' && <PlannerGenerating form={form} />}
 
       {phase === 'ready' && (
-        <PlannerReady
-          form={form}
-          messages={messages}
-          chatInput={chatInput}
-          setChatInput={setChatInput}
-          onSend={sendMessage}
-          onReset={resetPlan}
-        />
+        <PlannerReady form={form} onReset={resetPlan} />
       )}
     </div>
   )
@@ -377,13 +371,13 @@ function PlannerGenerating({ form }) {
 // -----------------------------------------------------------------------------
 // Ready state (2-column: itinerary + chat on left, map on right, actions on top)
 // -----------------------------------------------------------------------------
-function PlannerReady({ form, messages, chatInput, setChatInput, onSend, onReset }) {
+function PlannerReady({ form, onReset }) {
   return (
     <div className="container space-y-4">
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_420px]">
         <div className="space-y-4">
           <PlannerResultsModule form={form} onRegenerate={onReset} />
-          <RefineChat messages={messages} chatInput={chatInput} setChatInput={setChatInput} onSend={onSend} />
+          <PlannerRefineModule />
         </div>
         <div className="space-y-4 lg:sticky lg:top-28 self-start">
           <MapPanel />
