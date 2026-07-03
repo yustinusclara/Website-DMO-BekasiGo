@@ -109,6 +109,78 @@ user_problem_statement: |
   Homepage Manager, Destinations Manager, and more (per Prompt Pack E-01..E-27+).
 
 frontend:
+  - task: "E-39 Explore Map Page Shell (/map — filters + list + canvas + preview card)"
+    implemented: true
+    working: true
+    file: "app/map/page.js, components/sections/map/ExploreMapShell.jsx, components/sections/map/ExploreFilters.jsx, components/sections/map/ExploreSidePanel.jsx, components/sections/map/ExploreMapCanvas.jsx, components/sections/map/ExplorePreviewCard.jsx, lib/map/positions.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: |
+          Built the Explore Map page shell at /map — the target of every
+          "Open Explore Map" CTA scattered around the app (destinations detail,
+          events detail, planner CTA strips, homepage nav).
+
+          Architecture (5 client components under /components/sections/map/):
+            - ExploreMapShell.jsx   → orchestrator; owns filters, selectedId,
+                                      and mobileTab state; wires SiteHeader/Footer.
+            - ExploreFilters.jsx    → search input + category chips (multi-select
+                                      with counts) + district dropdown +
+                                      "Featured only" toggle + active-count
+                                      badge + Reset link.
+            - ExploreSidePanel.jsx  → scrollable results list (max-h 540) with
+                                      thumbnail, title, district · category
+                                      meta, excerpt, rating stars; highlights
+                                      the selected item in gold tint.
+            - ExploreMapCanvas.jsx  → aspect-4/3 mock SVG canvas with radial
+                                      glow, dotted grid, district labels,
+                                      layered category legend, and one clickable
+                                      marker per destination with per-category
+                                      color+icon (Landmark/Utensils/Store/
+                                      TreePine/Baby/Sparkles/MapPin). Active
+                                      marker scales up with white ring +
+                                      downward pointer.
+            - ExplorePreviewCard.jsx → floating bottom card on the canvas with
+                                       thumbnail, name, district · category ·
+                                       duration · rating, excerpt, and two CTAs
+                                       ("View details" → /destinations/[slug],
+                                       "Add to plan" → /planner).
+
+          Shared /lib/map/positions.js exports district anchors + spiral spread
+          used to synthesize normalized (x, y) coords per destination — same
+          function will map lat/lng once a real Google Maps swap happens.
+
+          Filter logic (memoized): search across title+excerpt+category+district
+          +tags; category multi-select as AND-with-set-membership; district as
+          strict equal; onlyFeatured as boolean gate; live "N/24 places" count
+          in header + "Results (N)" in side-panel header.
+
+          Responsive layout (Tailwind):
+            - Desktop (≥768px): 12-col grid, filters+list = 4 cols (left),
+              canvas = 8 cols (right). Preview card overlays canvas.
+            - Mobile (<768px):  tab switcher (Map | List) toggles which column
+              is visible. Selected pin surfaces a truncated bottom-sheet card
+              when in List mode.
+
+          Visual verification at 1920×1080:
+            ✅ Header strip with "Explore Map" kicker, gold accent, count badge
+            ✅ Filters card with 8 category chips + counts (Urban 5, Heritage 5,
+                Shopping 3, Family 3, Culinary 3, Transit 1, Sport 2, Nature 2)
+            ✅ Side panel showing 24 results with thumbnails + ratings
+            ✅ Dark canvas with 24 colored+iconed markers spread by district
+                (Bekasi Timur/Utara/Selatan/Barat labels visible)
+            ✅ Legend bar showing 6 visible categories
+            ✅ Click on side-panel item → marker becomes active (white ring)
+                + preview card slides in with title, meta, excerpt, and both
+                CTAs (View details, Add to plan)
+
+          Nav is already wired (SiteHeader → /map). Every "Open Explore Map"
+          link across the app now lands on this page.
+
+
   - task: "E-38 Smart Planner Data + AI Flow (LLM wiring + MOCK fallback + bug fix adaptApiPlan)"
     implemented: true
     working: true
