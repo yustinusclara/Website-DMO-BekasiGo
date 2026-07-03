@@ -129,12 +129,12 @@ function StatusBar({ row }) {
 /* ------------------------------------------------------------------ */
 
 const ACTIONS = [
-  { label: 'New destination', href: '/admin/destinations/new', icon: MapPin,       color: '#155F58' },
-  { label: 'New event',       href: '/admin/events/new',       icon: CalendarDays, color: '#E27D5A' },
-  { label: 'New story',        href: '/admin/stories/new',      icon: BookOpen,     color: '#B48A2D' },
-  { label: 'New blog post',    href: '/admin/blog/new',         icon: Newspaper,    color: '#1E7A72' },
-  { label: 'Upload media',     href: '/admin/media/upload',     icon: ImageIcon,    color: '#8C6A20' },
-  { label: 'Preview public site', href: '/',                    icon: Globe,        color: '#0B3D3A', external: true },
+  { label: 'Destination',   href: '/admin/destinations/new', icon: MapPin,       color: '#155F58' },
+  { label: 'Event',         href: '/admin/events/new',       icon: CalendarDays, color: '#E27D5A' },
+  { label: 'Story',         href: '/admin/stories/new',      icon: BookOpen,     color: '#B48A2D' },
+  { label: 'Blog post',     href: '/admin/blog/new',         icon: Newspaper,    color: '#1E7A72' },
+  { label: 'Upload media',  href: '/admin/media/upload',     icon: ImageIcon,    color: '#8C6A20' },
+  { label: 'Preview site',  href: '/',                       icon: Globe,        color: '#0B3D3A', external: true },
 ]
 
 export function QuickActions() {
@@ -147,7 +147,7 @@ export function QuickActions() {
         </div>
         <Sparkles className="h-4 w-4 text-bekasi-gold-500" />
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
         {ACTIONS.map((a) => {
           const Icon = a.icon
           return (
@@ -155,18 +155,18 @@ export function QuickActions() {
               key={a.href}
               href={a.href}
               target={a.external ? '_blank' : undefined}
-              className="group flex items-center gap-3 rounded-md border border-bekasi-emerald-900/8 hover:border-bekasi-emerald-900/25 hover:bg-bekasi-cream px-3 py-3 transition-all"
+              className="group flex items-center gap-3 rounded-md border border-bekasi-emerald-900/8 hover:border-bekasi-emerald-900/25 hover:bg-bekasi-cream px-3 py-3 transition-all min-w-0"
             >
               <span className="h-9 w-9 rounded-md inline-flex items-center justify-center shrink-0" style={{ background: `${a.color}15`, color: a.color }}>
                 <Icon className="h-4 w-4" />
               </span>
               <div className="min-w-0 flex-1">
-                <div className="text-[13px] font-medium text-bekasi-emerald-900 leading-tight">{a.label}</div>
+                <div className="text-[13px] font-medium text-bekasi-emerald-900 leading-tight truncate">{a.label}</div>
                 <div className="text-[10.5px] uppercase tracking-[0.18em] text-bekasi-ink/50 mt-0.5">
                   {a.external ? 'Open' : 'Create'}
                 </div>
               </div>
-              <ArrowUpRight className="h-3.5 w-3.5 text-bekasi-ink/40 group-hover:text-bekasi-emerald-900 group-hover:-translate-y-px group-hover:translate-x-px transition-all" />
+              <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-bekasi-ink/40 group-hover:text-bekasi-emerald-900 group-hover:-translate-y-px group-hover:translate-x-px transition-all" />
             </Link>
           )
         })}
