@@ -109,6 +109,47 @@ user_problem_statement: |
   Homepage Manager, Destinations Manager, and more (per Prompt Pack E-01..E-27+).
 
 frontend:
+  - task: "E-35 Smart Planner Results Module (summary + timeline + hotel + transport)"
+    implemented: true
+    working: true
+    file: "components/sections/planner/PlannerResultsModule.jsx, components/sections/planner/PlannerShell.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: |
+          Rebuilt planner results as a rich, magazine-style module. Replaces the minimal
+          ItinerarySection in PlannerShell. Verified all sections at 1920x1100.
+
+          Sections rendered:
+            1. TripSummary — Editorial title + AI summary paragraph + 5-stat strip
+               (Stops / Walking / Driving / Photo windows / Weather) + Regenerate CTA.
+            2. ItineraryTimeline — one card per day. Each day contains time-band
+               groups (Morning · Midday · Afternoon · Evening · Preview) with:
+                 - Sunrise/Sun/Sunset/Moon/Cloud band icons in category color
+                 - Vertical timeline line with dots per item
+                 - DestinationCard (image + STOP badge + time/duration + kicker +
+                   AI reason with Sparkles + tags + optional photoTip chip)
+                 - RestaurantCard (cream bg + Utensils icon + MEAL label + price
+                   + dietary tags + AI reason)
+                 - TransportNote (walk/drive/train/bike icon + distance + minutes
+                   + note + from→to label)
+                 - PreviewLine (dashed border placeholder for upcoming Gemini
+                   content)
+            3. HotelSuggestion — dedicated "Where to sleep" section with editor's
+               pick badge, hero image, tier label, district, AI reason, View +
+               Swap-to-different-stay CTAs. Only shown for multi-day trips.
+
+          Sample plan uses real Cloudinary images (Hok Lay Kiong, Gedung Juang 45,
+          Piramida Summarecon, floating city, Kampung Adat Kranggan, Grand
+          Metropolitan Mall) so the visual density feels like a real product.
+
+          Card variants use different backgrounds (destination = white,
+          restaurant = cream, transport = subtle emerald tint) so users can scan
+          the timeline at a glance without reading text.
+
   - task: "E-34 Smart Planner Form Module (3-step wizard, chip-based)"
     implemented: true
     working: true

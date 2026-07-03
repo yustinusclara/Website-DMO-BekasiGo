@@ -11,6 +11,7 @@ import {
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import PlannerFormModule from './PlannerFormModule'
+import PlannerResultsModule from './PlannerResultsModule'
 
 // -----------------------------------------------------------------------------
 // Config
@@ -379,10 +380,9 @@ function PlannerGenerating({ form }) {
 function PlannerReady({ form, messages, chatInput, setChatInput, onSend, onReset }) {
   return (
     <div className="container space-y-4">
-      <ActionBar form={form} onReset={onReset} />
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_420px]">
         <div className="space-y-4">
-          <ItinerarySection />
+          <PlannerResultsModule form={form} onRegenerate={onReset} />
           <RefineChat messages={messages} chatInput={chatInput} setChatInput={setChatInput} onSend={onSend} />
         </div>
         <div className="space-y-4 lg:sticky lg:top-28 self-start">
