@@ -8,6 +8,7 @@ import {
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { PLANNER_SAMPLE } from '@/lib/content/planner-sample'
+import { adaptApiPlan } from '@/lib/planner/adapt'
 
 // Marker style per kind
 const KIND_STYLE = {

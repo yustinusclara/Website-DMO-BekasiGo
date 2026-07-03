@@ -109,6 +109,67 @@ user_problem_statement: |
   Homepage Manager, Destinations Manager, and more (per Prompt Pack E-01..E-27+).
 
 frontend:
+  - task: "E-38 Smart Planner Data + AI Flow (LLM wiring + MOCK fallback + bug fix adaptApiPlan)"
+    implemented: true
+    working: true
+    file: "lib/ai/planner.js, lib/planner/adapt.js, components/sections/planner/PlannerMapPanel.jsx, app/api/[[...path]]/route.js, .env"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: |
+          E-38 completed with a resilient 3-tier provider strategy so the UI is
+          always demoable regardless of live LLM availability:
+
+          Provider priority (see /app/lib/ai/planner.js):
+            1. PLANNER_USE_MOCK=true      → force mock (current default)
+            2. GEMINI_API_KEY set         → direct Google Generative AI REST call
+                                            (used later in Antigravity by the user)
+            3. EMERGENT_LLM_KEY set       → Emergent proxy (previously working
+                                            but currently budget-exceeded)
+          On any live-provider failure → silent fallback to mock so the UI never
+          shows a broken state.
+
+          buildMockPlan() uses the same buildGroundingContext() the LLM path
+          uses, so mock stops are picked from the REAL BekasiGo directory (24
+          destinations), giving a realistic itinerary with grounded titles,
+          districts, kickers, images, and per-stop ai_reason strings.
+
+          refineMockPlan() offers rule-based refinement (foodie/shorten/swap)
+          so the conversational refine chat also stays interactive in mock mode.
+
+          Bug fix (regression from previous session):
+            - PlannerMapPanel.jsx referenced adaptApiPlan() that was never
+              imported → runtime ReferenceError on generate.
+            - Created /app/lib/planner/adapt.js exporting adaptApiPlan(apiPlan)
+              which synthesizes normalized (x, y) positions per stop based on
+              district anchors + deterministic spiral jitter, so the SVG map
+              renders correctly for any API plan.
+            - Imported adaptApiPlan into PlannerMapPanel.jsx.
+
+          .env cleanup:
+            - Fixed CORS_ORIGINS line that was accidentally concatenated with
+              GEMINI_API_KEY in a previous session.
+            - Added PLANNER_USE_MOCK=true default with inline documentation
+              explaining how to swap to live Gemini in Antigravity.
+
+          Visual verification (screenshot at 1920x900):
+            - Wizard Step 1→2→3 flow works
+            - "Generate my plan" → results render in <1s (mock path)
+            - Results Module shows: title, summary, stats bar, Day 1 header,
+              multiple stops with images (Kota Bekasi Floating Smart City,
+              Klenteng Hok Lay Kiong, …), category tags, times, durations
+            - Map Panel shows: Live route header, day switcher, 4 numbered
+              markers connected by dashed gold route, legend
+            - Save/Download/Share actions visible
+            - No console errors after adaptApiPlan fix
+
+          Backend log confirms: `[planner] using MOCK provider` and
+          `POST /api/planner/generate 200`.
+
+
   - task: "E-37 Smart Planner Map Panel (numbered markers + legend + day switcher)"
     implemented: true
     working: true
