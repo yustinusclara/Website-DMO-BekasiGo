@@ -109,6 +109,28 @@ user_problem_statement: |
   Homepage Manager, Destinations Manager, and more (per Prompt Pack E-01..E-27+).
 
 frontend:
+  - task: "E-28 CMS Stories Manager (List + Create + Edit + Delete + Publish + SEO)"
+    implemented: true
+    working: true
+    file: "app/admin/stories/page.js, app/admin/stories/new/page.js, app/admin/stories/[slug]/page.js, components/admin/StoriesList.jsx, components/admin/StoryForm.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: |
+          Verified via screenshot tool at 1920x900:
+          - /admin/stories: search + status pills + column filter, table with Story/Column/Author/Published/Status/Actions
+            columns, featured star icon, delete confirmation modal.
+          - /admin/stories/new: Basics (title, slug /stories/, column, tags), Content (excerpt + body textarea 16 rows),
+            Media (hero image), Byline (author name/role, read time), SEO section with live character counter
+            (0/70 for title, 0/160 for description) + keywords + social share image.
+            Sidebar: Status radio + Publish date required + Featured switch.
+          - /admin/stories/[slug]: loads existing story, flattens body blocks into plain content editor.
+            Publish date pre-filled, Featured switch ON for featured stories, PUBLISHED pill, Danger Zone.
+          - Validation: title/slug/excerpt/content/heroImage/publishedAt required; SEO title/description length hints.
+
   - task: "E-27 CMS Events Manager (List + Create + Edit + Delete + Publish)"
     implemented: true
     working: true
