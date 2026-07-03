@@ -30,7 +30,7 @@ export default function SiteHeader() {
   const closeTimer = useRef(null)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
+    const onScroll = () => setScrolled(window.scrollY > 4)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -57,15 +57,14 @@ export default function SiteHeader() {
       className={cn(
         'fixed inset-x-0 top-0 z-50 transition-all duration-300',
         scrolled || megaOpen
-          ? 'bg-bekasi-emerald-900/92 backdrop-blur-xl border-b border-white/10 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.35)]'
-          : 'bg-gradient-to-b from-black/65 via-black/35 to-transparent backdrop-blur-[2px]',
+          ? 'bg-bekasi-emerald-900 border-b border-white/10 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.35)]'
+          : 'bg-bekasi-emerald-900/55 backdrop-blur-md border-b border-white/[0.06] shadow-[0_4px_18px_-8px_rgba(0,0,0,0.35)]',
       )}
     >
       {/* ─── Utility bar ─────────────────────────────────────────── */}
       <div
         className={cn(
-          'hidden md:block text-[11px] uppercase tracking-[0.22em] text-white/75 border-b border-white/10',
-          !(scrolled || megaOpen) && '[text-shadow:0_1px_2px_rgba(0,0,0,0.45)]',
+          'hidden md:block text-[11px] uppercase tracking-[0.22em] text-white/80 border-b border-white/10',
         )}
       >
         <div className="container flex items-center justify-between py-2">
@@ -95,10 +94,7 @@ export default function SiteHeader() {
 
       {/* ─── Main bar ────────────────────────────────────────────── */}
       <div
-        className={cn(
-          'container flex items-center justify-between h-16 md:h-20',
-          !(scrolled || megaOpen) && '[&_span]:[text-shadow:0_1px_3px_rgba(0,0,0,0.55)]',
-        )}
+        className="container flex items-center justify-between h-16 md:h-20"
         onMouseLeave={scheduleClose}
       >
         {/* Brand */}
