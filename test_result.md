@@ -109,6 +109,58 @@ user_problem_statement: |
   Homepage Manager, Destinations Manager, and more (per Prompt Pack E-01..E-27+).
 
 frontend:
+  - task: "E-32 FastAPI Content Foundation (backend scaffold)"
+    implemented: true
+    working: true
+    file: "backend/app/main.py, backend/app/routers/*.py, backend/app/services/*.py, backend/app/schemas/*.py, backend/app/core/*.py, backend/app/db/supabase_client.py, backend/requirements.txt, backend/README.md"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: |
+          Wrote a production-ready FastAPI backend scaffold at /app/backend (39 files).
+          NOT wired into supervisor (container runs Next.js) — deploy target is a
+          separate Python service. Verified 36 py files parse cleanly + app loads
+          with 17 routes mounted.
+
+          Layout:
+            app/main.py             — app factory (CORS, error handlers, router mount under /api)
+            app/settings.py         — Pydantic Settings, env-driven
+            app/dependencies.py     — get_db(), get_current_user_id(), require_admin() stubs
+            app/core/response.py    — { data, meta } envelope + list_response/item_response helpers
+            app/core/pagination.py  — limit/offset + page/size dual support
+            app/core/errors.py      — DomainError, NotFoundError + FastAPI handlers → RFC-7807-ish
+            app/db/supabase_client.py — lazy supabase-py client (returns None if not configured)
+            app/schemas/            — common + one schema module per domain
+            app/routers/            — one router per domain (health/homepage/destinations/events/
+                                     stories/blogs/media/trip_planner)
+            app/services/           — business logic stubs with real query patterns documented in
+                                     docstrings (ready to swap in Supabase calls)
+
+          Endpoints:
+            GET  /api/health
+            GET  /api/homepage
+            GET  /api/destinations       ?limit&offset&category&district&q&featured
+            GET  /api/destinations/{slug}
+            GET  /api/events             ?limit&offset&category&when&q&featured
+            GET  /api/events/{slug}
+            GET  /api/stories            ?limit&offset&column&q&featured
+            GET  /api/stories/{slug}
+            GET  /api/blog               ?limit&offset&category&q&featured
+            GET  /api/blog/{slug}
+            GET  /api/media              ?limit&offset&type&category&q
+            GET  /api/media/{media_id}
+            POST /api/trip-planner/generate
+            POST /api/trip-planner/refine
+            GET  /api/docs   (Swagger)   /api/redoc
+
+          Response envelope: { data: T | T[], meta: { total, limit, offset, page, size, has_more } }
+          Errors:            { error: { code, message } }
+          Auth:              Bearer JWT stub in get_current_user_id() — real verify in E-33.
+          Deploy:            docs in backend/README.md (uvicorn + supabase env vars).
+
   - task: "E-31 Supabase Schema Foundation (SQL migrations)"
     implemented: true
     working: true
