@@ -71,17 +71,47 @@ export default function PlannerShell() {
   const [messages, setMessages] = useState([])
   const [chatInput, setChatInput] = useState('')
 
+  const [plan, setPlan] = useState(null)
+  const [error, setError] = useState(null)
+
   const set = (patch) => setForm((s) => ({ ...s, ...patch }))
 
-  const generate = () => {
+  const generate = async (nextForm) => {
     setPhase('generating')
-    // Simulated latency — real generation lands in a follow-up prompt (Gemini wire).
-    setTimeout(() => setPhase('ready'), 1200)
+    setError(null)
+    const payload = nextForm ?? form
+    try {
+      const res = await fetch('/api/planner/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          duration: payload.days ?? payload.duration ?? 1,
+          style: payload.style,
+          interests: payload.interests,
+          budget: payload.budget,
+          startingPoint: payload.startingPoint,
+          familyMode: payload.withKids ?? payload.familyMode ?? false,
+          environment: payload.environment,
+        }),
+      })
+      const json = await res.json()
+      if (!res.ok || !json.data) {
+        throw new Error(json?.error?.message || 'Generate failed.')
+      }
+      setPlan(json.data)
+      setPhase('ready')
+    } catch (e) {
+      console.error('[planner] generate:', e)
+      setError(e.message || 'Failed to generate plan.')
+      setPhase('input')
+    }
   }
 
   const resetPlan = () => {
     setPhase('input')
+    setPlan(null)
     setMessages([])
+    setError(null)
   }
 
   const sendMessage = () => {
@@ -89,12 +119,11 @@ export default function PlannerShell() {
     const userMsg = { role: 'user', content: chatInput.trim(), id: Date.now() }
     setMessages((prev) => [...prev, userMsg])
     setChatInput('')
-    // Placeholder assistant response
     setTimeout(() => {
       setMessages((prev) => [...prev, {
         role: 'assistant',
         id: Date.now() + 1,
-        content: 'Got it — I’ll adjust the plan. Refinement engine lands in the next prompt (Gemini wire).',
+        content: 'Got it — I\u2019ll adjust the plan.',
       }])
     }, 700)
   }
@@ -113,7 +142,7 @@ export default function PlannerShell() {
             familyMode: form.withKids,
           }}
           onGenerate={(next) => {
-            setForm({
+            const merged = {
               days: next.duration,
               style: next.style,
               partySize: form.partySize,
@@ -123,16 +152,25 @@ export default function PlannerShell() {
               interests: next.interests,
               startingPoint: next.startingPoint,
               environment: next.environment,
-            })
-            generate()
+            }
+            setForm(merged)
+            generate(merged)
           }}
         />
+      )}
+
+      {error && phase === 'input' && (
+        <section className="container">
+          <div className="rounded-md border border-red-200 bg-red-50 text-red-800 px-4 py-3 text-sm">
+            <strong>Failed to generate plan:</strong> {error}
+          </div>
+        </section>
       )}
 
       {phase === 'generating' && <PlannerGenerating form={form} />}
 
       {phase === 'ready' && (
-        <PlannerReady form={form} onReset={resetPlan} />
+        <PlannerReady form={form} plan={plan} onReset={resetPlan} onRefined={setPlan} />
       )}
     </div>
   )
@@ -372,16 +410,16 @@ function PlannerGenerating({ form }) {
 // -----------------------------------------------------------------------------
 // Ready state (2-column: itinerary + chat on left, map on right, actions on top)
 // -----------------------------------------------------------------------------
-function PlannerReady({ form, onReset }) {
+function PlannerReady({ form, plan, onReset, onRefined }) {
   return (
     <div className="container space-y-4">
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_420px]">
         <div className="space-y-4">
-          <PlannerResultsModule form={form} onRegenerate={onReset} />
-          <PlannerRefineModule />
+          <PlannerResultsModule plan={plan} form={form} onRegenerate={onReset} />
+          <PlannerRefineModule plan={plan} form={form} onRefined={onRefined} />
         </div>
         <div className="space-y-4 lg:sticky lg:top-28 self-start">
-          <PlannerMapPanel />
+          <PlannerMapPanel plan={plan} />
           <SaveActions />
         </div>
       </div>

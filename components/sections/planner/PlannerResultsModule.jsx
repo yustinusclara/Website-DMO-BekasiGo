@@ -189,8 +189,8 @@ const SAMPLE_PLAN = {
 // ---------------------------------------------------------------------------
 // Public component
 // ---------------------------------------------------------------------------
-export default function PlannerResultsModule({ form, onRegenerate }) {
-  const plan = SAMPLE_PLAN
+export default function PlannerResultsModule({ form, plan: planProp, onRegenerate }) {
+  const plan = planProp ?? SAMPLE_PLAN
   return (
     <div className="space-y-4">
       <TripSummary plan={plan} form={form} onRegenerate={onRegenerate} />
@@ -262,7 +262,44 @@ function ItineraryTimeline({ days }) {
   )
 }
 
+function bandFromTime(time) {
+  const h = parseInt(String(time ?? '').split(':')[0], 10) || 8
+  if (h < 11) return { band: 'Morning',   icon: Sunrise, color: '#B48A2D' }
+  if (h < 14) return { band: 'Midday',    icon: Sun,     color: '#155F58' }
+  if (h < 17) return { band: 'Afternoon', icon: Sun,     color: '#1E7A72' }
+  if (h < 20) return { band: 'Evening',   icon: Sunset,  color: '#E27D5A' }
+  return             { band: 'Night',     icon: Moon,    color: '#5E4B8B' }
+}
+
+function autoGroupStops(stops) {
+  // Convert real API shape (flat stops[]) into the same "groups" shape SAMPLE_PLAN uses.
+  const buckets = {}
+  const order   = []
+  for (const s of stops ?? []) {
+    const meta = bandFromTime(s.time)
+    if (!buckets[meta.band]) {
+      buckets[meta.band] = { band: meta.band, icon: meta.icon, color: meta.color, items: [] }
+      order.push(meta.band)
+    }
+    // Map API item.kind → renderer variant.
+    buckets[meta.band].items.push({
+      kind: s.kind ?? 'destination',
+      time: s.time,
+      duration: s.duration,
+      title: s.title,
+      kicker: s.kicker || (s.district ? `Bekasi · ${s.district}` : ''),
+      image: s.image ?? undefined,
+      reason: s.ai_reason || s.reason,
+      tags: s.tags ?? [],
+    })
+  }
+  return order.map((k) => buckets[k])
+}
+
 function DayCard({ day }) {
+  // Support both shapes: SAMPLE_PLAN.day.groups[] OR real API day.stops[]
+  const groups = day.groups ?? autoGroupStops(day.stops ?? [])
+  const stopsCount = groups.reduce((n, g) => n + g.items.filter((i) => i.kind !== 'transport' && i.kind !== 'preview').length, 0)
   return (
     <div className="rounded-xl bg-white border border-bekasi-emerald-900/8 overflow-hidden">
       <div className="px-5 md:px-6 py-4 border-b border-bekasi-emerald-900/8 flex items-center justify-between gap-3">
@@ -271,12 +308,12 @@ function DayCard({ day }) {
           <div className="font-sans font-semibold text-[15.5px] text-bekasi-emerald-900 truncate">{day.title}</div>
         </div>
         <span className="inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.2em] text-bekasi-ink/55 shrink-0">
-          <Clock className="h-3 w-3" /> {day.groups.reduce((n, g) => n + g.items.filter((i) => i.kind !== 'transport' && i.kind !== 'preview').length, 0)} stops
+          <Clock className="h-3 w-3" /> {stopsCount} stops
         </span>
       </div>
 
       <div className="divide-y divide-bekasi-emerald-900/6">
-        {day.groups.map((g, i) => (
+        {groups.map((g, i) => (
           <TimeGroup key={i} group={g} />
         ))}
       </div>

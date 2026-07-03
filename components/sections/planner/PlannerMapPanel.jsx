@@ -17,12 +17,18 @@ const KIND_STYLE = {
   transport:   { fill: '#0B3D3A', ring: '#E1B547', Icon: TrainFront, label: 'Transport'   },
 }
 
-export default function PlannerMapPanel() {
-  const plan = PLANNER_SAMPLE
+export default function PlannerMapPanel({ plan: planProp }) {
+  // If a real API plan is supplied, adapt it to the map shape.
+  // Otherwise fall back to the design-time SAMPLE_PLAN.
+  const plan = useMemo(() => {
+    if (!planProp) return PLANNER_SAMPLE
+    return adaptApiPlan(planProp)
+  }, [planProp])
+
   const [dayIndex, setDayIndex]     = useState(0)
   const [selectedId, setSelectedId] = useState(null)
 
-  const day = plan.days[dayIndex]
+  const day = plan.days[dayIndex] || plan.days[0]
 
   // Aggregate all markers for the current day + hotel + transport hubs.
   const markers = useMemo(() => {
