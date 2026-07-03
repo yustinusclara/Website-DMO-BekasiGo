@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import {
   LayoutDashboard, MapPin, CalendarDays, BookOpen, Newspaper, ImageIcon,
   Settings, Bell, Search, LogOut, Menu, X, Plus, ChevronDown, ExternalLink,
+  Home,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -13,6 +14,7 @@ import { CURRENT_USER } from '@/lib/admin/adminData'
 
 const NAV = [
   { label: 'Dashboard',    href: '/admin',              icon: LayoutDashboard, exact: true },
+  { label: 'Homepage',     href: '/admin/homepage',     icon: Home },
   { label: 'Destinations', href: '/admin/destinations', icon: MapPin },
   { label: 'Events',       href: '/admin/events',       icon: CalendarDays },
   { label: 'Stories',      href: '/admin/stories',      icon: BookOpen },
