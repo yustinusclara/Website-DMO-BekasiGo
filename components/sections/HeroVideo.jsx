@@ -56,16 +56,7 @@ export default function HeroVideo() {
     >
       {/* --- MEDIA LAYER --- */}
       <div className="absolute inset-0">
-        {/* Poster with ken-burns — always mounted, fades out when video plays */}
-        <img
-          src={HERO.poster}
-          alt=""
-          aria-hidden="true"
-          className={`img-cover animate-kenburns transition-opacity duration-[1200ms] ease-out ${
-            videoReady ? 'opacity-0' : 'opacity-100'
-          }`}
-        />
-        {/* Actual video */}
+        {/* Actual video (no poster image — plays directly) */}
         {HERO.videoUrl && (
           <video
             ref={videoRef}
@@ -73,12 +64,11 @@ export default function HeroVideo() {
               videoReady ? 'opacity-100' : 'opacity-0'
             }`}
             src={HERO.videoUrl}
-            poster={HERO.poster}
             autoPlay
             loop
             muted={muted}
             playsInline
-            preload="metadata"
+            preload="auto"
             aria-hidden="true"
           />
         )}

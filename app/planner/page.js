@@ -17,7 +17,7 @@ export default function PlannerPage() {
   return (
     <>
       <SiteHeader />
-      <main className="pt-24 pb-24 bg-bekasi-cream">
+      <main className="pt-32 md:pt-40 pb-24 bg-bekasi-cream">
         <PlannerShell />
       </main>
       <SiteFooter />

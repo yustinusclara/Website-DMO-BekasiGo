@@ -68,20 +68,20 @@ export default function ExploreMapShell() {
 
       {/* Page header strip */}
       <section className="border-b border-[color:var(--ink-forest,#0B3D3A)]/10 bg-[color:var(--bg-page,#F7F1E5)]">
-        <div className="mx-auto max-w-[1400px] px-6 pt-24 pb-6 md:pt-28">
-          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-            <div>
+        <div className="mx-auto max-w-[1400px] px-6 pt-32 md:pt-40 pb-10 md:pb-12">
+          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div className="max-w-3xl">
               <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[color:var(--gold-accent,#B48A2D)]">
                 Explore Map
               </p>
-              <h1 className="font-serif text-3xl md:text-5xl leading-tight mt-2">
+              <h1 className="font-serif text-3xl md:text-5xl leading-tight mt-3">
                 Every place, one canvas.
               </h1>
-              <p className="mt-2 max-w-2xl text-sm md:text-base text-[color:var(--ink-forest,#0B3D3A)]/70">
+              <p className="mt-4 text-sm md:text-base text-[color:var(--ink-forest,#0B3D3A)]/70 leading-relaxed">
                 Filter Kota Bekasi&rsquo;s directory by district, category, or vibe. Tap any pin for a preview and jump straight to full details.
               </p>
             </div>
-            <div className="flex items-center gap-4 text-xs uppercase tracking-[0.22em] text-[color:var(--ink-forest,#0B3D3A)]/60">
+            <div className="flex items-center gap-4 text-xs uppercase tracking-[0.22em] text-[color:var(--ink-forest,#0B3D3A)]/60 md:pb-2">
               <span>{shownCount} / {totalCount} places</span>
               <span className="hidden md:inline text-[color:var(--gold-accent,#B48A2D)]">Interactive</span>
             </div>
