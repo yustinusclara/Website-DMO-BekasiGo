@@ -1,55 +1,124 @@
 'use client'
 
 import Link from 'next/link'
-import Section from '@/components/layout/Section'
+import { motion } from 'framer-motion'
+import { ArrowUpRight, Quote, Sparkles } from 'lucide-react'
+import ChapterMarker from '@/components/ds/ChapterMarker'
+import HeritageSpotlightCard from '@/components/ds/HeritageSpotlightCard'
 import { HERITAGE } from '@/lib/content/homepage'
-import { ArrowUpRight } from 'lucide-react'
+
+const reveal = {
+  hidden: { opacity: 0, y: 30 },
+  show:   { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } },
+}
 
 export default function HeritageSpotlight() {
   return (
-    <Section id="heritage" variant="dark"
-      eyebrow={HERITAGE.eyebrow}
-      title={HERITAGE.title}
-      kicker={HERITAGE.kicker}
-      action={HERITAGE.action}
+    <section
+      id="heritage"
+      className="relative overflow-hidden bg-bekasi-emerald-900 text-white"
+      aria-label={HERITAGE.chapter}
     >
-      <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
-        {/* Feature image */}
-        <div className="lg:col-span-7 relative rounded-3xl overflow-hidden aspect-[4/5] lg:aspect-auto lg:min-h-[560px] group bg-bekasi-emerald-900">
-          <img src={HERITAGE.image} alt="Bekasi heritage"
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1500ms] group-hover:scale-105" loading="lazy" />
-          <div className="absolute inset-0 bg-gradient-to-tr from-bekasi-emerald-900/85 via-bekasi-emerald-900/30 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-            <span className="text-[10px] uppercase tracking-[0.3em] text-bekasi-gold-400">{HERITAGE.featureCaption.tag}</span>
-            <h3 className="mt-2 font-display text-3xl md:text-5xl text-white leading-tight text-balance">
-              {HERITAGE.featureCaption.title}
-            </h3>
-            <div className="mt-4 hairline-invert" />
-            <div className="mt-4 flex items-center justify-between text-white/70 text-sm">
-              <span>{HERITAGE.featureCaption.meta}</span>
-              <Link href="/stories/hok-lay-kiong" className="inline-flex items-center gap-1.5 text-bekasi-gold-400 hover:text-white">
-                Read <ArrowUpRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
-          </div>
+      {/* Ambient layers */}
+      <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-bekasi-emerald-900 via-bekasi-emerald-800 to-bekasi-emerald-900" />
+      <div aria-hidden className="absolute inset-0 bg-noise opacity-[0.05] mix-blend-overlay pointer-events-none" />
+      <div
+        aria-hidden
+        className="absolute -top-40 left-1/2 -translate-x-1/2 h-[420px] w-[900px] rounded-full blur-[140px] bg-bekasi-gold-500/[0.08]"
+      />
+
+      <div className="relative container py-24 md:py-36 lg:py-44">
+        <ChapterMarker text={HERITAGE.chapter} />
+
+        {/* Editorial header split */}
+        <div className="mt-16 md:mt-24 grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+          <motion.div
+            className="lg:col-span-7"
+            variants={reveal}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-100px' }}
+          >
+            <span className="eyebrow eyebrow-dot text-bekasi-gold-400">{HERITAGE.eyebrow}</span>
+            <h2 className="mt-6 heading-display text-display-xl leading-[1.02] text-white text-balance whitespace-pre-line">
+              {HERITAGE.title}
+            </h2>
+          </motion.div>
+          <motion.div
+            className="lg:col-span-5 lg:pt-6"
+            variants={reveal}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-100px' }}
+            transition={{ delay: 0.15 }}
+          >
+            <div className="hairline-invert mb-6" />
+            <p className="body-lg text-white/75 max-w-lg">{HERITAGE.kicker}</p>
+          </motion.div>
         </div>
 
-        {/* Side stack */}
-        <div className="lg:col-span-5 flex flex-col gap-5">
-          {HERITAGE.cards.map((c) => (
-            <Link key={c.title} href="#" className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] hover:bg-white/[0.06] transition-colors flex items-stretch min-h-[140px]">
-              <div className="relative w-32 md:w-44 flex-shrink-0 overflow-hidden bg-bekasi-emerald-800">
-                <img src={c.image} alt={c.title} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
-              </div>
-              <div className="flex-1 p-5 md:p-6 flex flex-col justify-center">
-                <div className="text-[10px] uppercase tracking-[0.25em] text-bekasi-gold-400">{c.meta}</div>
-                <h4 className="mt-2 font-display text-xl md:text-2xl text-white leading-snug">{c.title}</h4>
-              </div>
-              <ArrowUpRight className="absolute top-4 right-4 h-4 w-4 text-white/50 group-hover:text-bekasi-gold-400 transition-colors" />
-            </Link>
+        {/* Editorial pull quote */}
+        <motion.div
+          variants={reveal}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-100px' }}
+          className="mt-20 md:mt-28 relative flex items-start gap-6 md:gap-10 max-w-5xl"
+        >
+          <div className="flex-shrink-0 pt-2">
+            <Quote className="h-8 w-8 md:h-10 md:w-10 text-bekasi-gold-500/70 -scale-x-100" strokeWidth={1.5} />
+          </div>
+          <div className="flex-1">
+            <p className="heading-display text-2xl md:text-4xl lg:text-[2.5rem] leading-[1.25] text-white/95 text-balance italic">
+              {HERITAGE.quote}
+            </p>
+            <div className="mt-6 flex items-center gap-3">
+              <span aria-hidden className="h-px w-10 bg-bekasi-gold-500/60" />
+              <span className="mono text-bekasi-gold-400">{HERITAGE.quoteAttribution}</span>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Spotlight cards grid */}
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-80px' }}
+          variants={{ show: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } } }}
+          className="mt-16 md:mt-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6"
+        >
+          {HERITAGE.items.map((item) => (
+            <motion.div key={item.title} variants={reveal}>
+              <HeritageSpotlightCard item={item} />
+            </motion.div>
           ))}
+        </motion.div>
+
+        {/* Hint row */}
+        <div className="mt-6 flex items-center gap-3 text-eyebrow uppercase text-white/45">
+          <Sparkles className="h-3.5 w-3.5" /> {HERITAGE.hint}
+        </div>
+
+        {/* CTA row */}
+        <div className="mt-16 md:mt-20 flex flex-col md:flex-row md:items-center md:justify-between gap-8 pt-10 border-t border-white/10">
+          <div>
+            <div className="mono text-bekasi-gold-400">— 04 stories in this chapter</div>
+            <p className="mt-2 heading-4 text-white text-balance">Continue the story of Bekasi.</p>
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <Link href={HERITAGE.action.href}>
+              <button className="btn-primary btn-md">
+                {HERITAGE.action.label}
+                <ArrowUpRight className="h-4 w-4" />
+              </button>
+            </Link>
+            <Link href={HERITAGE.secondaryAction.href} className="btn-ghost-invert btn-md">
+              {HERITAGE.secondaryAction.label}
+              <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </div>
-    </Section>
+    </section>
   )
 }
