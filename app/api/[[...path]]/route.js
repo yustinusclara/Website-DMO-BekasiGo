@@ -1,6 +1,7 @@
 import { MongoClient } from 'mongodb'
 import { v4 as uuidv4 } from 'uuid'
 import { NextResponse } from 'next/server'
+import { generateItinerary, refineItinerary } from '@/lib/ai/planner'
 
 // MongoDB connection
 let client
@@ -79,6 +80,34 @@ async function handleRoute(request, { params }) {
       const cleanedStatusChecks = statusChecks.map(({ _id, ...rest }) => rest)
       
       return handleCORS(NextResponse.json(cleanedStatusChecks))
+    }
+
+    // Smart Planner — POST /api/planner/generate
+    if (route === '/planner/generate' && method === 'POST') {
+      const body = await request.json()
+      try {
+        const plan = await generateItinerary(body || {})
+        return handleCORS(NextResponse.json({ data: plan }))
+      } catch (err) {
+        console.error('[planner/generate] Gemini error:', err)
+        return handleCORS(NextResponse.json({ error: { code: 'planner_generate_failed', message: err.message || 'Failed to generate itinerary.' } }, { status: 502 }))
+      }
+    }
+
+    // Smart Planner — POST /api/planner/refine
+    if (route === '/planner/refine' && method === 'POST') {
+      const body = await request.json()
+      const { plan, instruction, input } = body || {}
+      if (!plan || !instruction) {
+        return handleCORS(NextResponse.json({ error: { code: 'bad_request', message: 'plan and instruction are required.' } }, { status: 400 }))
+      }
+      try {
+        const updated = await refineItinerary({ plan, instruction, input })
+        return handleCORS(NextResponse.json({ data: updated }))
+      } catch (err) {
+        console.error('[planner/refine] Gemini error:', err)
+        return handleCORS(NextResponse.json({ error: { code: 'planner_refine_failed', message: err.message || 'Failed to refine itinerary.' } }, { status: 502 }))
+      }
     }
 
     // Route not found
