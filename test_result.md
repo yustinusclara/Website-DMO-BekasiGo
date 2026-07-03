@@ -109,6 +109,45 @@ user_problem_statement: |
   Homepage Manager, Destinations Manager, and more (per Prompt Pack E-01..E-27+).
 
 frontend:
+  - task: "E-33 Smart Trip Planner Page Shell (/planner)"
+    implemented: true
+    working: true
+    file: "app/planner/page.js, components/sections/planner/PlannerShell.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: |
+          Verified via screenshot tool at 1920x1000. Route `/planner` matches all existing
+          CTAs across the site. Three-phase UX: input → generating → ready.
+
+          Phase 1 (input):
+            - Editorial hero + "How it works" 4-step card
+            - Step 1 form: days pills (1..5), 7 travel-style cards with icons,
+              party-size stepper + kids checkbox, 4 budget-level cards,
+              10-tag interests picker, start date, generate CTA (gold pill)
+
+          Phase 2 (generating): spinner + 3 skeleton rows for smooth transition
+
+          Phase 3 (ready) — 2-column layout:
+            LEFT
+              - Action bar: plan summary + Start over
+              - Itinerary section: Day 1 with 5 sample stops (time, duration, kicker,
+                AI reason with Sparkles icon)
+              - Refine in conversation panel: message list + input + Send, empty-state
+                suggestion prompts, "Gemini stub" pill
+            RIGHT (sticky)
+              - Live route map panel: mock SVG with 5 numbered gold pins + dashed
+                gold path on emerald background; annotation "Interactive Google Map
+                lands with E-34"
+              - Save/Download/Share action rows (bookmarked, PDF download,
+                shareable public link)
+
+          Fully client-side state (no backend calls yet). Fake latency 1200ms for
+          generating phase. Chat sends user msg + placeholder assistant reply.
+
   - task: "E-32 FastAPI Content Foundation (backend scaffold)"
     implemented: true
     working: true
