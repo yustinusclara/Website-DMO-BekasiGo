@@ -1,0 +1,242 @@
+[
+ {
+  "id": "rm-sate-anda-kali-abang",
+  "no": "1",
+  "category": "Kuliner Legendaris & Otentik",
+  "name": "RM Sate Anda Kali Abang",
+  "excerpt_id": "Kuliner sate kambing muda legendaris sejak 1978 yang terkenal dengan bumbu rempah melimpah dan tekstur daging super empuk.",
+  "excerpt": "A legendary tender lamb satay culinary spot since 1978, renowned for its rich traditional spices and incredibly juicy texture."
+ },
+ {
+  "id": "nasi-uduk-bang-bule-mayor-oking",
+  "no": "2",
+  "category": "Kuliner Legendaris & Otentik",
+  "name": "Nasi Uduk Bang Bule (Mayor Oking)",
+  "excerpt_id": "Surga kuliner malam legendaris yang menyajikan nasi uduk pulen gurih dengan pilihan lauk empal, semur, dan gorengan sejak era 90-an.",
+  "excerpt": "A legendary night culinary haven serving savory, fluffy coconut rice with various side dishes like sweet beef, stews, and fritters since the 90s."
+ },
+ {
+  "id": "nasi-bebek-bulak-kapal-pahlawan",
+  "no": "3",
+  "category": "Kuliner Legendaris & Otentik",
+  "name": "Nasi Bebek Bulak Kapal Pahlawan",
+  "excerpt_id": "Sajian kuliner bebek goreng khas Madura ikonik dengan siraman bumbu hitam pekat gurih-pedas dan taburan serundeng kelapa yang wangi.",
+  "excerpt": "An iconic Madurese fried duck culinary spot featuring savory-spicy thick black spices poured over tender meat and topped with fragrant grated coconut."
+ },
+ {
+  "id": "bebek-ella-pekayon",
+  "no": "4",
+  "category": "Kuliner Legendaris & Otentik",
+  "name": "Bebek Ella Pekayon",
+  "excerpt_id": "Destinasi kuliner bebek legendaris di Pekayon yang eksis sejak 1997, terkenal dengan kelembutan dagingnya dan sambal korek yang super pedas.",
+  "excerpt": "A legendary duck culinary destination in Pekayon operating since 1997, famous for its melt-in-your-mouth texture and extremely spicy red chili paste."
+ },
+ {
+  "id": "ayam-panggang-pak-tarwud",
+  "no": "5",
+  "category": "Kuliner Legendaris & Otentik",
+  "name": "Ayam Panggang Pak Tarwud",
+  "excerpt_id": "Restoran ayam panggang bumbu meresap bertekstur juicy andalan warga lokal yang menyajikan cita rasa gurih-manis tradisional yang otentik.",
+  "excerpt": "A local favorite roasted chicken joint serving intensely marinated, juicy meat packed with authentic, traditional savory-sweet flavors."
+ },
+ {
+  "id": "raja-sunda-bekasi",
+  "no": "6",
+  "category": "Saung Lesehan & Restoran Sunda Besar",
+  "name": "Raja Sunda Bekasi",
+  "excerpt_id": "Restoran Sunda terbesar di jalan utama Bekasi yang menawarkan konsep makan lesehan nyaman dengan menu andalan Gurame Terbang dan Nasi Tutug Oncom.",
+  "excerpt": "The largest Sundanese restaurant on Bekasi's main avenue, offering cozy floor-seating dining with signature Flying Gourami and Tutug Oncom rice."
+ },
+ {
+  "id": "gubug-makan-mang-engking-summarecon",
+  "no": "7",
+  "category": "Saung Lesehan & Restoran Sunda Besar",
+  "name": "Gubug Makan Mang Engking Summarecon",
+  "excerpt_id": "Sensasi makan keluarga di atas pondok gubuk parahyangan terapung di tengah kota dengan menu andalan Udang Bakar Madu yang melegenda.",
+  "excerpt": "A family dining sensation set in floating traditional Sundanese bamboo huts in the city center, famous for its legendary Honey Grilled Prawns."
+ },
+ {
+  "id": "kampung-kecil-pekayon",
+  "no": "8",
+  "category": "Saung Lesehan & Restoran Sunda Besar",
+  "name": "Kampung Kecil Pekayon",
+  "excerpt_id": "Restoran keluarga tematik Sunda dengan deretan pondokan bambu bersih, rapi, dan estetik, menyajikan aneka olahan hidangan nusantara yang lezat.",
+  "excerpt": "A thematic Sundanese family restaurant lined with clean, neat, and aesthetic bamboo gazebos, serving a delicious variety of archipelago dishes."
+ },
+ {
+  "id": "shsd-sambel-hejo-sambel-dadak-kamala-lagoon",
+  "no": "9",
+  "category": "Saung Lesehan & Restoran Sunda Besar",
+  "name": "SHSD Sambel Hejo Sambel Dadak (Kamala Lagoon)",
+  "excerpt_id": "Tempat bersantap ayam goreng basah khas Sunda yang gurih berpadu dengan kesegaran Sambel Hejo dan Sambel Dadak pedas instan.",
+  "excerpt": "A dining spot serving savory Sundanese-style moist fried chicken paired perfectly with fresh Green Chili Paste and spicy raw freshly-made sambal."
+ },
+ {
+  "id": "samedja-stadion-patriot",
+  "no": "10",
+  "category": "Saung Lesehan & Restoran Sunda Besar",
+  "name": "SAMEDJA (Stadion Patriot)",
+  "excerpt_id": "Restoran konsep prasmanan Sunda modern berdesain elegan yang menyediakan area bermain anak serta ruang pertemuan privat serbaguna.",
+  "excerpt": "A modern Sundanese buffet restaurant boasting an elegant interior design, equipped with kids' play areas and versatile private meeting rooms."
+ },
+ {
+  "id": "sop-janda-jawa-sunda-pekayon",
+  "no": "11",
+  "category": "Olahan Daging Ekstrem, Sate & Bakso Viral",
+  "name": "Sop Janda Jawa Sunda (Pekayon)",
+  "excerpt_id": "Pelopor kuliner sop iga sapi kuah cabai caplak hijau utuh super pedas yang menyegarkan dan menggugah selera para pencinta makanan pedas.",
+  "excerpt": "The pioneer of ultra-spicy beef rib soup brewed with whole green bird's eye chilies, offering a refreshing and fiery kick for spicy food lovers."
+ },
+ {
+  "id": "bakso-rusuk-joss-mustikajaya",
+  "no": "12",
+  "category": "Olahan Daging Ekstrem, Sate & Bakso Viral",
+  "name": "Bakso Rusuk Joss (Mustikajaya)",
+  "excerpt_id": "Pusat kreasi kuliner bakso unik pencipta tren bakso lava raksasa berkuah pedas membara yang viral di berbagai platform media sosial.",
+  "excerpt": "The creative hub of unique meatball culinary creations, famous as the trendsetter for the viral giant lava meatball served in a fiery spicy broth."
+ },
+ {
+  "id": "bakso-titoti-cabang-bekasi",
+  "no": "13",
+  "category": "Olahan Daging Ekstrem, Sate & Bakso Viral",
+  "name": "Bakso Titoti Cabang Bekasi",
+  "excerpt_id": "Destinasi andalan pencinta bakso urat tradisional khas Wonogiri berkuah kaldu murni yang gurih, pekat, dan bertabur tetelan sapi melimpah.",
+  "excerpt": "The go-to destination for authentic Wonogiri traditional tendon meatballs served in a rich, savory pure bone broth topped with abundant beef fat cuts."
+ },
+ {
+  "id": "sego-cumi-dapur-si-mpok-bekasi-selatan",
+  "no": "14",
+  "category": "Olahan Daging Ekstrem, Sate & Bakso Viral",
+  "name": "Sego Cumi Dapur Si Mpok (Bekasi Selatan)",
+  "excerpt_id": "Kuliner nasi campur beralas daun pisang dengan lauk cumi hitam meresap yang gurih dan sambal korek pedas gurih berharga merakyat.",
+  "excerpt": "A pocket-friendly culinary spot serving banana-leaf rice platters topped with rich savory black squid and fiery, well-seasoned garlic chili paste."
+ },
+ {
+  "id": "sate-tongseng-pak-h-budi-solo",
+  "no": "15",
+  "category": "Olahan Daging Ekstrem, Sate & Bakso Viral",
+  "name": "Sate & Tongseng Pak H. Budi (Solo)",
+  "excerpt_id": "Rumah makan tongseng dan sate kambing legendaris kaya rempah yang mempertahankan resep rahasia asli Solo sejak tahun 1985.",
+  "excerpt": "A legendary lamb tongseng and satay eatery rich in herbs, strictly preserving its secret authentic Solo heritage recipe since 1985."
+ },
+ {
+  "id": "bandar-djakarta-bekasi",
+  "no": "16",
+  "category": "Restoran Keluarga Premium & Seafood",
+  "name": "Bandar Djakarta Bekasi",
+  "excerpt_id": "Restoran seafood terbesar berkonsep pasar ikan hidup terapung di mana pengunjung bisa memilih langsung komoditas laut segar dari akuarium.",
+  "excerpt": "The largest seafood restaurant utilizing a floating live fish market concept where diners can handpick fresh marine catches directly from aquariums."
+ },
+ {
+  "id": "aroem-resto-cafe-bekasi",
+  "no": "17",
+  "category": "Restoran Keluarga Premium & Seafood",
+  "name": "Aroem Resto & Cafe Bekasi",
+  "excerpt_id": "Restoran gastronomi premium yang menyajikan menu Nusantara kelas atas berlatar pemandangan langsung ke tepi danau BCBD Summarecon.",
+  "excerpt": "A premium gastronomy restaurant serving upscale Indonesian dishes set against a direct scenic backdrop of the Summarecon BCBD lakeside view."
+ },
+ {
+  "id": "amanaia-grand-kota-bintang-ex-talaga-sampireun",
+  "no": "18",
+  "category": "Restoran Keluarga Premium & Seafood",
+  "name": "Amanaia Grand Kota Bintang (Ex Talaga Sampireun)",
+  "excerpt_id": "Destinasi kuliner keluarga premium di tepi danau buatan indah dengan bangunan arsitektur modern beratap tinggi yang megah.",
+  "excerpt": "A premium family culinary destination nestled on the edges of a scenic artificial lake, boasting a grand modern high-ceilinged architecture."
+ },
+ {
+  "id": "seribu-rasa-summarecon-bekasi",
+  "no": "19",
+  "category": "Restoran Keluarga Premium & Seafood",
+  "name": "Seribu Rasa Summarecon Bekasi",
+  "excerpt_id": "Restoran bersuasana elegan dan luks yang mengusung menu mahakarya kuliner Asia dan Nusantara kelas atas untuk perjamuan formal.",
+  "excerpt": "An elegant and luxurious dining venue presenting high-end Asian and Indonesian culinary masterpieces tailored for formal banquets."
+ },
+ {
+  "id": "double-u-steak-by-chef-widhi",
+  "no": "20",
+  "category": "Restoran Keluarga Premium & Seafood",
+  "name": "Double U Steak by Chef Widhi",
+  "excerpt_id": "Restoran steak berkualitas premium buatan koki selebritas dengan saus racikan sendiri bergaya industrial urban yang nyaman.",
+  "excerpt": "A premium-quality steakhouse curated by a celebrity chef, featuring signature homemade sauces within a cozy urban industrial-themed room."
+ },
+ {
+  "id": "makan-bawah-pohon-jatisampurna",
+  "no": "21",
+  "category": "Restoran Kebun Terbuka & Ramah Anak (Nature)",
+  "name": "MAKAN BAWAH POHON (Jatisampurna)",
+  "excerpt_id": "Kuliner masakan rumahan asri berlatar kebun teduh dengan fasilitas playground anak yang luas, ideal untuk piknik keluarga.",
+  "excerpt": "A lush home-cooked culinary spot set in a shaded garden with a spacious children's playground area, ideal for relaxed family picnics."
+ },
+ {
+  "id": "tsamara-resto-creative-space",
+  "no": "22",
+  "category": "Restoran Kebun Terbuka & Ramah Anak (Nature)",
+  "name": "Tsamara Resto & Creative Space",
+  "excerpt_id": "Konsep restoran kebun tropis estetik unik yang menawarkan fasilitas bersantap dalam tenda piknik modern di atas rumput hijau.",
+  "excerpt": "A uniquely aesthetic tropical garden restaurant concept offering modern dining experiences inside picnic tents on pristine green lawns."
+ },
+ {
+  "id": "sauciko-saung-cikunir-kopi",
+  "no": "23",
+  "category": "Restoran Kebun Terbuka & Ramah Anak (Nature)",
+  "name": "Sauciko (Saung Cikunir Kopi)",
+  "excerpt_id": "Tempat bersantap semi-outdoor di bawah bangunan atap rumbia tepi perairan tenang, menyajikan harmoni alam yang menenangkan jiwa.",
+  "excerpt": "A semi-outdoor dining venue under thatched roofs on the edge of calm waters, serving a peaceful nature harmony that relaxes the soul."
+ },
+ {
+  "id": "tapak-djati-bekasi-mustikajaya",
+  "no": "24",
+  "category": "Restoran Kebun Terbuka & Ramah Anak (Nature)",
+  "name": "Tapak Djati Bekasi (Mustikajaya)",
+  "excerpt_id": "Rumah makan keluarga bertema kompleks joglo kebun tradisional jawa kuno yang rindang, luas, dan ramah rombongan besar.",
+  "excerpt": "A family eatery themed as a shaded, vast traditional Javanese joglo garden compound that is highly welcoming for large group gatherings."
+ },
+ {
+  "id": "omah-anglo-bekasi-jakasampurna",
+  "no": "25",
+  "category": "Restoran Kebun Terbuka & Ramah Anak (Nature)",
+  "name": "Omah Anglo Bekasi (Jakasampurna)",
+  "excerpt_id": "Rumah makan tradisional penyedia kuliner bakmi jawa otentik yang dimasak menggunakan metode tungku arang tradisional beraroma khas.",
+  "excerpt": "A traditional dining house serving authentic Javanese noodles slow-cooked over heritage charcoal clay stoves for a distinct smoky aroma."
+ },
+ {
+  "id": "koma-junkyard",
+  "no": "26",
+  "category": "Kafe Estetik & Tempat Nongkrong Hits Urban",
+  "name": "Koma Junkyard",
+  "excerpt_id": "Kafe luar ruangan artistik yang memanfaatkan barang-barang antik bekas daur ulang menjadi dekorasi estetik instagramable beriring live music.",
+  "excerpt": "An artistic outdoor cafe utilizing upcycled vintage scraps into aesthetic, instagrammable decors accompanied by live music entertainment."
+ },
+ {
+  "id": "little-korea-grand-galaxy",
+  "no": "27",
+  "category": "Kafe Estetik & Tempat Nongkrong Hits Urban",
+  "name": "Little Korea Grand Galaxy",
+  "excerpt_id": "Pusat kuliner jajanan kaki lima bertema estetik warna-warni cerah yang mengadopsi atmosfer distrik street food populer di Kota Seoul.",
+  "excerpt": "A culinary enclave of street food snacks sporting bright, colorful layouts that capture the lively atmosphere of Seoul's popular food districts."
+ },
+ {
+  "id": "",
+  "no": "| 28 | Kafe Estetik & Tempat Nongkrong Hits Urban | Warung Kue Pancong Balap (Pekayon) | Kedai kue tradisional pancong lumer setengah matang legendaris idola pencinta jajanan manis malam hari berharga sangat bersahabat. | A legendary half-cooked molten traditional pancong cake stall, serving as a sweet tooth hotspot for night snacks at friendly prices. |",
+  "category": "",
+  "name": "",
+  "excerpt_id": "",
+  "excerpt": ""
+ },
+ {
+  "id": "",
+  "no": "| 29 | Kafe Estetik & Tempat Nongkrong Hits Urban | Gudang Rottie (Jatibening) | Toko roti artisanal legendaris bergaya eropa klasik penyedia sarapan roti gandum sehat dan seduhan kopi hitam hangat. | A legendary artisanal bakery boasting a vintage classic European layout, serving healthy wheat breads and warm brewed black coffee. |",
+  "category": "",
+  "name": "",
+  "excerpt_id": "",
+  "excerpt": ""
+ },
+ {
+  "id": "",
+  "no": "| 30 | Kafe Estetik & Tempat Nongkrong Hits Urban | The Summer House (SMB 2) | Restoran berdesain modern tropis semi-outdoor di dalam kawasan mal premium, tempat favorit berkumpul akhir pekan yang elegan. | A modern tropical semi-outdoor restaurant set within a premium mall quarter, operating as a favorite spot for elegant weekend gatherings. |",
+  "category": "",
+  "name": "",
+  "excerpt_id": "",
+  "excerpt": ""
+ }
+]

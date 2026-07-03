@@ -1,0 +1,98 @@
+[
+ {
+  "id": "jatimulya-station",
+  "mode": "LRT Jabodebek",
+  "name_id": "Stasiun Jatimulya",
+  "name": "Jatimulya Station",
+  "excerpt_id": "Stasiun terminus akhir Lin Bekasi yang modern, dilengkapi dengan area depo kereta besar dan fasilitas parkir luas (park and ride).",
+  "excerpt": "The final terminus station of the Bekasi Line, modernly equipped with a large train depot and extensive park-and-ride facilities."
+ },
+ {
+  "id": "bekasi-barat-station",
+  "mode": "LRT Jabodebek",
+  "name_id": "Stasiun Bekasi Barat",
+  "name": "Bekasi Barat Station",
+  "excerpt_id": "Stasiun layang strategis yang terhubung langsung melalui jembatan penyeberangan (skybridge) ke pusat perbelanjaan Revo Mall.",
+  "excerpt": "A strategic elevated station directly connected via a pedestrian skybridge to the Revo Mall shopping center."
+ },
+ {
+  "id": "cikunir-ii-station",
+  "mode": "LRT Jabodebek",
+  "name_id": "Stasiun Cikunir II",
+  "name": "Cikunir II Station",
+  "excerpt_id": "Stasiun modern yang melayani area pemukiman padat penduduk di sekitar Cikunir dan Jatiasih, memudahkan mobilitas komuter urban.",
+  "excerpt": "A modern station serving the densely populated residential areas around Cikunir and Jatiasih, easing urban commuter mobility."
+ },
+ {
+  "id": "cikunir-i-station",
+  "mode": "LRT Jabodebek",
+  "name_id": "Stasiun Cikunir I",
+  "name": "Cikunir I Station",
+  "excerpt_id": "Stasiun layang canggih yang mempermudah akses transportasi massal bagi warga yang tinggal di perbatasan Jatibening dan Jaka Sampurna.",
+  "excerpt": "An advanced elevated station facilitating mass transit access for residents living on the borders of Jatibening and Jaka Sampurna."
+ },
+ {
+  "id": "jatibening-baru-station",
+  "mode": "LRT Jabodebek",
+  "name_id": "Stasiun Jatibening Baru",
+  "name": "Jatibening Baru Station",
+  "excerpt_id": "Stasiun LRT pertama yang memasuki wilayah Bekasi dari arah Jakarta, menjadi hub transit penting bagi warga perumahan Jatibening.",
+  "excerpt": "The first LRT station entering the Bekasi region from Jakarta, serving as an important transit hub for Jatibening residents."
+ },
+ {
+  "id": "bekasi-station",
+  "mode": "KRL Commuter Line",
+  "name_id": "Stasiun Bekasi",
+  "name": "Bekasi Station",
+  "excerpt_id": "Stasiun kota utama Tipe A yang telah direvitalisasi menjadi bangunan megah dua lantai, lengkap dengan eskalator, lift, dan area komersial.",
+  "excerpt": "A Type-A main city station revitalized into a grand two-story building, fully equipped with escalators, elevators, and commercial areas."
+ },
+ {
+  "id": "bekasi-timur-station",
+  "mode": "KRL Commuter Line",
+  "name_id": "Stasiun Bekasi Timur",
+  "name": "Bekasi Timur Station",
+  "excerpt_id": "Stasiun modern ramah disabilitas yang terintegrasi langsung dengan Terminal Bus Induk Bekasi untuk kemudahan transit antarmoda.",
+  "excerpt": "A modern, disability-friendly station directly integrated with the Bekasi Central Bus Terminal for easy intermodal transit."
+ },
+ {
+  "id": "kranji-station",
+  "mode": "KRL Commuter Line",
+  "name_id": "Stasiun Kranji",
+  "name": "Kranji Station",
+  "excerpt_id": "Stasiun komuter modern di perbatasan Jakarta-Bekasi yang memudahkan akses menuju pasar tradisional dan sentra industri kreatif Kranji.",
+  "excerpt": "A modern commuter station on the Jakarta-Bekasi border easing access to traditional markets and the Kranji creative industry center."
+ },
+ {
+  "id": "biskita-trans-bekasi-patriot",
+  "mode": "Bus Rapid Transit (BRT)",
+  "name_id": "BisKita Trans Bekasi Patriot",
+  "name": "BisKita Trans Bekasi Patriot",
+  "excerpt_id": "Layanan bus medium modern dengan sistem AC, pembayaran nontunai, dan skema ramah turis yang menghubungkan Summarecon ke Vida.",
+  "excerpt": "A modern medium bus service featuring AC, cashless payments, and a tourist-friendly scheme connecting Summarecon to Vida."
+ },
+ {
+  "id": "trans-patriot-domestic-route",
+  "mode": "Bus Rapid Transit (BRT)",
+  "name_id": "Trans Patriot (Rute Domestik)",
+  "name": "Trans Patriot (Domestic Route)",
+  "excerpt_id": "Bus kota pelat merah yang berfungsi sebagai angkutan pengumpan (feeder) dari kawasan perumahan menuju stasiun kereta utama.",
+  "excerpt": "A municipally-owned city bus operating as a feeder transit service from residential areas to the main train stations."
+ },
+ {
+  "id": "transjakarta-border-royaltrans",
+  "mode": "Bus Rapid Transit (BRT)",
+  "name_id": "Transjakarta Perbatasan & Royaltrans",
+  "name": "Transjakarta Border & Royaltrans",
+  "excerpt_id": "Armada bus premium berfasilitas WiFi dan kursi nyaman yang menghubungkan jantung Kota Bekasi langsung ke pusat bisnis Jakarta.",
+  "excerpt": "A premium bus fleet featuring WiFi and comfortable seating that connects the heart of Bekasi City directly to Jakarta's CBD."
+ },
+ {
+  "id": "halim-station-border-access",
+  "mode": "Kereta Cepat Whoosh",
+  "name_id": "Stasiun Halim (Akses Perbatasan)",
+  "name": "Halim Station (Border Access)",
+  "excerpt_id": "Stasiun megah kereta cepat di perbatasan Bekasi Barat yang menghubungkan wilayah metropolitan ke Bandung hanya dalam 45 menit.",
+  "excerpt": "A grand high-speed rail station on the West Bekasi border connecting the metropolitan region to Bandung in just 45 minutes."
+ }
+]

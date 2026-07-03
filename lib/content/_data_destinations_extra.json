@@ -1,0 +1,702 @@
+[
+ {
+  "id": "summarecon-mall-bekasi",
+  "category_id": "Wisata Modern, Belanja & Hiburan",
+  "name_id": "Summarecon Mall Bekasi",
+  "name": "Summarecon Mall Bekasi",
+  "excerpt_id": "Pusat perbelanjaan modern terkemuka dengan area luar ruangan (The Downtown Walk).",
+  "excerpt": "Leading modern shopping center featuring a vibrant outdoor culinary and entertainment area (The Downtown Walk).",
+  "activities": "Belanja, wisata kuliner, menonton pertunjukan musik langsung.",
+  "access": "LRT Jabodebek (Stasiun Bekasi Barat) + Ojek Online"
+ },
+ {
+  "id": "trans-snow-world-juanda",
+  "category_id": "Wisata Modern, Belanja & Hiburan",
+  "name_id": "Trans Snow World Juanda",
+  "name": "Trans Snow World Juanda",
+  "excerpt_id": "Wahana rekreasi salju dalam ruangan terbesar di Indonesia dengan nuansa pegunungan Alpen.",
+  "excerpt": "The largest indoor snow theme park in Indonesia, designed with a Swiss Alps atmosphere.",
+  "activities": "Bermain salju, naik kereta gantung, bermain ski.",
+  "access": "KRL Commuter Line (Stasiun Bekasi Timur)"
+ },
+ {
+  "id": "grand-metropolitan-mall",
+  "category_id": "Wisata Modern, Belanja & Hiburan",
+  "name_id": "Grand Metropolitan Mall",
+  "name": "Grand Metropolitan Mall",
+  "excerpt_id": "Mal kelas atas dengan arsitektur modern dan pilihan gerai fesyen internasional.",
+  "excerpt": "High-end shopping mall with modern architecture and international fashion retail brands.",
+  "activities": "Belanja fesyen premium, wisata kuliner, hiburan keluarga.",
+  "access": "LRT Jabodebek (Stasiun Bekasi Barat)"
+ },
+ {
+  "id": "go-wet-waterpark-grand-wisata",
+  "category_id": "Wisata Modern, Belanja & Hiburan",
+  "name_id": "Go! Wet Waterpark Grand Wisata",
+  "name": "Go! Wet Waterpark Grand Wisata",
+  "excerpt_id": "Taman bermain air luas dengan berbagai seluncuran ekstrem berstandar internasional.",
+  "excerpt": "A massive waterpark featuring world-class extreme slides and family-friendly wave pools.",
+  "activities": "Bermain air, mencoba seluncuran ekstrem, bersantai di kolam arus.",
+  "access": "Akses Tol Jakarta-Cikampek (Keluar Tambun) / Kendaraan Pribadi"
+ },
+ {
+  "id": "megati-waterpark",
+  "category_id": "Wisata Modern, Belanja & Hiburan",
+  "name_id": "Megati Waterpark",
+  "name": "Megati Waterpark",
+  "excerpt_id": "Taman air bertema alam pedesaan yang ramah anak dan keluarga.",
+  "excerpt": "A rustic, countryside-themed waterpark perfect for kids and family weekend getaways.",
+  "activities": "Bermain air bersama anak, rekreasi keluarga.",
+  "access": "Angkutan Kota K17 / Kendaraan Pribadi"
+ },
+ {
+  "id": "lagoon-avenue-mall",
+  "category_id": "Wisata Modern, Belanja & Hiburan",
+  "name_id": "Lagoon Avenue Mall",
+  "name": "Lagoon Avenue Mall",
+  "excerpt_id": "Pusat perbelanjaan dengan konsep gaya hidup yang menyatu dengan pemandangan danau buatan.",
+  "excerpt": "A lifestyle-concept mall integrated beautifully with a scenic artificial lagoon waterfront.",
+  "activities": "Nongkrong di kafe tepi danau, berfoto estetis, belanja harian.",
+  "access": "LRT Jabodebek (Stasiun Jatiasih) + Ojek Online"
+ },
+ {
+  "id": "lamtoro-go-kart-circuit",
+  "category_id": "Wisata Modern, Belanja & Hiburan",
+  "name_id": "Sirkuit Gokart Lamtoro (Smb)",
+  "name": "Lamtoro Go-Kart Circuit",
+  "excerpt_id": "Arena balap gokart di area terbuka untuk menguji adrenalin pengunjung.",
+  "excerpt": "An outdoor go-kart racing arena providing an adrenaline-pumping experience for visitors.",
+  "activities": "Memacu adrenalin dengan bermain gokart bersama teman.",
+  "access": "LRT Jabodebek (Stasiun Bekasi Barat)"
+ },
+ {
+  "id": "columbus-waterplay",
+  "category_id": "Wisata Modern, Belanja & Hiburan",
+  "name_id": "Columbus Waterplay",
+  "name": "Columbus Waterplay",
+  "excerpt_id": "Taman bermain air bertema penjelajahan pelaut dunia Christopher Columbus.",
+  "excerpt": "A unique waterpark themed around the historic explorations of Christopher Columbus.",
+  "activities": "Bermain air di replika kapal bajak laut, wisata keluarga.",
+  "access": "KRL Commuter Line (Stasiun Bekasi) + Angkutan Kota"
+ },
+ {
+  "id": "revo-town-mall",
+  "category_id": "Wisata Modern, Belanja & Hiburan",
+  "name_id": "Revo Town Mall",
+  "name": "Revo Town Mall",
+  "excerpt_id": "Pusat perbelanjaan yang terintegrasi langsung dengan stasiun LRT, menawarkan wisata belanja hemat.",
+  "excerpt": "A transit-oriented shopping center directly connected to the LRT station, popular for budget shopping.",
+  "activities": "Belanja tekstil, akses langsung ke wahana hiburan dalam ruangan.",
+  "access": "LRT Jabodebek (Stasiun Bekasi Barat - Terkoneksi Langsung)"
+ },
+ {
+  "id": "the-downtown-walk",
+  "category_id": "Wisata Modern, Belanja & Hiburan",
+  "name_id": "Downtown Walk (Smb)",
+  "name": "The Downtown Walk",
+  "excerpt_id": "Pusat kuliner dan hiburan malam dengan panggung musik terbuka di dalam area mal.",
+  "excerpt": "An open-air culinary and nightlife alfresco spot featuring daily live music performances.",
+  "activities": "Wisata kuliner malam, menikmati live music, nongkrong.",
+  "access": "LRT Jabodebek (Stasiun Bekasi Barat)"
+ },
+ {
+  "id": "gedung-juang-45-digital-museum",
+  "category_id": "Wisata Sejarah & Edukasi",
+  "name_id": "Gedung Juang 45 (Museum Digital)",
+  "name": "Gedung Juang 45 (Digital Museum)",
+  "excerpt_id": "Situs sejarah perjuangan yang kini diubah menjadi museum berbasis digital interaktif modern.",
+  "excerpt": "A historic revolutionary site fully transformed into a state-of-the-art interactive digital museum.",
+  "activities": "Belajar sejarah Bekasi lewat layar sentuh dan animasi visual.",
+  "access": "KRL Commuter Line (Stasiun Tambun - Berseberangan)"
+ },
+ {
+  "id": "hok-lay-kiong-temple",
+  "category_id": "Wisata Sejarah & Edukasi",
+  "name_id": "Klenteng Hok Lay Kiong",
+  "name": "Hok Lay Kiong Temple",
+  "excerpt_id": "Klenteng tertua di Bekasi yang menjadi simbol toleransi dan sejarah panjang komunitas Tionghoa.",
+  "excerpt": "The oldest Taoist temple in Bekasi, standing as a living symbol of cultural tolerance and heritage.",
+  "activities": "Wisata budaya, fotografi arsitektur sejarah, belajar akulturasi.",
+  "access": "KRL Commuter Line (Stasiun Bekasi) + Ojek Online"
+ },
+ {
+  "id": "al-barkah-grand-mosque",
+  "category_id": "Wisata Sejarah & Edukasi",
+  "name_id": "Masjid Al-Barkah Bekasi",
+  "name": "Al-Barkah Grand Mosque",
+  "excerpt_id": "Masjid agung bersejarah di pusat kota dengan arsitektur bergaya Timur Tengah yang megah.",
+  "excerpt": "A historic and majestic grand mosque in the town center showcasing Middle Eastern architecture.",
+  "activities": "Wisata religi, beribadah, mengagumi arsitektur bangunan Islam.",
+  "access": "KRL Commuter Line (Stasiun Bekasi)"
+ },
+ {
+  "id": "sumur-binong-historic-site",
+  "category_id": "Wisata Sejarah & Edukasi",
+  "name_id": "Situs Sumur Binong",
+  "name": "Sumur Binong Historic Site",
+  "excerpt_id": "Situs keramat bersejarah yang dipercaya sebagai peninggalan penyebar agama Islam terdahulu.",
+  "excerpt": "A sacred historic well site linked to the early spread of Islamic heritage in the region.",
+  "activities": "Wisata ziarah, edukasi sejarah lokal tradisi lisan.",
+  "access": "Kendaraan Pribadi / Ojek Online (Kawasan Jatisampurna)"
+ },
+ {
+  "id": "kh-noer-ali-monument",
+  "category_id": "Wisata Sejarah & Edukasi",
+  "name_id": "Tugu Perjuangan KH Noer Ali",
+  "name": "KH Noer Ali Monument",
+  "excerpt_id": "Monumen peringatan pahlawan nasional asal Bekasi yang memimpin revolusi rakyat.",
+  "excerpt": "A memorial monument dedicated to Bekasi's national hero who led the local revolutionary war.",
+  "activities": "Edukasi sejarah kepahlawanan lokal, berfoto di landmark kota.",
+  "access": "KRL Commuter Line (Stasiun Bekasi) + Angkutan Kota"
+ },
+ {
+  "id": "patriot-candrabhaga-museum",
+  "category_id": "Wisata Sejarah & Edukasi",
+  "name_id": "Museum Patriot Candrabhaga",
+  "name": "Patriot Candrabhaga Museum",
+  "excerpt_id": "Museum kecil di dalam kawasan stadion yang menyimpan arsip olahraga dan sejarah daerah.",
+  "excerpt": "A specialized museum located inside the stadium complex, archiving regional sports and civic history.",
+  "activities": "Melihat koleksi sejarah olahraga dan perkembangan administrasi kota.",
+  "access": "KRL Commuter Line (Stasiun Bekasi) / LRT (Bekasi Barat)"
+ },
+ {
+  "id": "kh-noer-ali-heros-cemetery",
+  "category_id": "Wisata Sejarah & Edukasi",
+  "name_id": "Makam Pahlawan KH Noer Ali",
+  "name": "KH Noer Ali Hero's Cemetery",
+  "excerpt_id": "Kompleks pemakaman dan pesantren peninggalan sang pahlawan nasional nasional asal Bekasi.",
+  "excerpt": "The final resting place of Bekasi's national hero, situated within a historic Islamic boarding school.",
+  "activities": "Wisata religi, ziarah tokoh sejarah, edukasi kepesantrenan.",
+  "access": "Kendaraan Pribadi ke Pondok Ungu Permai"
+ },
+ {
+  "id": "st-clara-catholic-church",
+  "category_id": "Wisata Sejarah & Edukasi",
+  "name_id": "Gereja Katolik St. Clara",
+  "name": "St. Clara Catholic Church",
+  "excerpt_id": "Rumah ibadah modern yang arsitekturnya memenangkan penghargaan integrasi lingkungan sosial.",
+  "excerpt": "A modern house of worship recognized for its architectural integration and social harmony.",
+  "activities": "Studi toleransi antarumat beragama, mengagumi desain gedung.",
+  "access": "KRL Commuter Line (Stasiun Bekasi Timur) + Ojek Online"
+ },
+ {
+  "id": "bekasi-peoples-resolution-monument",
+  "category_id": "Wisata Sejarah & Edukasi",
+  "name_id": "Tugu Resolusi Rakyat Bekasi",
+  "name": "Bekasi People's Resolution Monument",
+  "excerpt_id": "Monumen sejarah yang menandai tuntutan rakyat Bekasi kembali ke NKRI pada tahun 1950.",
+  "excerpt": "A historical monument marking the 1950 public demand of Bekasi citizens to rejoin the unitary state.",
+  "activities": "Belajar sejarah politik kemerdekaan Indonesia pasca-1945.",
+  "access": "KRL Commuter Line (Stasiun Bekasi)"
+ },
+ {
+  "id": "attaqwa-central-islamic-boarding-school",
+  "category_id": "Wisata Sejarah & Edukasi",
+  "name_id": "Pondok Pesantren Attaqwa Pusat",
+  "name": "Attaqwa Central Islamic Boarding School",
+  "excerpt_id": "Pusat edukasi Islam legendaris yang didirikan oleh pahlawan nasional sejak era kolonial.",
+  "excerpt": "A legendary Islamic educational center founded by a national hero during the colonial era.",
+  "activities": "Wisata religi, napak tilas perjuangan ulama pejuang.",
+  "access": "Kendaraan Pribadi / Angkutan Kota arah Babelan"
+ },
+ {
+  "id": "patriot-bina-bangsa-urban-forest",
+  "category_id": "Wisata Alam & Ruang Terbuka Hijau",
+  "name_id": "Hutan Kota Patriot Bina Bangsa",
+  "name": "Patriot Bina Bangsa Urban Forest",
+  "excerpt_id": "Paru-paru kota Bekasi yang luas, asri, dan menjadi pusat kegiatan luar ruangan masyarakat.",
+  "excerpt": "The city's main green lung, offering shaded walking paths, cycling lanes, and deer enclosures.",
+  "activities": "Piknik, jalan santai, bersepeda, mengamati penangkaran rusa.",
+  "access": "KRL Commuter Line (Stasiun Bekasi)"
+ },
+ {
+  "id": "parigi-waterfall",
+  "category_id": "Wisata Alam & Ruang Terbuka Hijau",
+  "name_id": "Curug Parigi",
+  "name": "Parigi Waterfall",
+  "excerpt_id": "Air terjun melebar yang eksotis dan sering disebut sebagai Niagara Mini dari Bekasi.",
+  "excerpt": "A wide, exotic low-drop waterfall often affectionately dubbed as Bekasi's Mini Niagara.",
+  "activities": "Fotografi alam, menikmati pemandangan aliran air sungai.",
+  "access": "Kendaraan Pribadi / Akses Tol Jatiasih arah Bantargebang"
+ },
+ {
+  "id": "situ-gede-lake",
+  "category_id": "Wisata Alam & Ruang Terbuka Hijau",
+  "name_id": "Situ Gede Bekasi",
+  "name": "Situ Gede Lake",
+  "excerpt_id": "Danau alami di kawasan Bojong Menteng yang menawarkan ketenangan di tengah kota.",
+  "excerpt": "A serene natural lake in Bojong Menteng providing a peaceful getaway from urban busyness.",
+  "activities": "Menaiki perahu rakit, memancing, menikmati suasana sore hari.",
+  "access": "Kendaraan Pribadi / Ojek Online dari Rawalumbu"
+ },
+ {
+  "id": "marakash-lake",
+  "category_id": "Wisata Alam & Ruang Terbuka Hijau",
+  "name_id": "Danau Marakash",
+  "name": "Marakash Lake",
+  "excerpt_id": "Danau buatan yang berkembang menjadi pusat kuliner malam dan rekreasi air warga.",
+  "excerpt": "A popular artificial lake transformed into a vibrant evening culinary hub and family recreation spot.",
+  "activities": "Menyewa bebek air, mencicipi jajanan kaki lima pinggir danau.",
+  "access": "Kendaraan Pribadi / Angkutan Kota ke arah Pondok Ungu"
+ },
+ {
+  "id": "kemang-pratama-park",
+  "category_id": "Wisata Alam & Ruang Terbuka Hijau",
+  "name_id": "Taman Kemang Pratama",
+  "name": "Kemang Pratama Park",
+  "excerpt_id": "Taman hijau di dalam perumahan elite yang memiliki penangkaran satwa mini gratis.",
+  "excerpt": "A manicured residential green park featuring a free-access mini zoo with deer and birds.",
+  "activities": "Melihat rusa dan satwa kecil, membawa anak bermain di taman.",
+  "access": "KRL Commuter Line (Stasiun Bekasi) + Ojek Online"
+ },
+ {
+  "id": "bekasi-bamboo-forest",
+  "category_id": "Wisata Alam & Ruang Terbuka Hijau",
+  "name_id": "Hutan Bambu Bekasi",
+  "name": "Bekasi Bamboo Forest",
+  "excerpt_id": "Kawasan konservasi pinggir Kali Bekasi yang disulap menjadi objek wisata alam kreatif.",
+  "excerpt": "A creative riverside conservation park featuring bamboo suspension bridges and boat rides.",
+  "activities": "Menyeberang jembatan gantung bambu, berfoto, menyusuri sungai dengan perahu.",
+  "access": "KRL Commuter Line (Stasiun Bekasi Timur) + Ojek Online"
+ },
+ {
+  "id": "city-hall-deer-park",
+  "category_id": "Wisata Alam & Ruang Terbuka Hijau",
+  "name_id": "Taman Rusa Gedung Walikota",
+  "name": "City Hall Deer Park",
+  "excerpt_id": "Taman terbuka di lingkungan kantor walikota yang memiliki penangkaran rusa totol.",
+  "excerpt": "A public-access park located inside the Mayor's office complex, home to a flock of spotted deer.",
+  "activities": "Memberi makan rusa, bersantai di bawah pepohonan rindang.",
+  "access": "KRL Commuter Line (Stasiun Bekasi)"
+ },
+ {
+  "id": "summarecon-bekasi-lake",
+  "category_id": "Wisata Alam & Ruang Terbuka Hijau",
+  "name_id": "Danau Summarecon Bekasi",
+  "name": "Summarecon Bekasi Lake",
+  "excerpt_id": "Danau buatan estetis di tengah kawasan modern yang menjadi habitat kawanan angsa.",
+  "excerpt": "A modern, scenic artificial lake featuring swan habitats, popular for evening jogging.",
+  "activities": "Jogging sore, memberi makan angsa, menikmati pemandangan kota modern.",
+  "access": "LRT Jabodebek (Stasiun Bekasi Barat)"
+ },
+ {
+  "id": "galaxy-park-jatiasih",
+  "category_id": "Wisata Alam & Ruang Terbuka Hijau",
+  "name_id": "Taman Galaxy Jatiasih",
+  "name": "Galaxy Park Jatiasih",
+  "excerpt_id": "Taman kota tematik mini yang dikelilingi oleh jajaran kafe kekinian.",
+  "excerpt": "A vibrant neighborhood micro-park surrounded by trendy modern cafes and eateries.",
+  "activities": "Olahraga ringan, nongkrong di ruang terbuka hijau.",
+  "access": "LRT Jabodebek (Stasiun Jatiasih) + Ojek Online"
+ },
+ {
+  "id": "cibeureum-lake",
+  "category_id": "Wisata Alam & Ruang Terbuka Hijau",
+  "name_id": "Situ Cibeureum (Perbatasan)",
+  "name": "Cibeureum Lake",
+  "excerpt_id": "Danau alami luas dengan pulau kecil di tengahnya, populer bagi komunitas bersepeda.",
+  "excerpt": "A massive natural lake with a small center island, highly popular among local cycling communities.",
+  "activities": "Bersepeda santai, berburu foto matahari terbenam.",
+  "access": "Kendaraan Pribadi ke arah Grand Wisata Tambun"
+ },
+ {
+  "id": "kranggan-cultural-village",
+  "category_id": "Wisata Budaya & Kampung Tematik",
+  "name_id": "Kampung Adat Kranggan",
+  "name": "Kranggan Cultural Village",
+  "excerpt_id": "Kampung yang masih melestarikan arsitektur rumah kuno dan tradisi luhur Sunda-Betawi.",
+  "excerpt": "A traditional hamlet preservation maintaining ancient stilt houses and unique Sunda-Betawi customs.",
+  "activities": "Melihat rumah panggung kuno, mempelajari upacara adat Babarit.",
+  "access": "Kendaraan Pribadi via Tol Jatikarya"
+ },
+ {
+  "id": "kampung-bali-bekasi",
+  "category_id": "Wisata Budaya & Kampung Tematik",
+  "name_id": "Kampung Bali Bekasi",
+  "name": "Kampung Bali Bekasi",
+  "excerpt_id": "Pemukiman warga berpakaian dan berarsitektur khas Bali yang hidup rukun di tengah kota.",
+  "excerpt": "A unique residential neighborhood featuring authentic Balinese architecture and community living.",
+  "activities": "Fotografi arsitektur gapura pura, belajar toleransi budaya unik.",
+  "access": "KRL Commuter Line (Stasiun Bekasi) + Ojek Online"
+ },
+ {
+  "id": "bekasi-batik-center-kranji",
+  "category_id": "Wisata Budaya & Kampung Tematik",
+  "name_id": "Sentra Batik Bekasi (Kranji)",
+  "name": "Bekasi Batik Center (Kranji)",
+  "excerpt_id": "Pusat produksi dan galeri seni kerajinan kain Batik khas bermotif ikon kota Bekasi.",
+  "excerpt": "A production hub and gallery showcasing signature Bekasi textiles with local icon motifs.",
+  "activities": "Belajar membatik, membeli oleh-oleh kain batik motif lokal.",
+  "access": "KRL Commuter Line (Stasiun Kranji)"
+ },
+ {
+  "id": "bekasi-wayang-village",
+  "category_id": "Wisata Budaya & Kampung Tematik",
+  "name_id": "Kampung Wayang Bekasi",
+  "name": "Bekasi Wayang Village",
+  "excerpt_id": "Komunitas pelestari kesenian wayang golek purwa yang masih aktif melatih generasi muda.",
+  "excerpt": "A cultural community hub dedicated to preserving the traditional West Javanese puppet theater.",
+  "activities": "Menonton pembuatan wayang golek, belajar dasar mendalang.",
+  "access": "Kendaraan Pribadi / Ojek Online ke Sukawangi"
+ },
+ {
+  "id": "bekasi-mask-dance-studio",
+  "category_id": "Wisata Budaya & Kampung Tematik",
+  "name_id": "Sanggar Tari Topeng Bekasi",
+  "name": "Bekasi Mask Dance Studio",
+  "excerpt_id": "Pusat latihan tari tradisional Topeng Bekasi yang memiliki karakteristik gerakan dinamis.",
+  "excerpt": "A traditional studio teaching the unique, dynamic Bekasi-style traditional mask dance.",
+  "activities": "Menonton latihan tari, mempelajari sejarah seni tari akulturasi.",
+  "access": "KRL Commuter Line (Stasiun Bekasi Timur)"
+ },
+ {
+  "id": "gabus-pucung-culinary-village",
+  "category_id": "Wisata Budaya & Kampung Tematik",
+  "name_id": "Kampung Gabus Pucung",
+  "name": "Gabus Pucung Culinary Village",
+  "excerpt_id": "Kawasan kuliner legendaris tempat berkumpulnya warung otentik sayur gabus pucung.",
+  "excerpt": "A designated culinary area housing traditional diners specializing in the black-broth fish dish.",
+  "activities": "Wisata kuliner kuliner khas, berinteraksi dengan koki lokal.",
+  "access": "Kendaraan Pribadi ke arah Rawalumbu / Tambun"
+ },
+ {
+  "id": "bekasi-cultural-center",
+  "category_id": "Wisata Budaya & Kampung Tematik",
+  "name_id": "Taman Budaya Bekasi",
+  "name": "Bekasi Cultural Center",
+  "excerpt_id": "Gedung kesenian tempat seniman lokal mementaskan teater, musik tradisional, dan sastra.",
+  "excerpt": "A public art facility hosting local theatrical plays, traditional music, and literary events.",
+  "activities": "Menonton pertunjukan seni berkala, diskusi kebudayaan daerah.",
+  "access": "KRL Commuter Line (Stasiun Bekasi Timur)"
+ },
+ {
+  "id": "jembatan-enam-silat-village",
+  "category_id": "Wisata Budaya & Kampung Tematik",
+  "name_id": "Kampung Silat Jembatan Enam",
+  "name": "Jembatan Enam Silat Village",
+  "excerpt_id": "Sentra berkumpulnya perguruan silat tradisional beraliran Betawi Bekasi.",
+  "excerpt": "A traditional martial arts enclave cultivating the local Betawi-Bekasi style of Pencak Silat.",
+  "activities": "Melihat demonstrasi jurus silat tradisional, belajar beladiri lokal.",
+  "access": "Kendaraan Pribadi / Ojek Online ke Bekasi Utara"
+ },
+ {
+  "id": "harapan-indah-modern-market",
+  "category_id": "Wisata Budaya & Kampung Tematik",
+  "name_id": "Pasar Modern Harapan Indah",
+  "name": "Harapan Indah Modern Market",
+  "excerpt_id": "Pasar bersih modern yang rutin menyelenggarakan festival makanan tradisional Nusantara.",
+  "excerpt": "A clean-concept modern market hosting regular traditional Indonesian food festivals.",
+  "activities": "Mencicipi jajanan pasar tradisional dari berbagai daerah.",
+  "access": "Bus Transjakarta arah Harapan Indah"
+ },
+ {
+  "id": "jatiasih-hydroponic-village",
+  "category_id": "Wisata Budaya & Kampung Tematik",
+  "name_id": "Kampung Hidroponik Jatiasih",
+  "name": "Jatiasih Hydroponic Village",
+  "excerpt_id": "Kampung kreatif perkotaan yang memanfaatkan lahan terbatas untuk pertanian organik digital.",
+  "excerpt": "An urban agricultural community utilizing smart hydroponics for sustainable green living.",
+  "activities": "Belajar metode bertani modern hidroponik, memetik sayur segar.",
+  "access": "LRT Jabodebek (Stasiun Jatiasih) + Ojek Online"
+ },
+ {
+  "id": "mm2100-smart-industrial-estate",
+  "category_id": "Wisata Industri & Sains-Teknologi",
+  "name_id": "Kawasan MM2100 Smart Industrial",
+  "name": "MM2100 Smart Industrial Estate",
+  "excerpt_id": "Kawasan industri modern berskala internasional yang menerapkan sistem teknologi pintar.",
+  "excerpt": "An international eco-industrial zone implementing integrated smart tech and robotic assembly.",
+  "activities": "Tur edukasi teknologi pengolahan industri manufaktur ramah lingkungan.",
+  "access": "Akses Tol Jakarta-Cikampek KM 21 / Shuttle Bus"
+ },
+ {
+  "id": "samsung-eco-factory-showroom",
+  "category_id": "Wisata Industri & Sains-Teknologi",
+  "name_id": "Samsung Eco-Factory Showroom",
+  "name": "Samsung Eco-Factory Showroom",
+  "excerpt_id": "Infrastruktur pabrik elektronik mutakhir yang menyediakan ruang pameran teknologi hijau.",
+  "excerpt": "A cutting-edge electronics assembly facility showcasing eco-friendly manufacturing technologies.",
+  "activities": "Melihat perakitan teknologi gadget masa kini secara otomatis oleh robot.",
+  "access": "Akses Kawasan Industri Cikarang-Bekasi"
+ },
+ {
+  "id": "bantargebang-waste-to-energy-facility",
+  "category_id": "Wisata Industri & Sains-Teknologi",
+  "name_id": "Pusat Pengolahan Energi Sampah Bantargebang",
+  "name": "Bantargebang Waste-to-Energy Facility",
+  "excerpt_id": "Situs fasilitas pengolahan sampah terbesar yang kini dilengkapi teknologi konversi energi gas.",
+  "excerpt": "The massive waste management site now utilizing modern technologies to convert gas to electricity.",
+  "activities": "Edukasi teknologi sanitasi modern dan konversi sampah menjadi listrik.",
+  "access": "Kendaraan Pribadi / Truk edukasi dari rute Bantargebang"
+ },
+ {
+  "id": "wuling-motors-automation-assembly",
+  "category_id": "Wisata Industri & Sains-Teknologi",
+  "name_id": "Wuling Motors Automation Assembly",
+  "name": "Wuling Motors Automation Assembly",
+  "excerpt_id": "Pabrik perakitan mobil listrik modern dengan teknologi robotika canggih industri 4.0.",
+  "excerpt": "A smart vehicle assembly plant showcasing high-precision automation and EV technologies.",
+  "activities": "Melihat proses perakitan mobil listrik pintar otomatis.",
+  "access": "Akses Tol Delta Mas / Kendaraan Pribadi"
+ },
+ {
+  "id": "cikarang-dry-port-digital-logistics-hub",
+  "category_id": "Wisata Industri & Sains-Teknologi",
+  "name_id": "Cikarang Dry Port (Hub Logistik Digital)",
+  "name": "Cikarang Dry Port (Digital Logistics Hub)",
+  "excerpt_id": "Pelabuhan darat pertama di Indonesia dengan sistem manajemen logistik berbasis cloud terpadu.",
+  "excerpt": "The first inland dry port in Indonesia running integrated cloud-based international supply chains.",
+  "activities": "Mempelajari alur perdagangan internasional digital jarak jauh.",
+  "access": "KRL Commuter Line (Stasiun Cikarang)"
+ },
+ {
+  "id": "sari-roti-automated-factory-tour",
+  "category_id": "Wisata Industri & Sains-Teknologi",
+  "name_id": "Sari Roti Automated Factory Tour",
+  "name": "Sari Roti Automated Factory Tour",
+  "excerpt_id": "Fasilitas produksi pangan modern berskala masif yang beroperasi tanpa sentuhan tangan.",
+  "excerpt": "A mass-scale modern food production plant running automated touchless bakery technologies.",
+  "activities": "Edukasi teknologi pangan higienis otomatis otomatis.",
+  "access": "Kawasan Industri MM2100"
+ },
+ {
+  "id": "ejip-techno-center",
+  "category_id": "Wisata Industri & Sains-Teknologi",
+  "name_id": "EJIP Techno Center",
+  "name": "EJIP Techno Center",
+  "excerpt_id": "Pusat kendali data dan pameran inovasi industri dari perusahaan Jepang di Bekasi.",
+  "excerpt": "An industrial innovation showcase arena tracking Japanese manufacturing tech advancements.",
+  "activities": "Melihat pameran purwarupa komponen elektronik masa depan.",
+  "access": "Kendaraan Pribadi ke Kawasan EJIP"
+ },
+ {
+  "id": "coca-cola-manufacturing-tour",
+  "category_id": "Wisata Industri & Sains-Teknologi",
+  "name_id": "Coca-Cola Euro-Pacific Amatil Tour",
+  "name": "Coca-Cola Manufacturing Tour",
+  "excerpt_id": "Pabrik minuman dengan teknologi lini pengemasan berkecepatan tinggi terbesar di Asia.",
+  "excerpt": "A mega-scale beverage plant operating high-speed automated bottling and distribution systems.",
+  "activities": "Belajar sistem otomasi pengemasan cairan skala masif.",
+  "access": "Akses Jalan Raya Sultan Agung KM 28"
+ },
+ {
+  "id": "cibatu-digital-substation",
+  "category_id": "Wisata Industri & Sains-Teknologi",
+  "name_id": "Substation PLN Digital Cibatu",
+  "name": "Cibatu Digital Substation",
+  "excerpt_id": "Gardu induk listrik canggih berbasis digital penuh yang menyuplai energi area urban.",
+  "excerpt": "An advanced fully-digitalized power substation securing smart grid distribution for urban areas.",
+  "activities": "Edukasi sistem keamanan distribusi energi pintar perkotaan.",
+  "access": "Kendaraan Pribadi via Tol Cibatu"
+ },
+ {
+  "id": "kalbe-farma-biotech-lab",
+  "category_id": "Wisata Industri & Sains-Teknologi",
+  "name_id": "Kalbe Farma Biotech Lab",
+  "name": "Kalbe Farma Biotech Lab",
+  "excerpt_id": "Laboratorium industri farmasi modern berbasis bioteknologi tinggi untuk obat masa depan.",
+  "excerpt": "A high-tech pharmaceutical facility showcasing advanced biotechnology and medical science.",
+  "activities": "Studi edukasi sains, melihat ruang steril berteknologi tinggi.",
+  "access": "Kawasan Industri Delta Silicon"
+ },
+ {
+  "id": "koma-junkyard",
+  "category_id": "Hub Kreatif & Budaya Sub-Urban",
+  "name_id": "Koma Junkyard",
+  "name": "Koma Junkyard",
+  "excerpt_id": "Kafe luar ruangan ikonik bertema daur ulang barang bekas menjadi instalasi seni estetik.",
+  "excerpt": "A famous creative outdoor eatery built using upcycled materials and unique art installations.",
+  "activities": "Kulineran malam, berfoto di spot seni daur ulang, live music.",
+  "access": "KRL Commuter Line (Stasiun Bekasi Timur)"
+ },
+ {
+  "id": "galaxy-creative-culinary-zone",
+  "category_id": "Hub Kreatif & Budaya Sub-Urban",
+  "name_id": "Kawasan Kuliner Galaxy",
+  "name": "Galaxy Creative Culinary Zone",
+  "excerpt_id": "Surganya tempat nongkrong anak muda Bekasi dengan ratusan kafe kreatif khusus kopi.",
+  "excerpt": "A trendy sub-urban district packing hundreds of independent artisan coffee shops and cafes.",
+  "activities": "Cafe hopping, mencicipi kopi racikan barista lokal, berdiskusi kreatif.",
+  "access": "LRT Jabodebek (Stasiun Bekasi Barat) + Ojek Online"
+ },
+ {
+  "id": "harapan-indah-creative-culinary",
+  "category_id": "Hub Kreatif & Budaya Sub-Urban",
+  "name_id": "Kawasan Harapan Indah Kuliner",
+  "name": "Harapan Indah Creative Culinary",
+  "excerpt_id": "Pusat distrik kuliner malam terbuka dengan panggung kreatif pertunjukan komunitas jalanan.",
+  "excerpt": "A spacious open culinary avenue that serves as a performance hub for suburban street artists.",
+  "activities": "Mencicipi makanan trendi, menonton pertunjukan komunitas seni sub-urban.",
+  "access": "Bus Transjakarta Koridor Harapan Indah"
+ },
+ {
+  "id": "kopi-kebon-bekasi",
+  "category_id": "Hub Kreatif & Budaya Sub-Urban",
+  "name_id": "Kopi Kebon Bekasi",
+  "name": "Kopi Kebon Bekasi",
+  "excerpt_id": "Kedai kopi berkonsep kebun alami tersembunyi di tengah pemukiman padat perkotaan.",
+  "excerpt": "A hidden-gem garden coffee shop providing a tranquil work-from-cafe sanctuary inside the city.",
+  "activities": "Nongkrong santai, bekerja jarak jauh (*WFC*), menikmati ketenangan alam.",
+  "access": "KRL Commuter Line (Stasiun Kranji) + Ojek Online"
+ },
+ {
+  "id": "kandank-jurank-doank",
+  "category_id": "Hub Kreatif & Budaya Sub-Urban",
+  "name_id": "Kandank Jurank Doank (Akses Dekat)",
+  "name": "Kandank Jurank Doank",
+  "excerpt_id": "Ruang kreativitas luar ruangan bagi anak-anak untuk belajar seni tari, lukis, dan teater alam.",
+  "excerpt": "An outdoor alternative creative school providing local kids with nature-based art classes.",
+  "activities": "Mengikuti kelas seni alam terbuka, outbound edukasi anak.",
+  "access": "Kendaraan Pribadi / Akses KRL Commuter Line"
+ },
+ {
+  "id": "x-track-atv-moto-adventure",
+  "category_id": "Hub Kreatif & Budaya Sub-Urban",
+  "name_id": "X-Track ATV & Moto-Adventure",
+  "name": "X-Track ATV & Moto-Adventure",
+  "excerpt_id": "Pusat komunitas penggemar olahraga petualangan motor trail dan ATV di trek tanah urban.",
+  "excerpt": "A sub-urban dirt arena catering to ATV and dirt bike enthusiasts looking for off-road actions.",
+  "activities": "Memacu adrenalin menyusuri trek tanah berpasir dengan kendaraan ATV.",
+  "access": "Kendaraan Pribadi ke Ruko Summarecon"
+ },
+ {
+  "id": "bekasi-cyber-park-gaming-hub",
+  "category_id": "Hub Kreatif & Budaya Sub-Urban",
+  "name_id": "Bekasi Cyber Park Gaming Hub",
+  "name": "Bekasi Cyber Park Gaming Hub",
+  "excerpt_id": "Pusat perbelanjaan IT yang memiliki arena turnamen khusus e-sports skala komunitas.",
+  "excerpt": "An IT mall featuring a dedicated community e-sports arena for local gaming tournaments.",
+  "activities": "Menonton kompetisi game online, membeli perlengkapan gawai teknologi modern.",
+  "access": "LRT Jabodebek (Stasiun Bekasi Barat)"
+ },
+ {
+  "id": "tsamara-resto-creative-space",
+  "category_id": "Hub Kreatif & Budaya Sub-Urban",
+  "name_id": "Tsamara Resto & Creative Space",
+  "name": "Tsamara Resto & Creative Space",
+  "excerpt_id": "Restoran berpiknik keluarga dengan halaman rumput luas untuk pameran seni digital atau pernikahan.",
+  "excerpt": "A spacious lawn restaurant hosting outdoor picnics, community events, and digital art fairs.",
+  "activities": "Piknik kuliner mewah, berfoto estetis, menghadiri acara komunitas luar ruangan.",
+  "access": "Kendaraan Pribadi via Tol Jatisampurna"
+ },
+ {
+  "id": "little-korea-grand-galaxy",
+  "category_id": "Hub Kreatif & Budaya Sub-Urban",
+  "name_id": "Little Korea Grand Galaxy",
+  "name": "Little Korea Grand Galaxy",
+  "excerpt_id": "Klaster kuliner jalanan yang mengadopsi suasana dan jenis kuliner populer Korea Selatan.",
+  "excerpt": "A themed culinary block adapting South Korean street food stalls and pop aesthetic trends.",
+  "activities": "Mencicipi makanan khas Korea, membuat konten video estetis media sosial.",
+  "access": "LRT Jabodebek (Stasiun Bekasi Barat)"
+ },
+ {
+  "id": "kali-bekasi-street-art-space",
+  "category_id": "Hub Kreatif & Budaya Sub-Urban",
+  "name_id": "Etalase Komunitas Seni Kali Bekasi",
+  "name": "Kali Bekasi Street Art Space",
+  "excerpt_id": "Ruang terbuka publik tempat komunitas seni lukis jalanan memamerkan mural edukasi.",
+  "excerpt": "An open public riverside walkway showcasing educational graffiti and social murals by locals.",
+  "activities": "Melihat galeri mural terbuka, berinteraksi dengan komunitas seni jalanan.",
+  "access": "KRL Commuter Line (Stasiun Bekasi)"
+ },
+ {
+  "id": "kh-noer-ali-summarecon-flyover",
+  "category_id": "Wisata Arsitektur & Landmark Urban",
+  "name_id": "Flyover KH Noer Ali Summarecon",
+  "name": "KH Noer Ali Summarecon Flyover",
+  "excerpt_id": "Jembatan layang megah tanpa tiang penyangga tengah dengan lampu hias atraktif warna-warni.",
+  "excerpt": "A majestic cable-stayed bridge with vibrant nocturnal LED lights, a prime urban photo spot.",
+  "activities": "Fotografi lanskap malam (*light trails*), menikmati keindahan tata kota.",
+  "access": "LRT Jabodebek (Stasiun Bekasi Barat)"
+ },
+ {
+  "id": "patriot-candrabhaga-stadium",
+  "category_id": "Wisata Arsitektur & Landmark Urban",
+  "name_id": "Stadion Patriot Candrabhaga",
+  "name": "Patriot Candrabhaga Stadium",
+  "excerpt_id": "Stadion olahraga megah berstandar internasional dengan fasad arsitektur berbentuk busur bambu runcing.",
+  "excerpt": "A world-class international sports stadium sporting a unique silhouette inspired by bamboo spears.",
+  "activities": "Fotografi arsitektur olahraga, olahraga pagi di luar area gedung.",
+  "access": "KRL Commuter Line (Stasiun Bekasi)"
+ },
+ {
+  "id": "the-inverted-pyramid-landmark",
+  "category_id": "Wisata Arsitektur & Landmark Urban",
+  "name_id": "Piramida Terbalik Summarecon",
+  "name": "The Inverted Pyramid Landmark",
+  "excerpt_id": "Landmark berbentuk struktur piramida terbalik kristal raksasa yang menyala di malam hari.",
+  "excerpt": "A massive glass-cladded inverted pyramid structure that glows beautifully after dark.",
+  "activities": "Fotografi arsitektur kontemporer, tempat berkumpul santai ikonik.",
+  "access": "LRT Jabodebek (Stasiun Bekasi Barat)"
+ },
+ {
+  "id": "bekasi-barat-lrt-station",
+  "category_id": "Wisata Arsitektur & Landmark Urban",
+  "name_id": "Stasiun LRT Bekasi Barat",
+  "name": "Bekasi Barat LRT Station",
+  "excerpt_id": "Stasiun kereta melayang modern dengan arsitektur futuristik yang terintegrasi jembatan penyeberangan langit (*skybridge*).",
+  "excerpt": "A futuristically designed elevated train station featuring integrated pedestrian skybridges.",
+  "activities": "Mencoba transportasi modern, fotografi arsitektur minimalis transportasi masa depan.",
+  "access": "Akses Langsung LRT Jabodebek"
+ },
+ {
+  "id": "grand-kamala-lagoon-bridge",
+  "category_id": "Wisata Arsitektur & Landmark Urban",
+  "name_id": "Jembatan Grand Kamala Lagoon",
+  "name": "Grand Kamala Lagoon Bridge",
+  "excerpt_id": "Jembatan dengan struktur lengkung modern artistik yang menjadi gerbang utama kawasan megablok.",
+  "excerpt": "An artistically curved structural bridge serving as an iconic entry gate to a high-rise block.",
+  "activities": "Fotografi arsitektur jalanan, berburu foto senja estetis kota satelit.",
+  "access": "Akses Tol Jakarta-Cikampek (Keluar Bekasi Barat)"
+ },
+ {
+  "id": "graha-pena-bekasi-building",
+  "category_id": "Wisata Arsitektur & Landmark Urban",
+  "name_id": "Gedung Graha Pena Bekasi",
+  "name": "Graha Pena Bekasi Building",
+  "excerpt_id": "Gedung perkantoran dengan desain eksterior menyerupai lembaran kertas koran modern.",
+  "excerpt": "A uniquely designed mid-rise corporate building mimicking the geometric folds of a newspaper.",
+  "activities": "Fotografi arsitektur gedung perkantoran unik perkotaan.",
+  "access": "Kendaraan Pribadi / Ojek Online ke arah Medansatria"
+ },
+ {
+  "id": "al-azhar-summarecon-mosque",
+  "category_id": "Wisata Arsitektur & Landmark Urban",
+  "name_id": "Masjid Raya Al-Azhar Summarecon",
+  "name": "Al-Azhar Summarecon Mosque",
+  "excerpt_id": "Masjid kontemporer tanpa kubah tradisional hasil karya arsitek Ridwan Kamil, sarat garis arsitektur tegas.",
+  "excerpt": "A stunning dome-less contemporary mosque designed with minimalist patterns and ventilation.",
+  "activities": "Wisata religi kontemporer, mempelajari estetika arsitektur bangunan minimalis tanpa kubah.",
+  "access": "LRT Jabodebek (Stasiun Bekasi Barat)"
+ },
+ {
+  "id": "grand-metropolitan-skybridge",
+  "category_id": "Wisata Arsitektur & Landmark Urban",
+  "name_id": "Skybridge Grand Metropolitan",
+  "name": "Grand Metropolitan Skybridge",
+  "excerpt_id": "Jembatan kaca futuristik layang tertutup yang menghubungkan dua bangunan pusat bisnis utama.",
+  "excerpt": "A fully-enclosed futurist indoor skybridge connecting multiple premium commercial towers.",
+  "activities": "Berjalan di jembatan penyeberangan estetis, berfoto bertema urban modern.",
+  "access": "LRT Jabodebek (Stasiun Bekasi Barat)"
+ },
+ {
+  "id": "the-sky-dance-roundabout-monument",
+  "category_id": "Wisata Arsitektur & Landmark Urban",
+  "name_id": "Bundaran Tarian Langit Harapan Indah",
+  "name": "The Sky Dance Roundabout Monument",
+  "excerpt_id": "Patung instalasi modern tinggi di pusat bundaran jalan utama kawasan mandiri.",
+  "excerpt": "A towering kinetic-style modern statue landmark welcoming visitors into the residential hub.",
+  "activities": "Fotografi monumen jalanan perkotaan ikonik di sore hari.",
+  "access": "Bus Transjakarta arah Harapan Indah"
+ },
+ {
+  "id": "bekasi-city-hall-modern-facade",
+  "category_id": "Wisata Arsitektur & Landmark Urban",
+  "name_id": "Gedung Walikota Bekasi (Fasad Baru)",
+  "name": "Bekasi City Hall Modern Facade",
+  "excerpt_id": "Kompleks bangunan pemerintahan dengan arsitektur fasad kaca modern minimalis terpadu.",
+  "excerpt": "A recently revamped public service building sporting clean glass panels and green technology.",
+  "activities": "Fotografi arsitektur gedung layanan publik digital modern masa kini.",
+  "access": "KRL Commuter Line (Stasiun Bekasi)"
+ }
+]

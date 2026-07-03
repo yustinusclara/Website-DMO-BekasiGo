@@ -1,0 +1,242 @@
+[
+ {
+  "id": "harris-hotel-conventions-bekasi",
+  "no": "1",
+  "category": "The Stay-and-Shop Hubs",
+  "name": "HARRIS Hotel & Conventions Bekasi",
+  "excerpt_id": "Hotel bintang 4 premium yang memiliki akses pintu koneksi langsung ke dalam Summarecon Mall Bekasi, menawarkan kenyamanan belanja tanpa macet.",
+  "excerpt": "A premium 4-star hotel featuring a direct indoor connecting door into Summarecon Mall Bekasi, offering traffic-free shopping convenience."
+ },
+ {
+  "id": "hotel-santika-mega-city-bekasi",
+  "no": "2",
+  "category": "The Stay-and-Shop Hubs",
+  "name": "Hotel Santika Mega City Bekasi",
+  "excerpt_id": "Penginapan ikonik yang unik karena dibangun tepat di atas rooftop lantai 5 Mega Bekasi Hypermall, diapit langsung oleh pintu Tol Bekasi Barat.",
+  "excerpt": "An iconic hotel uniquely built right on the 5th-floor rooftop of Mega Bekasi Hypermall, directly flanked by the West Bekasi Toll gates."
+ },
+ {
+  "id": "horison-ultima-bekasi",
+  "no": "3",
+  "category": "The Stay-and-Shop Hubs",
+  "name": "Horison Ultima Bekasi",
+  "excerpt_id": "Hotel bintang 4 legendaris di pusat kota yang menempel erat di samping Metropolitan Mall, menjadi tujuan favorit menginap para pejabat negara.",
+  "excerpt": "A legendary 4-star city center hotel closely attached to Metropolitan Mall, serving as a favorite accommodation choice for government officials."
+ },
+ {
+  "id": "aston-imperial-bekasi-hotel",
+  "no": "4",
+  "category": "The Stay-and-Shop Hubs",
+  "name": "Aston Imperial Bekasi Hotel",
+  "excerpt_id": "Hotel modern luks di samping Cyber Park yang terkenal dengan fasilitas kolam renang rooftop berpemandangan lanskap kota Bekasi 360 derajat.",
+  "excerpt": "A luxurious modern hotel next to Cyber Park, famous for its scenic rooftop swimming pool offering a 360-degree view of Bekasi's cityscape."
+ },
+ {
+  "id": "amaroossa-grande-bekasi",
+  "no": "5",
+  "category": "The Stay-and-Shop Hubs",
+  "name": "Amaroossa Grande Bekasi",
+  "excerpt_id": "Hotel boutique mewah berdesain interior megah serba emas yang terletak sangat strategis tepat di depan pintu keluar gerbang Tol Bekasi Barat.",
+  "excerpt": "A luxury boutique hotel boasting a grand gold-themed interior design, strategically located right in front of the West Bekasi Toll exit."
+ },
+ {
+  "id": "artotel-living-world-grand-wisata",
+  "no": "6",
+  "category": "The Stay-and-Shop Hubs",
+  "name": "Artotel Living World Grand Wisata",
+  "excerpt_id": "Hotel estetik berkonsep seni modern kontemporer yang terintegrasi fisik di dalam area pusat perbelanjaan Living World Grand Wisata.",
+  "excerpt": "An aesthetic, contemporary art-themed hotel physically integrated within the Living World Grand Wisata shopping center compound."
+ },
+ {
+  "id": "hotel-santika-premiere-kota-harapan-indah",
+  "no": "7",
+  "category": "The Stay-and-Shop Hubs",
+  "name": "Hotel Santika Premiere Kota Harapan Indah",
+  "excerpt_id": "Hotel resort megah berfasilitas olahraga terlengkap berskala olimpiade yang menjadi ikon akomodasi premium di koridor Bekasi Barat.",
+  "excerpt": "A grand resort hotel boasting Olympic-scale sports facilities, serving as a premium accommodation icon along the West Bekasi corridor."
+ },
+ {
+  "id": "swiss-belinn-cibitung",
+  "no": "8",
+  "category": "The Stay-and-Shop Hubs",
+  "name": "Swiss-Belinn Cibitung",
+  "excerpt_id": "Akomodasi elegan yang terkoneksi dekat dengan pusat komersial Cibitung, menyediakan fasilitas kolam renang luar ruangan yang tenang.",
+  "excerpt": "An elegant accommodation closely connected to Cibitung's commercial hub, providing serene outdoor swimming pool facilities."
+ },
+ {
+  "id": "avenzel-hotel-convention-cibubur",
+  "no": "9",
+  "category": "The Stay-and-Shop Hubs",
+  "name": "Avenzel Hotel & Convention Cibubur",
+  "excerpt_id": "Hotel mewah berfasilitas ballroom megah di jalur alternatif Transyogi yang ramah untuk urusan bisnis sekaligus liburan keluarga.",
+  "excerpt": "A luxury hotel featuring a grand ballroom on the Transyogi alternative route, welcoming for both corporate business and family leisure."
+ },
+ {
+  "id": "enso-hotel-kawasan-mm2100",
+  "no": "10",
+  "category": "The Stay-and-Shop Hubs",
+  "name": "Enso Hotel Kawasan MM2100",
+  "excerpt_id": "Hotel bisnis minimalis modern yang terletak strategis di dalam kawasan industri, memangkas waktu tempuh para pelaku perjalanan bisnis.",
+  "excerpt": "A modern minimalist business hotel strategically nested inside the industrial zone, cutting travel time for corporate travelers."
+ },
+ {
+  "id": "grand-kamala-lagoon-by-aparian",
+  "no": "11",
+  "category": "The Modern Nomad & Creative Pads",
+  "name": "Grand Kamala Lagoon by Aparian",
+  "excerpt_id": "Unit studio apartemen harian berkonsep modern minimalis yang menyatu dengan Lagoon Avenue Mall, dilengkapi fasilitas Netflix instan.",
+  "excerpt": "Modern minimalist daily studio apartment units integrated with Lagoon Avenue Mall, fully equipped with instant Netflix access."
+ },
+ {
+  "id": "grand-dhika-city-timur-by-travelio",
+  "no": "12",
+  "category": "The Modern Nomad & Creative Pads",
+  "name": "Grand Dhika City Timur by Travelio",
+  "excerpt_id": "Apartemen harian urban yang ramah kantong di Bekasi Timur, terletak selangkah dari stasiun LRT untuk mobilitas tinggi tanpa macet.",
+  "excerpt": "A pocket-friendly urban daily apartment in East Bekasi, located just steps away from the LRT station for traffic-free mobility."
+ },
+ {
+  "id": "transpark-juanda-apartments-by-redliving",
+  "no": "13",
+  "category": "The Modern Nomad & Creative Pads",
+  "name": "Transpark Juanda Apartments by RedLiving",
+  "excerpt_id": "Akomodasi vertikal modern bergaya pop di menara Jade yang terkoneksi dekat dengan stasiun KRL dan wahana permainan salju Trans Snow World.",
+  "excerpt": "A pop-themed modern vertical accommodation in Jade Tower, closely linked to the KRL station and Trans Snow World indoor snow park."
+ },
+ {
+  "id": "springlake-summarecon-guest-house",
+  "no": "14",
+  "category": "The Modern Nomad & Creative Pads",
+  "name": "Springlake Summarecon Guest House",
+  "excerpt_id": "Sewa hunian vertikal harian berlatar pemandangan danau Summarecon yang asri, menawarkan suasana lingkungan yang rapi dan aman.",
+  "excerpt": "Daily vertical housing rentals set against the lush Summarecon lake view, offering a neat, safe, and organized environmental atmosphere."
+ },
+ {
+  "id": "m-gold-tower-residence-jaka-setia",
+  "no": "15",
+  "category": "The Modern Nomad & Creative Pads",
+  "name": "M-Gold Tower Residence Jaka Setia",
+  "excerpt_id": "Apartemen eksklusif kelas atas berdesain elegan yang menyasar para pelancong solo premium dan pebisnis yang butuh privasi tinggi.",
+  "excerpt": "An elegant, upscale exclusive apartment targeting premium solo travelers and businesspeople requiring high privacy standards."
+ },
+ {
+  "id": "grand-galaxy-city-apartment-by-21-room",
+  "no": "16",
+  "category": "The Modern Nomad & Creative Pads",
+  "name": "Grand Galaxy City Apartment by 21 Room",
+  "excerpt_id": "Penginapan kamar studio tematik estetis di dalam pusat kuliner Galaxy, menjadi pilihan favorit bermalam para kreator konten muda.",
+  "excerpt": "An aesthetically themed studio room lodging inside the Galaxy culinary hub, serving as a favorite overnight choice for young content creators."
+ },
+ {
+  "id": "kemang-pratama-guest-house",
+  "no": "17",
+  "category": "The Modern Nomad & Creative Pads",
+  "name": "Kemang Pratama Guest House",
+  "excerpt_id": "Rumah singgah berkonsep guest house homestay yang asri dan tenang di dalam kompleks perumahan elite, ramah untuk rombongan keluarga.",
+  "excerpt": "A serene and shaded homestay guest house nested inside an elite housing complex, highly welcoming for large family groups."
+ },
+ {
+  "id": "brams-property-kamala-lagoon",
+  "no": "18",
+  "category": "The Modern Nomad & Creative Pads",
+  "name": "Brams Property Kamala Lagoon",
+  "excerpt_id": "Unit apartment harian kelolaan mandiri yang terkenal dengan hiasan interior estetik instagramable dan fasilitas dapur mini terlengkap.",
+  "excerpt": "An independently managed daily apartment unit famous for its instagrammable interior decor and comprehensive kitchenette facilities."
+ },
+ {
+  "id": "centerpoint-apartment-bekasi-barat",
+  "no": "19",
+  "category": "The Modern Nomad & Creative Pads",
+  "name": "Centerpoint Apartment Bekasi Barat",
+  "excerpt_id": "Hunian vertikal legendaris di jantung kota dengan tarif sewa harian ekonomis yang dikelilingi ratusan pusat jajanan kuliner malam.",
+  "excerpt": "A legendary vertical housing in the city heart with economical daily rates, surrounded by hundreds of late-night culinary stalls."
+ },
+ {
+  "id": "aparthotel-grand-dhika-city-jatimulya",
+  "no": "20",
+  "category": "The Modern Nomad & Creative Pads",
+  "name": "Aparthotel Grand Dhika City Jatimulya",
+  "excerpt_id": "Konsep perpaduan hotel dan apartemen praktis di stasiun terminus LRT akhir, memberikan kenyamanan istirahat maksimal bagi komuter.",
+  "excerpt": "A practical hybrid concept of a hotel and apartment at the LRT final terminus station, providing maximum rest comfort for commuters."
+ },
+ {
+  "id": "ibis-styles-bekasi-jatibening",
+  "no": "21",
+  "category": "The Smart Industrial Transit",
+  "name": "ibis Styles Bekasi Jatibening",
+  "excerpt_id": "Hotel rantai internasional berdesain penuh warna (vibrant) yang lokasinya menempel dekat akses gerbang Tol Jatibening dan stasiun LRT.",
+  "excerpt": "A vibrant-designed international chain hotel located closely attached to the Jatibening Toll gate access and the LRT station."
+ },
+ {
+  "id": "fairfield-by-marriott-bekasi",
+  "no": "22",
+  "category": "The Smart Industrial Transit",
+  "name": "Fairfield by Marriott Bekasi",
+  "excerpt_id": "Hotel bisnis premium berstandar internasional di pusat kota yang menyajikan kamar bergaya minimalis modern untuk ekspatriat asing.",
+  "excerpt": "An international-standard premium business hotel in the city center, presenting modern minimalist rooms tailored for foreign expatriates."
+ },
+ {
+  "id": "four-points-by-sheraton-bekasi",
+  "no": "23",
+  "category": "The Smart Industrial Transit",
+  "name": "Four Points by Sheraton Bekasi",
+  "excerpt_id": "Destinasi menginap berkelas dunia dengan fasilitas pusat kebugaran modern lengkap dan restoran bernuansa fine-dining yang mewah.",
+  "excerpt": "A world-class accommodation destination featuring complete modern fitness facilities and a luxurious fine-dining restaurant."
+ },
+ {
+  "id": "merapi-merbabu-hotels-resort-bekasi",
+  "no": "24",
+  "category": "The Smart Industrial Transit",
+  "name": "Merapi Merbabu Hotels & Resort Bekasi",
+  "excerpt_id": "Hotel bintang 4 berkonsep budaya nusantara yang menyediakan ruang pertemuan akbar untuk keperluan seminar korporat dan kedutaan.",
+  "excerpt": "A 4-star hotel rich in archipelago cultural concepts, providing grand convention halls tailored for corporate and embassy seminars."
+ },
+ {
+  "id": "yusra-inn-hotel-bekasi",
+  "no": "25",
+  "category": "The Smart Industrial Transit",
+  "name": "Yusra Inn Hotel Bekasi",
+  "excerpt_id": "Akomodasi transit modern ramah anggaran di sepanjang jalan koridor Pekayon yang menyediakan fasilitas ruang rapat modular yang taktis.",
+  "excerpt": "A tactical budget-friendly modern transit accommodation along Pekayon avenue, providing functional modular meeting room facilities."
+ },
+ {
+  "id": "monoloog-hotel-bekasi",
+  "no": "26",
+  "category": "The Smart Industrial Transit",
+  "name": "Monoloog Hotel Bekasi",
+  "excerpt_id": "Hotel budget modern berkonsep minimalis efisien di dekat pusat kota, menawarkan kasur berkualitas tinggi untuk pelancong transit cepat.",
+  "excerpt": "A modern budget hotel featuring an efficient minimalist concept near the city center, offering high-quality bedding for quick transit travelers."
+ },
+ {
+  "id": "an-essential-go-to-hotel-for-business-backpackers-prioritizing-rapid-check-in-pr",
+  "no": "27",
+  "category": "Hotel esensial andalan para backpacker bisnis yang mengutamakan kecepatan proses check-in dan lokasi strategis di pinggir jalan raya utama.",
+  "name": "An essential go-to hotel for business backpackers prioritizing rapid check-in processes and a strategic location on the main highway edge.",
+  "excerpt_id": "",
+  "excerpt": ""
+ },
+ {
+  "id": "versa-hotel-bekasi",
+  "no": "28",
+  "category": "The Smart Industrial Transit",
+  "name": "Versa Hotel Bekasi",
+  "excerpt_id": "Penginapan modern minimalis yang letaknya sangat dekat dengan Terminal Bus Induk Bekasi, menjadi pilihan cerdas para pelaku perjalanan darat.",
+  "excerpt": "A modern minimalist lodging located exceptionally close to the Bekasi Central Bus Terminal, making it a smart choice for overland travelers."
+ },
+ {
+  "id": "",
+  "no": "| 29 | The Smart Industrial Transit | Sans Hotel The Green Bekasi | Hotel trendi kelolaan RedDoorz berdesain interior ceria anak muda yang menyediakan area bersantai komunal lengkap dengan meja permainan mini. | A trendy RedDoorz-managed hotel boasting a cheerful youth interior design, providing communal lounge areas equipped with mini game tables. |",
+  "category": "",
+  "name": "",
+  "excerpt_id": "",
+  "excerpt": ""
+ },
+ {
+  "id": "",
+  "no": "| 30 | The Smart Industrial Transit | Fastrooms Bekasi Hotel | Hotel berkonsep transit kilat dengan sistem tarif per jam maupun harian yang sangat ramah bagi para pekerja komuter luar kota. | An express transit concept hotel offering both hourly and daily rate systems, highly friendly for out-of-town commuting workers. |",
+  "category": "",
+  "name": "",
+  "excerpt_id": "",
+  "excerpt": ""
+ }
+]
