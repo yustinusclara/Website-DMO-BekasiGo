@@ -109,6 +109,34 @@ user_problem_statement: |
   Homepage Manager, Destinations Manager, and more (per Prompt Pack E-01..E-27+).
 
 frontend:
+  - task: "E-30 CMS Media Library (Grid + List + Preview + Upload + Cloudinary)"
+    implemented: true
+    working: true
+    file: "app/admin/media/page.js, app/admin/media/upload/page.js, components/admin/MediaLibrary.jsx, components/admin/MediaAssetForm.jsx, lib/admin/media.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "main"
+        comment: |
+          Verified via screenshot tool at 1920x1000:
+          - /admin/media: Cloudinary source strip (URL + Total 19 / 18 Images / 1 Videos stats),
+            search bar, type filter (All/Image/Video), category filter (Landmarks/Nature/Urban/
+            Heritage/People/Video), Grid/List toggle, Add asset button.
+          - Grid view: 5-col responsive cards with thumbnail + IMAGE/VIDEO badge + name + Used-in
+            micro-label. Hover shows Copy URL button. Aspect 4:3 with hover scale.
+          - List view: table with Asset thumbnail/Type/Category/Used-in/Size/Actions columns.
+          - Preview drawer (click any asset): fullscreen modal with large image/video (controls for
+            video), metadata grid (Type/Dimension/Size/Uploaded), full Cloudinary URL with Copy button,
+            "Used in" info, tag chips, Delete + Open-in-Cloudinary links.
+          - /admin/media/upload: paste-a-URL flow. Auto-infers image vs video from URL pattern
+            (/image/upload/ vs /video/upload/, or file extension). Live preview sidebar renders the
+            actual Cloudinary asset as user types.
+          - Aggregated /lib/admin/media.js indexes ALL Cloudinary assets in use (18 IMG + 1 VIDEO)
+            with categories, tags, sizes, and where-used strings — real single source of truth for
+            the CMS.
+
   - task: "E-29 CMS Blog Manager (List + Create + Edit + Relations + SEO + Canonical)"
     implemented: true
     working: true
