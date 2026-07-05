@@ -194,7 +194,7 @@ export default function MapPreview({ data }) {
 
         {/* Stats + CTA row */}
         <div className="mt-10 md:mt-12 grid gap-6 lg:grid-cols-12 items-center">
-          <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-4 gap-6">
             {content.stats.map((s) => (
               <div key={s.v}>
                 <div className="font-display text-3xl md:text-4xl text-bekasi-emerald-900 leading-none">{s.k}</div>
@@ -202,16 +202,27 @@ export default function MapPreview({ data }) {
               </div>
             ))}
           </div>
-          <div className="lg:col-span-4 flex flex-wrap justify-start lg:justify-end gap-3">
-            <Link href={content.secondaryCta.href} className="btn-ghost btn-md text-bekasi-emerald-900">
-              {content.secondaryCta.label}
-            </Link>
-            <Link href={content.cta.href}>
-              <button className="btn-primary btn-md">
-                <MapIcon className="h-4 w-4" /> {content.cta.label}
-                <ArrowUpRight className="h-4 w-4" />
-              </button>
-            </Link>
+          <div className="lg:col-span-5 flex flex-wrap items-center justify-start lg:justify-end gap-5">
+            {/* Mascot - Reading Map */}
+            <div className="relative w-[100px] h-[100px] md:w-[130px] md:h-[130px] shrink-0 pointer-events-none -mt-4 lg:-mt-8">
+              <img
+                src="https://res.cloudinary.com/oi9u7lsq/image/upload/v1783252333/8._Reading_Map_mhszig.png"
+                alt="BekasiGo Mascot - Reading Map"
+                className="w-full h-full object-contain drop-shadow-[0_8px_20px_rgba(20,50,40,0.12)]"
+              />
+            </div>
+
+            <div className="flex flex-col items-start lg:items-end gap-2.5">
+              <Link href={content.secondaryCta.href} className="btn-ghost btn-sm text-bekasi-emerald-900 tracking-wider font-medium">
+                {content.secondaryCta.label}
+              </Link>
+              <Link href={content.cta.href}>
+                <button className="btn-primary btn-md">
+                  <MapIcon className="h-4 w-4" /> {content.cta.label}
+                  <ArrowUpRight className="h-4 w-4" />
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
