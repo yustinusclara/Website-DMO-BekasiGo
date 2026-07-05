@@ -41,8 +41,8 @@ export default function SiteFooter() {
 
       {/* ─── Newsletter strip ───────────────────────────────────── */}
       <div className="relative border-b border-white/10">
-        <div className="container py-14 md:py-20 grid gap-10 lg:grid-cols-2 items-center">
-          <div>
+        <div className="container relative py-14 md:py-20 grid gap-10 lg:grid-cols-2 items-center">
+          <div className="relative z-10">
             <span className="eyebrow eyebrow-dot text-bekasi-gold-400">Newsletter</span>
             <h3 className="mt-4 heading-display text-3xl md:text-5xl leading-tight text-balance">
               A slower letter from Bekasi, once a month.
@@ -51,7 +51,28 @@ export default function SiteFooter() {
               Stories, guides, and event drops — no spam, unsubscribe anytime.
             </p>
           </div>
-          <form className="flex flex-col sm:flex-row gap-3">
+
+          {/* Mascot - Two Hands Up (Desktop) */}
+          <div className="absolute left-[45%] top-1/2 -translate-x-1/2 -translate-y-1/2 lg:block hidden w-[210px] h-[210px] pointer-events-none z-0">
+            <img
+              src="https://res.cloudinary.com/oi9u7lsq/image/upload/v1783252332/5._Two_Hands_Up_imxatb.png"
+              alt="BekasiGo Mascot - Two Hands Up"
+              className="w-full h-full object-contain drop-shadow-[0_12px_28px_rgba(20,50,40,0.22)]"
+            />
+          </div>
+
+          {/* Mascot - Two Hands Up (Mobile/Tablet) */}
+          <div className="lg:hidden flex justify-center w-full pointer-events-none mt-2 -mb-4 z-10">
+            <div className="w-[150px] h-[150px]">
+              <img
+                src="https://res.cloudinary.com/oi9u7lsq/image/upload/v1783252332/5._Two_Hands_Up_imxatb.png"
+                alt="BekasiGo Mascot - Two Hands Up"
+                className="w-full h-full object-contain drop-shadow-[0_10px_20px_rgba(20,50,40,0.15)]"
+              />
+            </div>
+          </div>
+
+          <form className="flex flex-col sm:flex-row gap-3 z-10">
             <Input
               type="email"
               placeholder="you@email.com"
