@@ -176,10 +176,10 @@ export default function FloatingCityShowcase({ data }) {
 
               {/* Mascot - Cute Wave floating next to the city */}
               <div
-                className="absolute z-20 w-[26%] h-[26%] pointer-events-none transition-transform duration-500 ease-out"
+                className="absolute z-20 w-[38%] h-[38%] pointer-events-none transition-transform duration-500 ease-out"
                 style={{
-                  bottom: '10%',
-                  right: '-8%',
+                  bottom: '6%',
+                  right: '-10%',
                   transform: 'translate3d(calc(var(--px) * 32px), calc(var(--py) * 30px), 0)',
                 }}
               >
