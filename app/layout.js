@@ -19,6 +19,9 @@ export const metadata = {
   description:
     'The destination guide to Kota Bekasi. Discover heritage, urban lifestyle, culinary journeys, and smart city experiences — plan your trip with the BekasiGo Smart Planner.',
   metadataBase: new URL('https://bekasigo.example.com'),
+  icons: {
+    icon: 'https://res.cloudinary.com/oi9u7lsq/image/upload/v1783252951/3._Logo_SVG_BekasiGo_main_wqr72y.svg',
+  },
   openGraph: {
     title: 'BekasiGo — Discover Kota Bekasi',
     description:
