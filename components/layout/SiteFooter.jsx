@@ -78,7 +78,7 @@ export default function SiteFooter() {
               <div className="flex flex-col leading-none">
                 <span className="font-display text-xl tracking-tight">BekasiGo</span>
                 <span className="text-[10px] uppercase tracking-[0.25em] text-white/60 mt-0.5">
-                  Official City Guide
+                  City Guide
                 </span>
               </div>
             </Link>
@@ -86,14 +86,6 @@ export default function SiteFooter() {
             <p className="mt-5 text-sm text-white/60 leading-relaxed max-w-xs">
               {FOOTER.tagline}
             </p>
-
-            {/* Trust badge */}
-            <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-bekasi-gold-500/30 bg-bekasi-gold-500/10 px-3 py-1.5">
-              <ShieldCheck className="h-3.5 w-3.5 text-bekasi-gold-400" />
-              <span className="text-[10.5px] uppercase tracking-[0.18em] text-bekasi-gold-400 font-medium">
-                {FOOTER.trust.badge}
-              </span>
-            </div>
 
             <div className="mt-6 space-y-2 text-xs text-white/60">
               <div className="flex items-start gap-2">
@@ -159,31 +151,53 @@ export default function SiteFooter() {
       {/* ─── Tourism-trust partners strip ───────────────────────── */}
       <div className="relative border-t border-white/10">
         <div className="container py-8 md:py-10">
-          <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
-            <div className="shrink-0">
-              <div className="text-[10.5px] uppercase tracking-[0.22em] text-white/50">
-                In partnership with
-              </div>
-              <div className="mt-1 text-[11px] tracking-[0.15em] text-white/40">
-                {FOOTER.trust.since}
-              </div>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-1 md:items-stretch gap-px bg-white/10 rounded-lg overflow-hidden border border-white/10">
-              {FOOTER.trust.partners.map((p) => (
-                <div
-                  key={p.name}
-                  className="flex-1 bg-bekasi-emerald-900 px-4 py-3 md:px-5 md:py-4 min-w-0 flex flex-col justify-center hover:bg-bekasi-emerald-800/60 transition-colors"
-                  title={p.name}
-                >
-                  <div className="text-[9.5px] uppercase tracking-[0.22em] text-bekasi-gold-400/80 truncate">
-                    {p.kicker}
+          <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-px bg-white/10 rounded-lg overflow-hidden border border-white/10">
+            {(() => {
+              const partnerLinks = {
+                'Pemerintah Kota Bekasi': 'https://bekasikota.go.id/',
+                'Dinas Pariwisata': 'https://www.instagram.com/disparbudbekasi/?hl=en',
+                'Wonderful Indonesia': 'https://www.indonesia.travel/id/id',
+                'Bekasi Creative Hub': 'https://www.instagram.com/bekasi.creativehub/?hl=en'
+              }
+              return FOOTER.trust.partners.map((p) => {
+                const href = partnerLinks[p.name]
+                const content = (
+                  <>
+                    <div className="text-[9.5px] uppercase tracking-[0.22em] text-bekasi-gold-400/80 truncate">
+                      {p.kicker}
+                    </div>
+                    <div className="mt-1 font-display text-sm md:text-[15px] leading-tight text-white/90 truncate">
+                      {p.name}
+                    </div>
+                  </>
+                )
+
+                if (href) {
+                  return (
+                    <a
+                      key={p.name}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex bg-bekasi-emerald-900 px-4 py-3 md:px-5 md:py-4 min-w-0 flex-col justify-center hover:bg-bekasi-emerald-800/60 transition-colors border-r last:border-r-0 border-white/5"
+                      title={p.name}
+                    >
+                      {content}
+                    </a>
+                  )
+                }
+
+                return (
+                  <div
+                    key={p.name}
+                    className="flex bg-bekasi-emerald-900 px-4 py-3 md:px-5 md:py-4 min-w-0 flex-col justify-center hover:bg-bekasi-emerald-800/60 transition-colors"
+                    title={p.name}
+                  >
+                    {content}
                   </div>
-                  <div className="mt-1 font-display text-sm md:text-[15px] leading-tight text-white/90 truncate">
-                    {p.name}
-                  </div>
-                </div>
-              ))}
-            </div>
+                )
+              })
+            })()}
           </div>
         </div>
       </div>

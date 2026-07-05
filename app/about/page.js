@@ -1,11 +1,11 @@
-import InfoPage from '@/components/sections/info/InfoPage'
+import InfoPage from '@/components/public/pages/info/InfoPage'
 export const metadata = { title: 'About BekasiGo' }
 export default function AboutPage() {
   return (
     <InfoPage
       kicker="About BekasiGo"
       title="An editorial front door to Kota Bekasi."
-      lead="BekasiGo is the official Destination Management Organization (DMO) platform for Kota Bekasi. We work with the city government, cultural institutions, and local operators to make it easier for anyone — residents, returning diaspora, day-trippers from Jakarta, or international guests — to discover, plan, and understand the rhythms of the city."
+      lead="BekasiGo is the Destination Management Organization (DMO) platform for Kota Bekasi. We work with the city government, cultural institutions, and local operators to make it easier for anyone — residents, returning diaspora, day-trippers from Jakarta, or international guests — to discover, plan, and understand the rhythms of the city."
       breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'About' }]}
       sections={[
         { eyebrow: 'Our mission', heading: 'Bekasi, seen clearly.', body: 'We publish curated destination guides, cultural stories, and live event listings, and we power a Smart Trip Planner that assembles day-plans grounded on our real directory — no hallucinated places, no invented restaurants.' },

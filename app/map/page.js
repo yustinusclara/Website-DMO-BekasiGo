@@ -1,4 +1,4 @@
-import ExploreMapShell from '@/components/sections/map/ExploreMapShell'
+﻿import ExploreMapShell from '@/components/public/pages/map/ExploreMapShell'
 
 export const metadata = {
   title: 'Explore Map — BekasiGo',

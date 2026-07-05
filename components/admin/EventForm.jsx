@@ -8,6 +8,9 @@ import {
   Save, ArrowLeft, Eye, Trash2, CheckCircle2,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { getSupabase } from '@/lib/supabase/client'
+import { toast } from 'sonner'
+import { Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { EVENT_CATEGORIES } from '@/lib/content/events'
 import {
@@ -42,6 +45,7 @@ export default function EventForm({ mode = 'create', initial }) {
   const router = useRouter()
   const [state, setState] = useState(() => ({ ...DEFAULT_STATE, ...(initial ?? {}) }))
   const [errors, setErrors] = useState({})
+  const [submitting, setSubmitting] = useState(false)
   const [saved, setSaved]   = useState(false)
 
   const set = (patch) => { setState((prev) => ({ ...prev, ...patch })); setSaved(false) }
@@ -62,14 +66,81 @@ export default function EventForm({ mode = 'create', initial }) {
     return Object.keys(e).length === 0
   }
 
-  const submit = (nextStatus) => (e) => {
+  const submit = (nextStatus) => async (e) => {
     e?.preventDefault?.()
-    if (nextStatus === 'published' && !validate()) return
-    if (nextStatus === 'draft' && !state.title.trim()) { setErrors({ title: 'Title is required even for drafts.' }); return }
-    const payload = { ...state, status: nextStatus, slug: state.slug || slugify(state.title) }
-    console.log('[EventForm] Submit:', payload)
-    setSaved(true)
-    setTimeout(() => setSaved(false), 3000)
+    if (nextStatus === 'published' && !validate()) {
+      toast.error('Please fix form validation errors.')
+      return
+    }
+    if (nextStatus === 'draft' && !state.title.trim()) {
+      setErrors({ title: 'Title is required even for drafts.' })
+      toast.error('Title is required.')
+      return
+    }
+
+    const payload = {
+      slug: state.slug || slugify(state.title),
+      title: state.title,
+      summary: state.summary,
+      content: state.content,
+      venue_name: state.venue,
+      start_date: state.startDate,
+      end_date: state.endDate || null,
+      time_display: state.time,
+      category: state.category,
+      tags: state.tags,
+      image_url: state.image, // Cloudinary image url mapped to database
+      cta_label: state.ctaLabel,
+      cta_url: state.ctaUrl,
+      featured: !!state.featured,
+      status: nextStatus,
+      body: []
+    }
+
+    setSubmitting(true)
+    const supabase = getSupabase()
+
+    if (!supabase) {
+      console.log('[EventForm] Submit (Local mock):', payload)
+      setSaved(true)
+      setSubmitting(false)
+      toast.success(`Event saved successfully as ${nextStatus} (Local mode)`)
+      setTimeout(() => {
+        setSaved(false)
+        router.push('/admin/events')
+      }, 1500)
+      return
+    }
+
+    try {
+      let result;
+      if (mode === 'create') {
+        result = await supabase
+          .from('events')
+          .insert([payload])
+          .select()
+      } else {
+        result = await supabase
+          .from('events')
+          .update(payload)
+          .eq('slug', initial?.slug)
+          .select()
+      }
+
+      if (result.error) throw result.error
+
+      setSaved(true)
+      toast.success(`Event saved successfully as ${nextStatus}`)
+      setTimeout(() => {
+        setSaved(false)
+        router.push('/admin/events')
+      }, 1500)
+    } catch (err) {
+      console.error('[EventForm] Save error:', err)
+      toast.error(err.message || 'Failed to save event to Supabase.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const onTitleChange = (v) => {

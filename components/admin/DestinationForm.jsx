@@ -9,6 +9,9 @@ import {
   MapPin, Building2, Clock as ClockIcon, ImageIcon, Layers, Home,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { getSupabase } from '@/lib/supabase/client'
+import { toast } from 'sonner'
+import { Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   DEST_CATEGORIES, DEST_DISTRICTS,
@@ -48,6 +51,7 @@ export default function DestinationForm({ mode = 'create', initial }) {
   const router = useRouter()
   const [state, setState] = useState(() => ({ ...DEFAULT_STATE, ...(initial ?? {}) }))
   const [errors, setErrors] = useState({})
+  const [submitting, setSubmitting] = useState(false)
   const [saved, setSaved]   = useState(false)
 
   const set = (patch) => { setState((prev) => ({ ...prev, ...patch })); setSaved(false) }
@@ -73,17 +77,85 @@ export default function DestinationForm({ mode = 'create', initial }) {
     return Object.keys(e).length === 0
   }
 
-  const submit = (nextStatus) => (e) => {
+  const submit = (nextStatus) => async (e) => {
     e?.preventDefault?.()
-    // If publishing, run full validation; drafts can be looser
-    if (nextStatus === 'published' && !validate()) return
-    if (nextStatus === 'draft' && !state.title.trim()) { setErrors({ title: 'Title is required even for drafts.' }); return }
+    if (nextStatus === 'published' && !validate()) {
+      toast.error('Please fix validation errors before publishing.')
+      return
+    }
+    if (nextStatus === 'draft' && !state.title.trim()) {
+      setErrors({ title: 'Title is required even for drafts.' })
+      toast.error('Title is required even for drafts.')
+      return
+    }
 
-    const payload = { ...state, status: nextStatus, slug: state.slug || slugify(state.title) }
-    // eslint-disable-next-line no-console
-    console.log('[DestinationForm] Submit:', payload)
-    setSaved(true)
-    setTimeout(() => setSaved(false), 3000)
+    const payload = {
+      slug: state.slug || slugify(state.title),
+      title: state.title,
+      excerpt: state.excerpt,
+      description: state.description,
+      category_id: state.category, // store category string as category_id reference
+      district: state.district,
+      hours: state.hours,
+      duration: state.duration,
+      best_time: state.bestTime,
+      family_friendly: !!state.familyFriendly,
+      environment: state.environment,
+      planner_priority: Number(state.plannerPriority),
+      image_url: state.image, // store single cover image URL
+      featured: !!state.featured,
+      status: nextStatus,
+      // Default empty arrays / geometry fallback
+      gallery: state.gallery || [],
+      lat: state.coords?.lat || -6.2383,
+      lng: state.coords?.lng || 106.9756,
+      body: []
+    }
+
+    setSubmitting(true)
+    const supabase = getSupabase()
+
+    if (!supabase) {
+      console.log('[DestinationForm] Submit (Local mock):', payload)
+      setSaved(true)
+      setSubmitting(false)
+      toast.success(`Destination saved successfully as ${nextStatus} (Local mode)`)
+      setTimeout(() => {
+        setSaved(false)
+        router.push('/admin/destinations')
+      }, 1500)
+      return
+    }
+
+    try {
+      let result;
+      if (mode === 'create') {
+        result = await supabase
+          .from('destinations')
+          .insert([payload])
+          .select()
+      } else {
+        result = await supabase
+          .from('destinations')
+          .update(payload)
+          .eq('slug', initial?.slug)
+          .select()
+      }
+
+      if (result.error) throw result.error
+
+      setSaved(true)
+      toast.success(`Destination saved successfully as ${nextStatus}`)
+      setTimeout(() => {
+        setSaved(false)
+        router.push('/admin/destinations')
+      }, 1500)
+    } catch (err) {
+      console.error('[DestinationForm] Save error:', err)
+      toast.error(err.message || 'Failed to save destination to Supabase.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const onTitleChange = (v) => {

@@ -4,13 +4,14 @@
 // Supabase's client (detectSessionInUrl: true) automatically parses the hash
 // fragment; we then route the user back to their originating page.
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react'
 import { getSupabase } from '@/lib/supabase/client'
 import { getDeferredAction } from '@/lib/supabase/AuthProvider'
 
-export default function AuthCallbackPage() {
+// Inner component — uses useSearchParams() so must live inside <Suspense>
+function AuthCallbackInner() {
   const router = useRouter()
   const search = useSearchParams()
   const [status, setStatus] = useState('processing') // processing | success | error
@@ -89,5 +90,28 @@ export default function AuthCallbackPage() {
         )}
       </div>
     </div>
+  )
+}
+
+// Fallback UI shown during SSR / Suspense boundary hydration
+function AuthCallbackFallback() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-[color:var(--bg-page,#F7F1E5)] px-6">
+      <div className="max-w-sm w-full rounded-2xl border border-[color:var(--ink-forest,#0B3D3A)]/10 bg-white p-8 text-center shadow-sm">
+        <Loader2 className="mx-auto h-8 w-8 animate-spin text-[color:var(--ink-forest,#0B3D3A)]" />
+        <h1 className="mt-4 font-serif text-xl text-[color:var(--ink-forest,#0B3D3A)]">Signing you in…</h1>
+        <p className="mt-1 text-sm text-[color:var(--ink-forest,#0B3D3A)]/60">One moment while we verify your Google account.</p>
+      </div>
+    </div>
+  )
+}
+
+// Outer export wraps inner in Suspense — required by Next.js 15 when using
+// useSearchParams() inside a Client Component that Next.js tries to prerender.
+export default function AuthCallbackPage() {
+  return (
+    <Suspense fallback={<AuthCallbackFallback />}>
+      <AuthCallbackInner />
+    </Suspense>
   )
 }

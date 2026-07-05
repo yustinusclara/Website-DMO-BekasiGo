@@ -1,4 +1,4 @@
-import DirectoryIndex from '@/components/sections/directory/DirectoryIndex'
+﻿import DirectoryIndex from '@/components/public/pages/directory/DirectoryIndex'
 import items from '@/lib/content/_data_hotels.json'
 
 export const metadata = { title: 'Stay — BekasiGo' }

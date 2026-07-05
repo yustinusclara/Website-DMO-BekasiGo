@@ -37,8 +37,6 @@ async function handleRoute(request, { params }) {
   const method = request.method
 
   try {
-    const db = await connectToMongo()
-
     // Root endpoint - GET /api/root (since /api/ is not accessible with catch-all)
     if (route === '/root' && method === 'GET') {
       return handleCORS(NextResponse.json({ message: "Hello World" }))
@@ -65,12 +63,14 @@ async function handleRoute(request, { params }) {
         timestamp: new Date()
       }
 
+      const db = await connectToMongo()
       await db.collection('status_checks').insertOne(statusObj)
       return handleCORS(NextResponse.json(statusObj))
     }
 
     // Status endpoints - GET /api/status
     if (route === '/status' && method === 'GET') {
+      const db = await connectToMongo()
       const statusChecks = await db.collection('status_checks')
         .find({})
         .limit(1000)

@@ -4,9 +4,11 @@
       "paths": {
         "@/*": ["./*"],
         "@/components/*": ["./components/*"],
+        "@/shared/*": ["./components/shared/*"],
+        "@/public/*": ["./components/public/*"],
         "@/lib/*": ["./lib/*"],
         "@/app/*": ["./app/*"]
       }
     },
     "exclude": ["node_modules", ".next"]
-  }
+  }

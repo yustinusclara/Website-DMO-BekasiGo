@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import {
   Save, ArrowLeft, Eye, Trash2, CheckCircle2, Search as SearchIcon,
-  Link2, MapPin, CalendarDays, UtensilsCrossed,
+  Link2, MapPin, CalendarDays, UtensilsCrossed, Loader2
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -49,11 +49,15 @@ const DEFAULT_STATE = {
   status: 'draft',
 }
 
+import { getSupabase } from '@/lib/supabase/client'
+import { toast } from 'sonner'
+
 export default function BlogForm({ mode = 'create', initial }) {
   const router = useRouter()
   const [state, setState] = useState(() => ({ ...DEFAULT_STATE, ...(initial ?? {}) }))
   const [errors, setErrors] = useState({})
   const [saved, setSaved]   = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
   const set = (patch) => { setState((prev) => ({ ...prev, ...patch })); setSaved(false) }
 
@@ -76,14 +80,79 @@ export default function BlogForm({ mode = 'create', initial }) {
     return Object.keys(e).length === 0
   }
 
-  const submit = (nextStatus) => (e) => {
+  const submit = (nextStatus) => async (e) => {
     e?.preventDefault?.()
-    if (nextStatus === 'published' && !validate()) return
-    if (nextStatus === 'draft' && !state.title.trim()) { setErrors({ title: 'Title is required even for drafts.' }); return }
-    const payload = { ...state, status: nextStatus, slug: state.slug || slugify(state.title) }
-    console.log('[BlogForm] Submit:', payload)
-    setSaved(true)
-    setTimeout(() => setSaved(false), 3000)
+    if (nextStatus === 'published' && !validate()) {
+      toast.error('Please correct form validation errors.')
+      return
+    }
+    if (nextStatus === 'draft' && !state.title.trim()) {
+      setErrors({ title: 'Title is required even for drafts.' })
+      toast.error('Title is required even for drafts.')
+      return
+    }
+
+    const payload = {
+      slug: state.slug || slugify(state.title),
+      title: state.title,
+      excerpt: state.excerpt,
+      content: state.content,
+      cover_url: state.cover, // map state.cover (Cloudinary URL string) to cover_url
+      category_id: state.category, // store string category ID
+      tags: state.tags,
+      author_name: state.authorName,
+      author_role: state.authorRole,
+      published_at: state.publishedAt ? new Date(state.publishedAt).toISOString().split('T')[0] : null,
+      featured: !!state.featured,
+      status: nextStatus,
+      // relations
+      body: [] // default empty rich text array
+    }
+
+    setSubmitting(true)
+    const supabase = getSupabase()
+
+    if (!supabase) {
+      console.log('[BlogForm] Submit (Local mock):', payload)
+      setSaved(true)
+      setSubmitting(false)
+      toast.success(`Post saved successfully as ${nextStatus} (Local mode)`)
+      setTimeout(() => {
+        setSaved(false)
+        router.push('/admin/blog')
+      }, 1500)
+      return
+    }
+
+    try {
+      let result;
+      if (mode === 'create') {
+        result = await supabase
+          .from('blogs')
+          .insert([payload])
+          .select()
+      } else {
+        result = await supabase
+          .from('blogs')
+          .update(payload)
+          .eq('slug', initial?.slug)
+          .select()
+      }
+
+      if (result.error) throw result.error
+
+      setSaved(true)
+      toast.success(`Post saved successfully as ${nextStatus}`)
+      setTimeout(() => {
+        setSaved(false)
+        router.push('/admin/blog')
+      }, 1500)
+    } catch (err) {
+      console.error('[BlogForm] Database write error:', err)
+      toast.error(err.message || 'Failed to save post to the database.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const onTitleChange = (v) => {
@@ -122,13 +191,14 @@ export default function BlogForm({ mode = 'create', initial }) {
               </Button>
             </a>
           )}
-          <Button type="button" variant="outline" onClick={submit('draft')}
+          <Button type="button" variant="outline" onClick={submit('draft')} disabled={submitting}
             className="h-9 rounded-md border-bekasi-emerald-900/15 text-bekasi-emerald-900 hover:bg-bekasi-emerald-900/[0.03] px-3 gap-2 text-[13px]">
-            Save as draft
+            {submitting ? 'Saving...' : 'Save as draft'}
           </Button>
-          <Button type="button" onClick={submit('published')}
+          <Button type="button" onClick={submit('published')} disabled={submitting}
             className="h-9 rounded-md bg-bekasi-emerald-900 hover:bg-bekasi-emerald-800 text-white px-4 gap-2 text-[13px]">
-            <Save className="h-4 w-4" /> {state.status === 'published' ? 'Save & Publish' : 'Publish'}
+            {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+            {state.status === 'published' ? 'Save & Publish' : 'Publish'}
           </Button>
         </div>
       </div>

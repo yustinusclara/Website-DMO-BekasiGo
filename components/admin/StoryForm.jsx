@@ -8,6 +8,9 @@ import {
   Save, ArrowLeft, Eye, Trash2, CheckCircle2, Search as SearchIcon,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { getSupabase } from '@/lib/supabase/client'
+import { toast } from 'sonner'
+import { Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { STORY_COLUMNS } from '@/lib/content/stories'
 import {
@@ -46,6 +49,7 @@ export default function StoryForm({ mode = 'create', initial }) {
   const router = useRouter()
   const [state, setState] = useState(() => ({ ...DEFAULT_STATE, ...(initial ?? {}) }))
   const [errors, setErrors] = useState({})
+  const [submitting, setSubmitting] = useState(false)
   const [saved, setSaved]   = useState(false)
 
   const set = (patch) => { setState((prev) => ({ ...prev, ...patch })); setSaved(false) }
@@ -64,14 +68,79 @@ export default function StoryForm({ mode = 'create', initial }) {
     return Object.keys(e).length === 0
   }
 
-  const submit = (nextStatus) => (e) => {
+  const submit = (nextStatus) => async (e) => {
     e?.preventDefault?.()
-    if (nextStatus === 'published' && !validate()) return
-    if (nextStatus === 'draft' && !state.title.trim()) { setErrors({ title: 'Title is required even for drafts.' }); return }
-    const payload = { ...state, status: nextStatus, slug: state.slug || slugify(state.title) }
-    console.log('[StoryForm] Submit:', payload)
-    setSaved(true)
-    setTimeout(() => setSaved(false), 3000)
+    if (nextStatus === 'published' && !validate()) {
+      toast.error('Please fix validation errors.')
+      return
+    }
+    if (nextStatus === 'draft' && !state.title.trim()) {
+      setErrors({ title: 'Title is required.' })
+      toast.error('Title is required.')
+      return
+    }
+
+    const payload = {
+      slug: state.slug || slugify(state.title),
+      title: state.title,
+      excerpt: state.excerpt,
+      content: state.content,
+      hero_image_url: state.heroImage, // Cloudinary image URL stored directly
+      column_key: state.column,
+      tags: state.tags,
+      published_at: state.publishedAt ? new Date(state.publishedAt).toISOString().split('T')[0] : null,
+      author_name: state.authorName,
+      author_role: state.authorRole,
+      read_time: state.readTime,
+      featured: !!state.featured,
+      status: nextStatus,
+      body: []
+    }
+
+    setSubmitting(true)
+    const supabase = getSupabase()
+
+    if (!supabase) {
+      console.log('[StoryForm] Submit (Local mock):', payload)
+      setSaved(true)
+      setSubmitting(false)
+      toast.success(`Story saved successfully as ${nextStatus} (Local mode)`)
+      setTimeout(() => {
+        setSaved(false)
+        router.push('/admin/stories')
+      }, 1500)
+      return
+    }
+
+    try {
+      let result;
+      if (mode === 'create') {
+        result = await supabase
+          .from('stories')
+          .insert([payload])
+          .select()
+      } else {
+        result = await supabase
+          .from('stories')
+          .update(payload)
+          .eq('slug', initial?.slug)
+          .select()
+      }
+
+      if (result.error) throw result.error
+
+      setSaved(true)
+      toast.success(`Story saved successfully as ${nextStatus}`)
+      setTimeout(() => {
+        setSaved(false)
+        router.push('/admin/stories')
+      }, 1500)
+    } catch (err) {
+      console.error('[StoryForm] Save error:', err)
+      toast.error(err.message || 'Failed to save story to database.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const onTitleChange = (v) => {

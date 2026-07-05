@@ -1,4 +1,4 @@
-import PlannerShell from '@/components/sections/planner/PlannerShell'
+﻿import PlannerShell from '@/components/public/pages/planner/PlannerShell'
 import SiteHeader from '@/components/layout/SiteHeader'
 import SiteFooter from '@/components/layout/SiteFooter'
 

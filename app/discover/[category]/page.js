@@ -1,4 +1,4 @@
-import DirectoryIndex from '@/components/sections/directory/DirectoryIndex'
+import DirectoryIndex from '@/components/public/pages/directory/DirectoryIndex'
 import all from '@/lib/content/_data_destinations_extra.json'
 import restaurants from '@/lib/content/_data_restaurants.json'
 import hotels from '@/lib/content/_data_hotels.json'

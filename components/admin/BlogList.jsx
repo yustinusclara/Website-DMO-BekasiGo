@@ -1,34 +1,82 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Plus, Search, Edit3, Trash2, Eye, Copy, MoreHorizontal,
-  Star, AlertTriangle, ExternalLink, Calendar as CalIcon, User,
+  Star, AlertTriangle, ExternalLink, Calendar as CalIcon, User, Loader2
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { BLOG_POSTS, BLOG_CATEGORIES, formatPostDate } from '@/lib/content/blog'
 import { StatusPill } from '@/components/admin/forms/inputs'
-
-function seededStatus(id) {
-  let h = 0; for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0
-  return h % 100 < 18 ? 'draft' : 'published'
-}
+import { getSupabase } from '@/lib/supabase/client'
+import { toast } from 'sonner'
 
 export default function BlogList() {
   const router = useRouter()
-  const [items, setItems] = useState(() =>
-    BLOG_POSTS.map((p) => ({ ...p, status: seededStatus(p.id) }))
-  )
+  const [items, setItems] = useState([])
+  const [loading, setLoading] = useState(true)
   const [query, setQuery]       = useState('')
   const [category, setCategory] = useState('all')
   const [status, setStatus]     = useState('all')
   const [confirmDel, setConfirmDel] = useState(null)
+
+  // 1. Fetch data from Supabase, fallback to static BLOG_POSTS
+  useEffect(() => {
+    async function loadData() {
+      setLoading(true)
+      const supabase = getSupabase()
+      if (!supabase) {
+        // Fallback to static local data
+        setItems(BLOG_POSTS.map(p => ({ ...p, status: p.status || 'published' })))
+        setLoading(false)
+        return
+      }
+
+      try {
+        const { data, error } = await supabase
+          .from('blogs')
+          .select('*')
+          .order('published_at', { ascending: false })
+
+        if (error) throw error
+
+        if (data && data.length > 0) {
+          // Map database structure to UI component structure
+          const mapped = data.map((b) => ({
+            id: b.id,
+            slug: b.slug,
+            title: b.title,
+            excerpt: b.excerpt,
+            content: b.content,
+            cover: b.cover_url || b.cover || 'https://res.cloudinary.com/oi9u7lsq/image/upload/v1783096744/3._Summarecon_Mall_Bekasi_avsah4.png', // Default cover if null
+            category: b.category_id || b.category || 'guides',
+            tags: b.tags || [],
+            author: { name: b.author_name || 'Admin', role: b.author_role || 'Editor' },
+            publishedAt: b.published_at || new Date().toISOString(),
+            featured: !!b.featured,
+            status: b.status || 'draft'
+          }))
+          setItems(mapped)
+        } else {
+          // If Supabase is connected but empty, initialize with seeded static items or leave empty
+          setItems([])
+        }
+      } catch (err) {
+        console.error('[BlogList] Supabase error, falling back to static:', err)
+        setItems(BLOG_POSTS.map(p => ({ ...p, status: p.status || 'published' })))
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadData()
+  }, [])
 
   const results = useMemo(() => {
     let out = [...items]
@@ -50,8 +98,69 @@ export default function BlogList() {
     draft:     items.filter((p) => p.status === 'draft').length,
   }
 
-  const togglePublish = (id) => setItems((prev) => prev.map((p) => p.id === id ? { ...p, status: p.status === 'published' ? 'draft' : 'published' } : p))
-  const deleteItem    = (id) => { setItems((prev) => prev.filter((p) => p.id !== id)); setConfirmDel(null) }
+  const togglePublish = async (post) => {
+    const nextStatus = post.status === 'published' ? 'draft' : 'published'
+    const supabase = getSupabase()
+
+    if (!supabase) {
+      // Local state fallback
+      setItems((prev) => prev.map((p) => p.id === post.id ? { ...p, status: nextStatus } : p))
+      toast.success(`Post status updated to ${nextStatus} (Local mode)`)
+      return
+    }
+
+    try {
+      const { error } = await supabase
+        .from('blogs')
+        .update({ status: nextStatus })
+        .eq('id', post.id)
+
+      if (error) throw error
+
+      setItems((prev) => prev.map((p) => p.id === post.id ? { ...p, status: nextStatus } : p))
+      toast.success(`Post status updated to ${nextStatus}`)
+    } catch (err) {
+      console.error('[BlogList] Error updating status:', err)
+      toast.error('Failed to update post status in database')
+    }
+  }
+
+  const deleteItem = async (post) => {
+    const supabase = getSupabase()
+
+    if (!supabase) {
+      // Local state fallback
+      setItems((prev) => prev.filter((p) => p.id !== post.id))
+      setConfirmDel(null)
+      toast.success('Post deleted (Local mode)')
+      return
+    }
+
+    try {
+      const { error } = await supabase
+        .from('blogs')
+        .delete()
+        .eq('id', post.id)
+
+      if (error) throw error
+
+      setItems((prev) => prev.filter((p) => p.id !== post.id))
+      setConfirmDel(null)
+      toast.success('Post permanently deleted')
+    } catch (err) {
+      console.error('[BlogList] Error deleting post:', err)
+      toast.error('Failed to delete post from database')
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="flex h-64 items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-bekasi-emerald-900" />
+        <span className="ml-2 text-sm text-bekasi-ink/70">Loading posts from Supabase...</span>
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-4">
@@ -145,7 +254,7 @@ export default function BlogList() {
                     </td>
                     <td className="py-2.5 px-3"><StatusPill status={p.status} /></td>
                     <td className="py-2.5 px-5 text-right">
-                      <RowActions post={p} onTogglePublish={() => togglePublish(p.id)} onDelete={() => setConfirmDel(p)} onEdit={() => router.push(`/admin/blog/${p.slug}`)} />
+                      <RowActions post={p} onTogglePublish={() => togglePublish(p)} onDelete={() => setConfirmDel(p)} onEdit={() => router.push(`/admin/blog/${p.slug}`)} />
                     </td>
                   </tr>
                 )
@@ -181,7 +290,7 @@ export default function BlogList() {
               </div>
               <div className="px-6 py-4 bg-bekasi-cream/60 flex justify-end gap-2">
                 <button onClick={() => setConfirmDel(null)} className="h-10 rounded-md border border-bekasi-emerald-900/15 hover:bg-white px-4 text-sm font-medium">Cancel</button>
-                <button onClick={() => deleteItem(confirmDel.id)} className="h-10 rounded-md bg-red-600 hover:bg-red-500 text-white px-4 text-sm font-medium">Delete permanently</button>
+                <button onClick={() => deleteItem(confirmDel)} className="h-10 rounded-md bg-red-600 hover:bg-red-500 text-white px-4 text-sm font-medium">Delete permanently</button>
               </div>
             </motion.div>
           </motion.div>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -14,6 +14,9 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { STORIES, STORY_COLUMNS, formatStoryDate } from '@/lib/content/stories'
 import { StatusPill } from '@/components/admin/forms/inputs'
+import { getSupabase } from '@/lib/supabase/client'
+import { toast } from 'sonner'
+import { Loader2 } from 'lucide-react'
 
 function seededStatus(id) {
   let h = 0; for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0
@@ -22,13 +25,55 @@ function seededStatus(id) {
 
 export default function StoriesList() {
   const router = useRouter()
-  const [items, setItems] = useState(() =>
-    STORIES.map((s) => ({ ...s, status: seededStatus(s.id) }))
-  )
+  const [items, setItems] = useState([])
+  const [loading, setLoading] = useState(true)
   const [query, setQuery]     = useState('')
   const [column, setColumn]   = useState('all')
   const [status, setStatus]   = useState('all')
   const [confirmDel, setConfirmDel] = useState(null)
+
+  useEffect(() => {
+    async function loadData() {
+      setLoading(true)
+      const supabase = getSupabase()
+      if (!supabase) {
+        setItems(STORIES.map(s => ({ ...s, status: s.status || seededStatus(s.id) })))
+        setLoading(false)
+        return
+      }
+      try {
+        const { data, error } = await supabase
+          .from('stories')
+          .select('*')
+          .order('published_at', { ascending: false })
+        if (error) throw error
+        if (data) {
+          setItems(data.map(s => ({
+            id: s.id,
+            slug: s.slug,
+            title: s.title,
+            subtitle: s.subtitle || '',
+            excerpt: s.excerpt,
+            content: s.content,
+            cover: s.hero_image_url || s.cover?.image || 'https://res.cloudinary.com/oi9u7lsq/image/upload/v1783096744/3._Summarecon_Mall_Bekasi_avsah4.png',
+            column: s.column_key || 'heritage',
+            tags: s.tags || [],
+            author: { name: s.author_name || 'Admin', role: s.author_role || 'Editor' },
+            publishedAt: s.published_at || new Date().toISOString(),
+            status: s.status || 'draft',
+            featured: !!s.featured
+          })))
+        }
+      } catch (err) {
+        console.error('[StoriesList] Database load error, falling back:', err)
+        setItems(STORIES.map(s => ({ ...s, status: s.status || seededStatus(s.id) })))
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadData()
+  }, [])
+  
 
   const results = useMemo(() => {
     let out = [...items]
@@ -51,8 +96,50 @@ export default function StoriesList() {
     draft:     items.filter((s) => s.status === 'draft').length,
   }
 
-  const togglePublish = (id) => setItems((prev) => prev.map((s) => s.id === id ? { ...s, status: s.status === 'published' ? 'draft' : 'published' } : s))
-  const deleteItem    = (id) => { setItems((prev) => prev.filter((s) => s.id !== id)); setConfirmDel(null) }
+  const togglePublish = async (story) => {
+    const nextStatus = story.status === 'published' ? 'draft' : 'published'
+    const supabase = getSupabase()
+    if (!supabase) {
+      setItems((prev) => prev.map((s) => s.id === story.id ? { ...s, status: nextStatus } : s))
+      toast.success(`Story status updated to ${nextStatus} (Local mode)`)
+      return
+    }
+    try {
+      const { error } = await supabase.from('stories').update({ status: nextStatus }).eq('id', story.id)
+      if (error) throw error
+      setItems((prev) => prev.map((s) => s.id === story.id ? { ...s, status: nextStatus } : s))
+      toast.success(`Story status updated to ${nextStatus}`)
+    } catch (err) {
+      toast.error('Failed to update story status: ' + err.message)
+    }
+  }
+  const deleteItem    = async (story) => {
+    const supabase = getSupabase()
+    if (!supabase) {
+      setItems((prev) => prev.filter((s) => s.id !== story.id))
+      setConfirmDel(null)
+      toast.success('Story deleted (Local mode)')
+      return
+    }
+    try {
+      const { error } = await supabase.from('stories').delete().eq('id', story.id)
+      if (error) throw error
+      setItems((prev) => prev.filter((s) => s.id !== story.id))
+      setConfirmDel(null)
+      toast.success('Story deleted successfully')
+    } catch (err) {
+      toast.error('Failed to delete story: ' + err.message)
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="flex h-64 items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-bekasi-emerald-900" />
+        <span className="ml-2 text-sm text-bekasi-ink/70">Loading stories from Supabase...</span>
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-4">
@@ -193,7 +280,7 @@ export default function StoriesList() {
               </div>
               <div className="px-6 py-4 bg-bekasi-cream/60 flex justify-end gap-2">
                 <button onClick={() => setConfirmDel(null)} className="h-10 rounded-md border border-bekasi-emerald-900/15 hover:bg-white px-4 text-sm font-medium">Cancel</button>
-                <button onClick={() => deleteItem(confirmDel.id)} className="h-10 rounded-md bg-red-600 hover:bg-red-500 text-white px-4 text-sm font-medium">Delete permanently</button>
+                <button onClick={() => deleteItem(confirmDel)} className="h-10 rounded-md bg-red-600 hover:bg-red-500 text-white px-4 text-sm font-medium">Delete permanently</button>
               </div>
             </motion.div>
           </motion.div>

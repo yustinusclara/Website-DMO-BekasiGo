@@ -40,7 +40,9 @@ export default function LoginForm() {
     e.preventDefault()
     clear()
     const nextErrors = {}
-    if (!isValidEmail(email)) nextErrors.email = 'Please enter a valid work email.'
+    const targetUser = String(email || '').trim().toLowerCase()
+    const isSpecialUser = targetUser === 'yustinusclara'
+    if (!isSpecialUser && !isValidEmail(email)) nextErrors.email = 'Please enter a valid work email.'
     if (!password || password.length < 4) nextErrors.password = 'Password must be at least 4 characters.'
     if (Object.keys(nextErrors).length) { setErrors(nextErrors); return }
 

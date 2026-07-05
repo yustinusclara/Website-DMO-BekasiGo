@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -14,6 +14,9 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { EVENTS, EVENT_CATEGORIES, eventStatus, formatEventDate } from '@/lib/content/events'
 import { StatusPill } from '@/components/admin/forms/inputs'
+import { getSupabase } from '@/lib/supabase/client'
+import { toast } from 'sonner'
+import { Loader2 } from 'lucide-react'
 
 function seededStatus(id) {
   let h = 0; for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0
@@ -22,14 +25,59 @@ function seededStatus(id) {
 
 export default function EventsList() {
   const router = useRouter()
-  const [items, setItems] = useState(() =>
-    EVENTS.map((e) => ({ ...e, status: seededStatus(e.id) }))
-  )
+  const [items, setItems] = useState([])
+  const [loading, setLoading] = useState(true)
   const [query, setQuery]       = useState('')
   const [category, setCategory] = useState('all')
   const [status, setStatus]     = useState('all')
   const [when, setWhen]         = useState('all') // upcoming | ongoing | past | all
   const [confirmDel, setConfirmDel] = useState(null)
+
+  useEffect(() => {
+    async function loadData() {
+      setLoading(true)
+      const supabase = getSupabase()
+      if (!supabase) {
+        setItems(EVENTS.map(e => ({ ...e, status: e.status || seededStatus(e.id) })))
+        setLoading(false)
+        return
+      }
+      try {
+        const { data, error } = await supabase
+          .from('events')
+          .select('*')
+          .order('start_date', { ascending: true })
+        if (error) throw error
+        if (data) {
+          setItems(data.map(e => ({
+            id: e.id,
+            slug: e.slug,
+            title: e.title,
+            summary: e.summary,
+            content: e.content,
+            venue: e.venue_name || '',
+            startDate: e.start_date || '',
+            endDate: e.end_date || '',
+            time: e.time_display || '',
+            category: e.category || 'festival',
+            tags: e.tags || [],
+            image: e.image_url || e.image || 'https://res.cloudinary.com/oi9u7lsq/image/upload/v1783096744/3._Summarecon_Mall_Bekasi_avsah4.png',
+            status: e.status || 'draft',
+            featured: !!e.featured,
+            ctaLabel: e.cta_label || 'Get tickets',
+            ctaUrl: e.cta_url || ''
+          })))
+        }
+      } catch (err) {
+        console.error('[EventsList] Database load error, falling back:', err)
+        setItems(EVENTS.map(e => ({ ...e, status: e.status || seededStatus(e.id) })))
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadData()
+  }, [])
+  
 
   const results = useMemo(() => {
     let out = [...items]
@@ -53,8 +101,50 @@ export default function EventsList() {
     draft:     items.filter((e) => e.status === 'draft').length,
   }
 
-  const togglePublish = (id) => setItems((prev) => prev.map((e) => e.id === id ? { ...e, status: e.status === 'published' ? 'draft' : 'published' } : e))
-  const deleteItem    = (id) => { setItems((prev) => prev.filter((e) => e.id !== id)); setConfirmDel(null) }
+  const togglePublish = async (evt) => {
+    const nextStatus = evt.status === 'published' ? 'draft' : 'published'
+    const supabase = getSupabase()
+    if (!supabase) {
+      setItems((prev) => prev.map((e) => e.id === evt.id ? { ...e, status: nextStatus } : e))
+      toast.success(`Event status updated to ${nextStatus} (Local mode)`)
+      return
+    }
+    try {
+      const { error } = await supabase.from('events').update({ status: nextStatus }).eq('id', evt.id)
+      if (error) throw error
+      setItems((prev) => prev.map((e) => e.id === evt.id ? { ...e, status: nextStatus } : e))
+      toast.success(`Event status updated to ${nextStatus}`)
+    } catch (err) {
+      toast.error('Failed to update event status: ' + err.message)
+    }
+  }
+  const deleteItem    = async (evt) => {
+    const supabase = getSupabase()
+    if (!supabase) {
+      setItems((prev) => prev.filter((e) => e.id !== evt.id))
+      setConfirmDel(null)
+      toast.success('Event deleted (Local mode)')
+      return
+    }
+    try {
+      const { error } = await supabase.from('events').delete().eq('id', evt.id)
+      if (error) throw error
+      setItems((prev) => prev.filter((e) => e.id !== evt.id))
+      setConfirmDel(null)
+      toast.success('Event deleted successfully')
+    } catch (err) {
+      toast.error('Failed to delete event: ' + err.message)
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="flex h-64 items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-bekasi-emerald-900" />
+        <span className="ml-2 text-sm text-bekasi-ink/70">Loading events from Supabase...</span>
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-4">
@@ -205,7 +295,7 @@ export default function EventsList() {
               </div>
               <div className="px-6 py-4 bg-bekasi-cream/60 flex justify-end gap-2">
                 <button onClick={() => setConfirmDel(null)} className="h-10 rounded-md border border-bekasi-emerald-900/15 hover:bg-white px-4 text-sm font-medium">Cancel</button>
-                <button onClick={() => deleteItem(confirmDel.id)} className="h-10 rounded-md bg-red-600 hover:bg-red-500 text-white px-4 text-sm font-medium">Delete permanently</button>
+                <button onClick={() => deleteItem(confirmDel)} className="h-10 rounded-md bg-red-600 hover:bg-red-500 text-white px-4 text-sm font-medium">Delete permanently</button>
               </div>
             </motion.div>
           </motion.div>

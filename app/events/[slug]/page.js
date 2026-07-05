@@ -1,11 +1,11 @@
 import { notFound } from 'next/navigation'
 import SiteHeader from '@/components/layout/SiteHeader'
 import SiteFooter from '@/components/layout/SiteFooter'
-import EventHero from '@/components/sections/events/detail/EventHero'
-import EventOverview from '@/components/sections/events/detail/EventOverview'
-import EventMap from '@/components/sections/events/detail/EventMap'
-import EventPlannerCTA from '@/components/sections/events/detail/EventPlannerCTA'
-import RelatedEvents from '@/components/sections/events/detail/RelatedEvents'
+import EventHero from '@/components/public/pages/events/detail/EventHero'
+import EventOverview from '@/components/public/pages/events/detail/EventOverview'
+import EventMap from '@/components/public/pages/events/detail/EventMap'
+import EventPlannerCTA from '@/components/public/pages/events/detail/EventPlannerCTA'
+import RelatedEvents from '@/components/public/pages/events/detail/RelatedEvents'
 import { getEventBySlug, getRelatedEvents, EVENTS } from '@/lib/content/events'
 
 export async function generateStaticParams() {

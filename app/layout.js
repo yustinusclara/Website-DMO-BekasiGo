@@ -17,7 +17,7 @@ const playfair = Playfair_Display({
 export const metadata = {
   title: 'BekasiGo — Discover Kota Bekasi',
   description:
-    'The official destination guide to Kota Bekasi. Discover heritage, urban lifestyle, culinary journeys, and smart city experiences — plan your trip with the BekasiGo Smart Planner.',
+    'The destination guide to Kota Bekasi. Discover heritage, urban lifestyle, culinary journeys, and smart city experiences — plan your trip with the BekasiGo Smart Planner.',
   metadataBase: new URL('https://bekasigo.example.com'),
   openGraph: {
     title: 'BekasiGo — Discover Kota Bekasi',

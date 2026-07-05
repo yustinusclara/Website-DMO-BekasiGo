@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button'
 import { NAV } from '@/lib/content/homepage'
 import { categories as CAT } from '@/lib/design/tokens'
 import AuthAvatar from '@/components/auth/AuthAvatar'
+import GlobalSearchOverlay from '@/components/layout/GlobalSearchOverlay'
 
 /**
  * SiteHeader
@@ -28,6 +29,7 @@ export default function SiteHeader() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)              // mobile drawer
   const [megaOpen, setMegaOpen] = useState(null)       // string id | null
+  const [searchOpen, setSearchOpen] = useState(false)
   const closeTimer = useRef(null)
 
   useEffect(() => {
@@ -37,12 +39,30 @@ export default function SiteHeader() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Keyboard shortcut listener for global search
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || e.key === '/') {
+        // Prevent default input typing behavior if trigger is slash
+        if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+          e.preventDefault()
+          setSearchOpen(true)
+        }
+      }
+      if (e.key === 'Escape') {
+        setSearchOpen(false)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
   // Lock body scroll while mobile drawer open
   useEffect(() => {
-    if (open) document.body.style.overflow = 'hidden'
+    if (open || searchOpen) document.body.style.overflow = 'hidden'
     else document.body.style.overflow = ''
     return () => { document.body.style.overflow = '' }
-  }, [open])
+  }, [open, searchOpen])
 
   const openMega = (id) => {
     if (closeTimer.current) clearTimeout(closeTimer.current)
@@ -106,7 +126,7 @@ export default function SiteHeader() {
           <div className="flex flex-col leading-none">
             <span className="font-display text-white text-xl tracking-tight">BekasiGo</span>
             <span className="text-[10px] uppercase tracking-[0.25em] text-white/60 mt-0.5">
-              Official City Guide
+              City Guide
             </span>
           </div>
         </Link>
@@ -171,6 +191,7 @@ export default function SiteHeader() {
         {/* Right cluster */}
         <div className="flex items-center gap-1.5 md:gap-2 shrink-0">
           <button
+            onClick={() => setSearchOpen(true)}
             aria-label="Search"
             className="hidden md:inline-flex h-10 w-10 items-center justify-center rounded-full text-white/80 hover:text-white hover:bg-white/10 transition-colors"
           >
@@ -261,6 +282,8 @@ export default function SiteHeader() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <GlobalSearchOverlay isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   )
 }

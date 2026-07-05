@@ -1,12 +1,12 @@
-'use client'
+﻿'use client'
 
 import Link from 'next/link'
 import { ArrowUpRight, Sparkles, Sun, MapPin, Search, ChevronRight, Check } from 'lucide-react'
-import Eyebrow from '@/components/ds/Eyebrow'
-import Pill from '@/components/ds/Pill'
-import Tag from '@/components/ds/Tag'
-import Surface from '@/components/ds/Surface'
-import Stat from '@/components/ds/Stat'
+import Eyebrow from '@/components/shared/Eyebrow'
+import Pill from '@/components/shared/Pill'
+import Tag from '@/components/shared/Tag'
+import Surface from '@/components/shared/Surface'
+import Stat from '@/components/shared/Stat'
 import tokens from '@/lib/design/tokens'
 
 export default function DesignSystemPage() {

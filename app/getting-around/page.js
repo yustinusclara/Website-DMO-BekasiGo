@@ -1,4 +1,4 @@
-import DirectoryIndex from '@/components/sections/directory/DirectoryIndex'
+﻿import DirectoryIndex from '@/components/public/pages/directory/DirectoryIndex'
 import items from '@/lib/content/_data_transit.json'
 
 export const metadata = { title: 'Getting Around — BekasiGo' }

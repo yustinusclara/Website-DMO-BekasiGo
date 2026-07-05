@@ -1,4 +1,4 @@
-import InfoPage from '@/components/sections/info/InfoPage'
+﻿import InfoPage from '@/components/public/pages/info/InfoPage'
 export const metadata = { title: 'Press — BekasiGo' }
 export default function PressPage() {
   return (

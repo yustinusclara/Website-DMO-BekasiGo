@@ -1,7 +1,7 @@
-import SiteHeader from '@/components/layout/SiteHeader'
+﻿import SiteHeader from '@/components/layout/SiteHeader'
 import SiteFooter from '@/components/layout/SiteFooter'
-import DestinationsHero from '@/components/sections/destinations/DestinationsHero'
-import DestinationsExplorer from '@/components/sections/destinations/DestinationsExplorer'
+import DestinationsHero from '@/components/public/pages/destinations/DestinationsHero'
+import DestinationsExplorer from '@/components/public/pages/destinations/DestinationsExplorer'
 
 export const metadata = {
   title: 'Destinations — BekasiGo',

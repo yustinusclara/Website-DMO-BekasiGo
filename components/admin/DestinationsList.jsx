@@ -1,13 +1,13 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Plus, Search, Edit3, Trash2, Eye, Copy, MoreHorizontal, ArrowUpDown,
-  MapPin, Star, X, AlertTriangle, ExternalLink,
+  MapPin, Star, X, AlertTriangle, ExternalLink, Loader2,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -16,6 +16,8 @@ import {
   DESTINATIONS, DEST_CATEGORIES, DEST_DISTRICTS,
 } from '@/lib/content/destinations'
 import { StatusPill } from '@/components/admin/forms/inputs'
+import { getSupabase } from '@/lib/supabase/client'
+import { toast } from 'sonner'
 
 // Seed statuses deterministically — same as adminData mock.
 function seededStatus(id) {
@@ -25,13 +27,53 @@ function seededStatus(id) {
 
 export default function DestinationsList() {
   const router = useRouter()
-  const [items, setItems] = useState(() =>
-    DESTINATIONS.map((d) => ({ ...d, status: seededStatus(d.id) }))
-  )
+  const [items, setItems] = useState([])
+  const [loading, setLoading] = useState(true)
   const [query, setQuery]       = useState('')
   const [category, setCategory] = useState('all')
   const [status, setStatus]     = useState('all')
   const [confirmDel, setConfirmDel] = useState(null)
+
+  useEffect(() => {
+    async function loadData() {
+      setLoading(true)
+      const supabase = getSupabase()
+      if (!supabase) {
+        setItems(DESTINATIONS.map(d => ({ ...d, status: d.status || seededStatus(d.id) })))
+        setLoading(false)
+        return
+      }
+      try {
+        const { data, error } = await supabase
+          .from('destinations')
+          .select('*')
+          .order('title', { ascending: true })
+        if (error) throw error
+        if (data) {
+          setItems(data.map(d => ({
+            id: d.id,
+            slug: d.slug,
+            title: d.title,
+            excerpt: d.excerpt,
+            description: d.description,
+            category: d.category_id || 'heritage',
+            district: d.district,
+            rating: d.rating ? Number(d.rating) : null,
+            image: d.image_url || d.image || 'https://res.cloudinary.com/oi9u7lsq/image/upload/v1783096744/3._Summarecon_Mall_Bekasi_avsah4.png',
+            status: d.status || 'draft',
+            featured: !!d.featured
+          })))
+        }
+      } catch (err) {
+        console.error('[DestinationsList] Database load error, falling back:', err)
+        setItems(DESTINATIONS.map(d => ({ ...d, status: d.status || seededStatus(d.id) })))
+      } finally {
+        setLoading(false)
+      }
+    }
+    loadData()
+  }, [])
+  
 
   const results = useMemo(() => {
     let out = [...items]
@@ -48,8 +90,50 @@ export default function DestinationsList() {
     draft:     items.filter((d) => d.status === 'draft').length,
   }
 
-  const togglePublish = (id) => setItems((prev) => prev.map((d) => d.id === id ? { ...d, status: d.status === 'published' ? 'draft' : 'published' } : d))
-  const deleteItem    = (id) => { setItems((prev) => prev.filter((d) => d.id !== id)); setConfirmDel(null) }
+  const togglePublish = async (dest) => {
+    const nextStatus = dest.status === 'published' ? 'draft' : 'published'
+    const supabase = getSupabase()
+    if (!supabase) {
+      setItems((prev) => prev.map((d) => d.id === dest.id ? { ...d, status: nextStatus } : d))
+      toast.success(`Destination status updated to ${nextStatus} (Local mode)`)
+      return
+    }
+    try {
+      const { error } = await supabase.from('destinations').update({ status: nextStatus }).eq('id', dest.id)
+      if (error) throw error
+      setItems((prev) => prev.map((d) => d.id === dest.id ? { ...d, status: nextStatus } : d))
+      toast.success(`Destination status updated to ${nextStatus}`)
+    } catch (err) {
+      toast.error('Failed to update status: ' + err.message)
+    }
+  }
+  const deleteItem    = async (dest) => {
+    const supabase = getSupabase()
+    if (!supabase) {
+      setItems((prev) => prev.filter((d) => d.id !== dest.id))
+      setConfirmDel(null)
+      toast.success('Destination deleted (Local mode)')
+      return
+    }
+    try {
+      const { error } = await supabase.from('destinations').delete().eq('id', dest.id)
+      if (error) throw error
+      setItems((prev) => prev.filter((d) => d.id !== dest.id))
+      setConfirmDel(null)
+      toast.success('Destination deleted successfully')
+    } catch (err) {
+      toast.error('Failed to delete destination: ' + err.message)
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="flex h-64 items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-bekasi-emerald-900" />
+        <span className="ml-2 text-sm text-bekasi-ink/70">Loading destinations from Supabase...</span>
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-4">
@@ -145,7 +229,7 @@ export default function DestinationsList() {
                       )}
                     </td>
                     <td className="py-2.5 px-5 text-right">
-                      <RowActions destination={d} onTogglePublish={() => togglePublish(d.id)} onDelete={() => setConfirmDel(d)} onEdit={() => router.push(`/admin/destinations/${d.slug}`)} />
+                      <RowActions destination={d} onTogglePublish={() => togglePublish(d)} onDelete={() => setConfirmDel(d)} onEdit={() => router.push(`/admin/destinations/${d.slug}`)} />
                     </td>
                   </tr>
                 )
@@ -186,7 +270,7 @@ export default function DestinationsList() {
               </div>
               <div className="px-6 py-4 bg-bekasi-cream/60 flex justify-end gap-2">
                 <button onClick={() => setConfirmDel(null)} className="h-10 rounded-md border border-bekasi-emerald-900/15 hover:bg-white px-4 text-sm font-medium">Cancel</button>
-                <button onClick={() => deleteItem(confirmDel.id)} className="h-10 rounded-md bg-red-600 hover:bg-red-500 text-white px-4 text-sm font-medium">Delete permanently</button>
+                <button onClick={() => deleteItem(confirmDel)} className="h-10 rounded-md bg-red-600 hover:bg-red-500 text-white px-4 text-sm font-medium">Delete permanently</button>
               </div>
             </motion.div>
           </motion.div>

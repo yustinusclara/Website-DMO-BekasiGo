@@ -1,11 +1,11 @@
 import { notFound } from 'next/navigation'
 import SiteHeader from '@/components/layout/SiteHeader'
 import SiteFooter from '@/components/layout/SiteFooter'
-import ReadingProgress from '@/components/sections/stories/detail/ReadingProgress'
-import StoryHero from '@/components/sections/stories/detail/StoryHero'
-import StoryBody from '@/components/sections/stories/detail/StoryBody'
-import StoryClose from '@/components/sections/stories/detail/StoryClose'
-import RelatedStories from '@/components/sections/stories/detail/RelatedStories'
+import ReadingProgress from '@/components/public/pages/stories/detail/ReadingProgress'
+import StoryHero from '@/components/public/pages/stories/detail/StoryHero'
+import StoryBody from '@/components/public/pages/stories/detail/StoryBody'
+import StoryClose from '@/components/public/pages/stories/detail/StoryClose'
+import RelatedStories from '@/components/public/pages/stories/detail/RelatedStories'
 import { getStoryBySlug, getRelatedStories, STORIES } from '@/lib/content/stories'
 
 export async function generateStaticParams() {

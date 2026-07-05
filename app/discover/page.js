@@ -1,16 +1,16 @@
 import SiteHeader from '@/components/layout/SiteHeader'
 import SiteFooter from '@/components/layout/SiteFooter'
-import DiscoverHero from '@/components/sections/discover/DiscoverHero'
-import CityPositioning from '@/components/sections/discover/CityPositioning'
-import CategoryGrid from '@/components/sections/discover/CategoryGrid'
-import FeaturedHighlights from '@/components/sections/discover/FeaturedHighlights'
-import CityFacts from '@/components/sections/discover/CityFacts'
-import CTAPaths from '@/components/sections/discover/CTAPaths'
+import DiscoverHero from '@/components/public/pages/discover/DiscoverHero'
+import CityPositioning from '@/components/public/pages/discover/CityPositioning'
+import CategoryGrid from '@/components/public/pages/discover/CategoryGrid'
+import FeaturedHighlights from '@/components/public/pages/discover/FeaturedHighlights'
+import CityFacts from '@/components/public/pages/discover/CityFacts'
+import CTAPaths from '@/components/public/pages/discover/CTAPaths'
 
 export const metadata = {
   title: 'Discover Bekasi — BekasiGo',
   description:
-    'The official overview of Kota Bekasi. Explore heritage, food, urban lifestyle, and the neighborhoods that shape a city rewriting its own story.',
+    'The overview of Kota Bekasi. Explore heritage, food, urban lifestyle, and the neighborhoods that shape a city rewriting its own story.',
 }
 
 export default function DiscoverPage() {
