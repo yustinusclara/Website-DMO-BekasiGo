@@ -174,6 +174,35 @@ export default function FloatingCityShowcase({ data }) {
                 }}
               />
 
+              {/* Mascot - Cute Wave floating next to the city */}
+              <div
+                className="absolute z-20 w-[18%] h-[18%] pointer-events-none transition-transform duration-500 ease-out"
+                style={{
+                  bottom: '25%',
+                  right: '10%',
+                  transform: 'translate3d(calc(var(--px) * 32px), calc(var(--py) * 30px), 0)',
+                }}
+              >
+                <motion.div
+                  className="w-full h-full"
+                  animate={reduce ? {} : {
+                    y: [0, -10, 0],
+                    rotate: [0, 2, -2, 0],
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <img
+                    src="https://res.cloudinary.com/oi9u7lsq/image/upload/v1783252332/11._Cute_Wave_pluzad.png"
+                    alt="BekasiGo Mascot - Cute Wave"
+                    className="w-full h-full object-contain drop-shadow-[0_12px_24px_rgba(20,80,60,0.35)]"
+                  />
+                </motion.div>
+              </div>
+
               {/* Orbit chips — parallax at different depths */}
               {content.orbits.map((c, i) => (
                 <span
