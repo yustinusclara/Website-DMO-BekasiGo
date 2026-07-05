@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
@@ -59,26 +59,72 @@ export default function HeritageSpotlight({ data }) {
         </div>
 
         {/* Editorial pull quote */}
-        <motion.div
-          variants={reveal}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: '-100px' }}
-          className="mt-20 md:mt-28 relative flex items-start gap-6 md:gap-10 max-w-5xl"
-        >
-          <div className="flex-shrink-0 pt-2">
-            <Quote className="h-8 w-8 md:h-10 md:w-10 text-bekasi-gold-500/70 -scale-x-100" strokeWidth={1.5} />
-          </div>
-          <div className="flex-1">
-            <p className="heading-display text-2xl md:text-4xl lg:text-[2.5rem] leading-[1.25] text-white/95 text-balance italic">
-              {content.quote}
-            </p>
-            <div className="mt-6 flex items-center gap-3">
-              <span aria-hidden className="h-px w-10 bg-bekasi-gold-500/60" />
-              <span className="mono text-bekasi-gold-400">{content.quoteAttribution}</span>
+        <div className="relative mt-20 md:mt-28">
+          <motion.div
+            variants={reveal}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: '-100px' }}
+            className="relative flex items-start gap-6 md:gap-10 max-w-5xl z-10"
+          >
+            <div className="flex-shrink-0 pt-2">
+              <Quote className="h-8 w-8 md:h-10 md:w-10 text-bekasi-gold-500/70 -scale-x-100" strokeWidth={1.5} />
             </div>
+            <div className="flex-1">
+              <p className="heading-display text-2xl md:text-4xl lg:text-[2.5rem] leading-[1.25] text-white/95 text-balance italic">
+                {content.quote}
+              </p>
+              <div className="mt-6 flex items-center gap-3">
+                <span aria-hidden className="h-px w-10 bg-bekasi-gold-500/60" />
+                <span className="mono text-bekasi-gold-400">{content.quoteAttribution}</span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Desktop Mascot - Tell or Teach (right side) */}
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 lg:flex hidden items-center justify-center w-[300px] h-[300px] z-0 pointer-events-none">
+            <motion.div
+              animate={{
+                y: [0, -15, 0],
+                rotate: [0, 2, -2, 0],
+              }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              className="w-full h-full"
+            >
+              <img
+                src="https://res.cloudinary.com/oi9u7lsq/image/upload/v1783252386/10._Tell_or_Teach_tjhufg.png"
+                alt="BekasiGo Mascot - Tell or Teach"
+                className="w-full h-full object-contain drop-shadow-[0_15px_35px_rgba(212,163,89,0.25)]"
+              />
+            </motion.div>
           </div>
-        </motion.div>
+        </div>
+
+        {/* Mobile/Tablet Mascot - Tell or Teach (centered below quote) */}
+        <div className="lg:hidden flex items-center justify-center w-full mt-10 pointer-events-none">
+          <motion.div
+            animate={{
+              y: [0, -8, 0],
+              rotate: [0, 1.5, -1.5, 0],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="w-[180px] h-[180px]"
+          >
+            <img
+              src="https://res.cloudinary.com/oi9u7lsq/image/upload/v1783252386/10._Tell_or_Teach_tjhufg.png"
+              alt="BekasiGo Mascot - Tell or Teach"
+              className="w-full h-full object-contain drop-shadow-[0_10px_20px_rgba(212,163,89,0.2)]"
+            />
+          </motion.div>
+        </div>
 
         {/* Spotlight cards grid */}
         <motion.div
