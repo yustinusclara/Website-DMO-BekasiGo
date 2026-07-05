@@ -163,6 +163,15 @@ export default function PlannerIntro({ data }) {
                 </p>
               </div>
             </div>
+
+            {/* Mascot - Run to Right (Under the form card) */}
+            <div className="relative mx-auto mt-6 lg:absolute lg:left-[15%] lg:bottom-[-130px] lg:mt-0 w-[210px] h-[210px] pointer-events-none z-10">
+              <img
+                src="https://res.cloudinary.com/oi9u7lsq/image/upload/v1783252333/9._Run_to_Right_a06zti.png"
+                alt="BekasiGo Mascot - Run to Right"
+                className="w-full h-full object-contain drop-shadow-[0_12px_28px_rgba(20,50,40,0.22)]"
+              />
+            </div>
           </motion.div>
 
           {/* RIGHT — Mock itinerary preview */}
@@ -262,22 +271,11 @@ export default function PlannerIntro({ data }) {
           </motion.div>
         </div>
 
-        {/* Mascot - Run to Right (Centered in the empty space between split and pillars) */}
-        <div className="flex justify-center my-10 md:my-16 w-full pointer-events-none">
-          <div className="w-[210px] h-[210px]">
-            <img
-              src="https://res.cloudinary.com/oi9u7lsq/image/upload/v1783252333/9._Run_to_Right_a06zti.png"
-              alt="BekasiGo Mascot - Run to Right"
-              className="w-full h-full object-contain drop-shadow-[0_12px_28px_rgba(20,50,40,0.22)]"
-            />
-          </div>
-        </div>
-
         {/* Pillars */}
         <motion.div
           initial="hidden" whileInView="show" viewport={{ once: true, margin: '-80px' }}
           variants={{ show: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } } }}
-          className="mt-16 md:mt-20 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5"
+          className="mt-16 md:mt-20 lg:mt-36 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5"
         >
           {content.pillars.map((p) => {
             const Icon = PILLAR_ICON[p.icon] ?? Sparkles
