@@ -75,15 +75,6 @@ export default function PlannerIntro({ data }) {
             viewport={{ once: true, margin: '-80px' }} transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 relative"
           >
-            {/* Mascot - Run to Right (Desktop) */}
-            <div className="absolute lg:block hidden -left-[190px] bottom-[40px] w-[210px] h-[210px] pointer-events-none z-10">
-              <img
-                src="https://res.cloudinary.com/oi9u7lsq/image/upload/v1783252333/9._Run_to_Right_a06zti.png"
-                alt="BekasiGo Mascot - Run to Right"
-                className="w-full h-full object-contain drop-shadow-[0_12px_28px_rgba(20,50,40,0.22)]"
-              />
-            </div>
-
             <div className="relative rounded-3xl bg-white/[0.04] border border-white/10 backdrop-blur-xl p-6 md:p-8 shadow-2xl shadow-black/40">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-2">
@@ -170,17 +161,6 @@ export default function PlannerIntro({ data }) {
                 <p className="mt-3 text-center text-xs text-white/45">
                   No account needed · 30 seconds · Refine anytime
                 </p>
-              </div>
-            </div>
-
-            {/* Mascot - Run to Right (Mobile/Tablet) */}
-            <div className="lg:hidden flex justify-center mt-6 w-full pointer-events-none">
-              <div className="w-[150px] h-[150px]">
-                <img
-                  src="https://res.cloudinary.com/oi9u7lsq/image/upload/v1783252333/9._Run_to_Right_a06zti.png"
-                  alt="BekasiGo Mascot - Run to Right"
-                  className="w-full h-full object-contain drop-shadow-[0_10px_20px_rgba(20,50,40,0.2)]"
-                />
               </div>
             </div>
           </motion.div>
@@ -280,6 +260,17 @@ export default function PlannerIntro({ data }) {
               </div>
             </div>
           </motion.div>
+        </div>
+
+        {/* Mascot - Run to Right (Centered in the empty space between split and pillars) */}
+        <div className="flex justify-center my-10 md:my-16 w-full pointer-events-none">
+          <div className="w-[210px] h-[210px]">
+            <img
+              src="https://res.cloudinary.com/oi9u7lsq/image/upload/v1783252333/9._Run_to_Right_a06zti.png"
+              alt="BekasiGo Mascot - Run to Right"
+              className="w-full h-full object-contain drop-shadow-[0_12px_28px_rgba(20,50,40,0.22)]"
+            />
+          </div>
         </div>
 
         {/* Pillars */}
