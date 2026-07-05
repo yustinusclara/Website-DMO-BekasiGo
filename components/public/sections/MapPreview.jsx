@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
@@ -94,7 +94,7 @@ export default function MapPreview({ data }) {
           className="mt-6 md:mt-8 grid lg:grid-cols-12 gap-4 md:gap-6"
         >
           {/* MAP CANVAS — real Leaflet + OSM */}
-          <div className="lg:col-span-8 relative rounded-3xl overflow-hidden border border-black/[0.04] shadow-elevated aspect-[16/11] md:aspect-[16/10] lg:aspect-auto lg:min-h-[560px]">
+          <div className="lg:col-span-8 relative rounded-3xl overflow-hidden border border-black/[0.04] shadow-elevated aspect-[16/11] md:aspect-[16/10] lg:aspect-auto lg:min-h-[560px] z-10">
             <LeafletMap
               points={points}
               center={KOTA_BEKASI_CENTER}
