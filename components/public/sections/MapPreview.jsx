@@ -204,11 +204,11 @@ export default function MapPreview({ data }) {
           </div>
           <div className="lg:col-span-5 flex flex-wrap items-center justify-start lg:justify-end gap-5">
             {/* Mascot - Reading Map */}
-            <div className="relative w-[100px] h-[100px] md:w-[130px] md:h-[130px] shrink-0 pointer-events-none -mt-4 lg:-mt-8">
+            <div className="relative w-[150px] h-[150px] md:w-[210px] md:h-[210px] shrink-0 pointer-events-none -mt-8 lg:-mt-20">
               <img
                 src="https://res.cloudinary.com/oi9u7lsq/image/upload/v1783252333/8._Reading_Map_mhszig.png"
                 alt="BekasiGo Mascot - Reading Map"
-                className="w-full h-full object-contain drop-shadow-[0_8px_20px_rgba(20,50,40,0.12)]"
+                className="w-full h-full object-contain drop-shadow-[0_12px_28px_rgba(20,50,40,0.14)]"
               />
             </div>
 
