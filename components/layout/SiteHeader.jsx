@@ -120,8 +120,13 @@ export default function SiteHeader() {
       >
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-          <div className="relative h-9 w-9 rounded-full bg-bekasi-gold-500 flex items-center justify-center shadow-lg shadow-bekasi-gold-500/25 transition-transform group-hover:scale-105">
-            <span className="font-display text-bekasi-emerald-900 text-lg leading-none">B</span>
+          <div className="relative h-9 w-9 transition-transform group-hover:scale-105">
+            <Image
+              src="https://res.cloudinary.com/oi9u7lsq/image/upload/v1783252951/3._Logo_SVG_BekasiGo_main_wqr72y.svg"
+              alt="BekasiGo Logo"
+              fill
+              className="object-contain"
+            />
           </div>
           <div className="flex flex-col leading-none">
             <span className="font-display text-white text-xl tracking-tight">BekasiGo</span>

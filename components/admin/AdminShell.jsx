@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import {
   LayoutDashboard, MapPin, CalendarDays, BookOpen, Newspaper, ImageIcon,
@@ -48,8 +49,13 @@ export default function AdminShell({ title, kicker, actions, children }) {
         {/* Brand */}
         <div className="h-16 px-5 flex items-center justify-between border-b border-white/8">
           <Link href="/admin" className="flex items-center gap-2.5 group">
-            <div className="h-8 w-8 rounded-md bg-bekasi-gold-500 flex items-center justify-center">
-              <span className="font-display text-bekasi-emerald-900 text-base leading-none">B</span>
+            <div className="relative h-8 w-8 transition-transform group-hover:scale-105">
+              <Image
+                src="https://res.cloudinary.com/oi9u7lsq/image/upload/v1783252951/3._Logo_SVG_BekasiGo_main_wqr72y.svg"
+                alt="BekasiGo Logo"
+                fill
+                className="object-contain"
+              />
             </div>
             <div className="flex flex-col leading-none">
               <span className="font-display text-base tracking-tight">BekasiGo</span>

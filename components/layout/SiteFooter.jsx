@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   Instagram, Youtube, Facebook, Twitter, Music2,
   MapPin, Globe, Mail, Phone, ArrowRight, Sparkles, ShieldCheck,
@@ -71,9 +72,14 @@ export default function SiteFooter() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10">
           {/* Brand block */}
           <div className="col-span-2 lg:col-span-1">
-            <Link href="/" className="flex items-center gap-2.5">
-              <div className="h-10 w-10 rounded-full bg-bekasi-gold-500 flex items-center justify-center shadow-lg shadow-bekasi-gold-500/25">
-                <span className="font-display text-bekasi-emerald-900 text-xl leading-none">B</span>
+            <Link href="/" className="flex items-center gap-2.5 group">
+              <div className="relative h-10 w-10 transition-transform group-hover:scale-105">
+                <Image
+                  src="https://res.cloudinary.com/oi9u7lsq/image/upload/v1783252951/3._Logo_SVG_BekasiGo_main_wqr72y.svg"
+                  alt="BekasiGo Logo"
+                  fill
+                  className="object-contain"
+                />
               </div>
               <div className="flex flex-col leading-none">
                 <span className="font-display text-xl tracking-tight">BekasiGo</span>

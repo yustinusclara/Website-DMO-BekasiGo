@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ShieldCheck, Lock, Sparkles, ArrowLeft } from 'lucide-react'
 
@@ -36,8 +37,13 @@ export default function AuthLayout({ title, kicker, subtitle, children, footer }
         {/* Top row — brand mark */}
         <div className="relative flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="h-9 w-9 rounded-md bg-bekasi-gold-500 flex items-center justify-center shadow-lg shadow-bekasi-gold-500/25 transition-transform group-hover:scale-105">
-              <span className="font-display text-bekasi-emerald-900 text-lg leading-none">B</span>
+            <div className="relative h-9 w-9 transition-transform group-hover:scale-105">
+              <Image
+                src="https://res.cloudinary.com/oi9u7lsq/image/upload/v1783252951/3._Logo_SVG_BekasiGo_main_wqr72y.svg"
+                alt="BekasiGo Logo"
+                fill
+                className="object-contain"
+              />
             </div>
             <div className="flex flex-col leading-none">
               <span className="font-display text-lg tracking-tight">BekasiGo</span>
@@ -100,9 +106,14 @@ export default function AuthLayout({ title, kicker, subtitle, children, footer }
       <main className="flex flex-col items-center justify-center px-6 py-14 md:px-10 lg:px-14 xl:px-20">
         {/* Mobile brand strip */}
         <div className="lg:hidden w-full max-w-md flex items-center justify-between mb-10">
-          <Link href="/" className="flex items-center gap-2.5">
-            <div className="h-9 w-9 rounded-md bg-bekasi-emerald-900 flex items-center justify-center">
-              <span className="font-display text-bekasi-gold-500 text-lg leading-none">B</span>
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div className="relative h-9 w-9 transition-transform group-hover:scale-105">
+              <Image
+                src="https://res.cloudinary.com/oi9u7lsq/image/upload/v1783252951/3._Logo_SVG_BekasiGo_main_wqr72y.svg"
+                alt="BekasiGo Logo"
+                fill
+                className="object-contain"
+              />
             </div>
             <div className="flex flex-col leading-none">
               <span className="font-display text-lg tracking-tight text-bekasi-emerald-900">BekasiGo</span>
