@@ -1,6 +1,7 @@
 import './globals.css'
 import { Inter, Playfair_Display } from 'next/font/google'
 import { Providers } from './providers'
+import { Toaster } from '@/components/ui/sonner'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -38,6 +39,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className="min-h-screen bg-bekasi-cream text-bekasi-ink font-sans">
         <Providers>{children}</Providers>
+        <Toaster richColors position="top-right" />
       </body>
     </html>
   )

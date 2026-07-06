@@ -113,14 +113,26 @@ export default function SiteFooter() {
       const data = await res.json()
 
       if (res.ok) {
-        toast.success(locale === 'en' ? 'Thank you for subscribing!' : 'Terima kasih telah berlangganan!')
+        toast.success(
+          locale === 'en' 
+            ? 'Thank you! You have successfully subscribed to the BekasiGo newsletter.' 
+            : 'Terima kasih! Anda berhasil berlangganan newsletter BekasiGo.'
+        )
         setEmail('')
       } else {
-        toast.error(data.error || (locale === 'en' ? 'Failed to subscribe.' : 'Gagal berlangganan.'))
+        let msg = data.error
+        if (data.error === "Email is already subscribed") {
+          msg = locale === 'en' ? 'This email is already subscribed.' : 'Email ini sudah terdaftar sebagai pelanggan.'
+        } else if (data.error === "Invalid email format") {
+          msg = locale === 'en' ? 'Please enter a valid email address.' : 'Silakan masukkan alamat email yang valid.'
+        } else if (!msg) {
+          msg = locale === 'en' ? 'Failed to subscribe. Please try again later.' : 'Gagal berlangganan. Silakan coba lagi nanti.'
+        }
+        toast.error(msg)
       }
     } catch (err) {
       console.error(err)
-      toast.error(locale === 'en' ? 'An unexpected error occurred.' : 'Terjadi kesalahan tidak terduga.')
+      toast.error(locale === 'en' ? 'An unexpected error occurred. Please try again later.' : 'Terjadi kesalahan tidak terduga. Silakan coba lagi nanti.')
     } finally {
       setLoading(false)
     }
