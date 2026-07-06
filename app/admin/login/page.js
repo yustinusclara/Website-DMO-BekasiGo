@@ -12,7 +12,7 @@ export default function AdminLoginPage() {
     <AuthLayout
       title="Sign in to BekasiGo CMS"
       kicker="Internal Access"
-      subtitle="Enter your work email and password, or continue with a linked provider."
+      subtitle="Enter your administrator username and password."
     >
       <LoginForm />
     </AuthLayout>
