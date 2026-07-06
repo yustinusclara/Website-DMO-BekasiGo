@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import {
@@ -11,6 +12,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
 import { useTranslation } from '@/lib/i18n/LanguageProvider'
+import { toast } from 'sonner'
 
 const ICONS = {
   instagram: Instagram, youtube: Youtube, facebook: Facebook,
@@ -76,9 +78,52 @@ const getTranslationKey = (label) => {
 
 export default function SiteFooter() {
   const { t, locale, changeLocale } = useTranslation()
+  const [email, setEmail] = useState('')
+  const [loading, setLoading] = useState(false)
+
   const translateLabel = (label) => {
     const key = getTranslationKey(label)
     return key ? t(key) : label
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    if (!email) {
+      toast.error(locale === 'en' ? 'Please enter your email address.' : 'Silakan masukkan alamat email Anda.')
+      return
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      toast.error(locale === 'en' ? 'Please enter a valid email address.' : 'Silakan masukkan alamat email yang valid.')
+      return
+    }
+
+    setLoading(true)
+    try {
+      const res = await fetch('/api/newsletter/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      })
+
+      const data = await res.json()
+
+      if (res.ok) {
+        toast.success(locale === 'en' ? 'Thank you for subscribing!' : 'Terima kasih telah berlangganan!')
+        setEmail('')
+      } else {
+        toast.error(data.error || (locale === 'en' ? 'Failed to subscribe.' : 'Gagal berlangganan.'))
+      }
+    } catch (err) {
+      console.error(err)
+      toast.error(locale === 'en' ? 'An unexpected error occurred.' : 'Terjadi kesalahan tidak terduga.')
+    } finally {
+      setLoading(false)
+    }
   }
   return (
     <footer className="relative gradient-emerald text-white overflow-hidden">
@@ -125,17 +170,27 @@ export default function SiteFooter() {
             </div>
           </div>
 
-          <form className="flex flex-col sm:flex-row gap-3 z-10">
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 z-10 w-full max-w-md lg:max-w-none">
             <Input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={loading}
               placeholder={t('footer.newsletter_placeholder')}
               className="h-12 flex-1 bg-white/5 border-white/20 text-white placeholder:text-white/40 focus-visible:ring-bekasi-gold-400"
             />
             <Button
-              type="button"
-              className="h-12 rounded-md bg-bekasi-gold-500 hover:bg-bekasi-gold-400 text-bekasi-emerald-900 font-medium px-6"
+              type="submit"
+              disabled={loading}
+              className="h-12 rounded-md bg-bekasi-gold-500 hover:bg-bekasi-gold-400 text-bekasi-emerald-900 font-medium px-6 min-w-[130px] flex items-center justify-center"
             >
-              {t('footer.newsletter_subscribe')} <ArrowRight className="h-4 w-4 ml-2" />
+              {loading ? (
+                <span>{locale === 'en' ? 'Subscribing...' : 'Memproses...'}</span>
+              ) : (
+                <>
+                  {t('footer.newsletter_subscribe')} <ArrowRight className="h-4 w-4 ml-2" />
+                </>
+              )}
             </Button>
           </form>
         </div>

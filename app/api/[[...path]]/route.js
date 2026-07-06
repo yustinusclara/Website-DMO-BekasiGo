@@ -110,6 +110,54 @@ async function handleRoute(request, { params }) {
       }
     }
 
+    // Newsletter Subscription — POST /api/newsletter/subscribe
+    if (route === '/newsletter/subscribe' && method === 'POST') {
+      const body = await request.json()
+      const { email } = body || {}
+
+      if (!email) {
+        return handleCORS(NextResponse.json(
+          { error: "Email is required" }, 
+          { status: 400 }
+        ))
+      }
+
+      // Basic regex validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(email)) {
+        return handleCORS(NextResponse.json(
+          { error: "Invalid email format" }, 
+          { status: 400 }
+        ))
+      }
+
+      const db = await connectToMongo()
+      const collection = db.collection('subscribers')
+
+      // Ensure unique index on email
+      await collection.createIndex({ email: 1 }, { unique: true })
+
+      // Check if email already exists
+      const existing = await collection.findOne({ email })
+      if (existing) {
+        return handleCORS(NextResponse.json(
+          { error: "Email is already subscribed" }, 
+          { status: 409 }
+        ))
+      }
+
+      const subscriber = {
+        email,
+        subscribedAt: new Date()
+      }
+
+      await collection.insertOne(subscriber)
+      return handleCORS(NextResponse.json(
+        { message: "Successfully subscribed" },
+        { status: 201 }
+      ))
+    }
+
     // Route not found
     return handleCORS(NextResponse.json(
       { error: `Route ${route} not found` }, 
