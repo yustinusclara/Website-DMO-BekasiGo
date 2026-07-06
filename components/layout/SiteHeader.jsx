@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
 import {
   Menu, X, Search, Globe, MapPin, Sparkles, ChevronDown, ChevronRight,
@@ -14,6 +15,7 @@ import { NAV } from '@/lib/content/homepage'
 import { categories as CAT } from '@/lib/design/tokens'
 import AuthAvatar from '@/components/auth/AuthAvatar'
 import GlobalSearchOverlay from '@/components/layout/GlobalSearchOverlay'
+import { useTranslation } from '@/lib/i18n/LanguageProvider'
 
 /**
  * SiteHeader
@@ -25,7 +27,40 @@ import GlobalSearchOverlay from '@/components/layout/GlobalSearchOverlay'
  *  • Prominent Smart Trip Planner CTA (gold pill)
  *  • Mobile drawer with grouped accordion sections
  */
+const getTranslationKey = (label) => {
+  switch (label?.toLowerCase()) {
+    case 'discover bekasi': return 'nav.discover';
+    case 'destinations': return 'nav.destinations';
+    case 'events': return 'nav.events';
+    case 'city stories': return 'nav.stories';
+    case 'explore map': return 'nav.map';
+    case 'smart trip planner': return 'nav.planner';
+    case 'press': return 'nav.press';
+    case 'partners': return 'nav.partners';
+    case 'by theme': return 'nav.group_theme';
+    case 'essentials': return 'nav.group_essential';
+    case 'heritage & culture': return 'nav.theme_heritage';
+    case 'urban lifestyle': return 'nav.theme_urban';
+    case 'nature & waterfront': return 'nav.theme_nature';
+    case 'family friendly': return 'nav.theme_family';
+    case 'food & drink': return 'nav.essential_food';
+    case 'stay': return 'nav.essential_stay';
+    case 'getting around': return 'nav.essential_transit';
+    case 'journal & news': return 'nav.essential_journal';
+    case 'discover': return 'nav.mobile_discover';
+    case 'plan your visit': return 'nav.mobile_plan';
+    case 'about bekasigo': return 'nav.mobile_about';
+    case 'cms console': return 'nav.mobile_cms';
+    default: return null;
+  }
+}
+
 export default function SiteHeader() {
+  const { t, locale, changeLocale } = useTranslation()
+  const translateLabel = (label) => {
+    const key = getTranslationKey(label)
+    return key ? t(key) : label
+  }
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)              // mobile drawer
   const [megaOpen, setMegaOpen] = useState(null)       // string id | null
@@ -99,8 +134,14 @@ export default function SiteHeader() {
             </span>
           </div>
           <div className="flex items-center gap-4">
-            <button className="inline-flex items-center gap-1.5 hover:text-white transition-colors">
-              <Globe className="h-3 w-3" /> EN&nbsp;/&nbsp;ID
+            <button 
+              onClick={() => changeLocale(locale === 'en' ? 'id' : 'en')}
+              className="inline-flex items-center gap-1.5 hover:text-white transition-colors"
+            >
+              <Globe className="h-3 w-3" />
+              <span className={cn(locale === 'en' ? 'text-white font-semibold' : 'text-white/60')}>EN</span>
+              <span className="text-white/30">/</span>
+              <span className={cn(locale === 'id' ? 'text-white font-semibold' : 'text-white/60')}>ID</span>
             </button>
             <span className="opacity-30">|</span>
             {NAV.utility.map((u, i) => (
@@ -156,7 +197,7 @@ export default function SiteHeader() {
                     isOpen && 'text-white bg-white/[0.06]',
                   )}
                 >
-                  <span>{item.label}</span>
+                  <span>{translateLabel(item.label)}</span>
                   {hasMega && (
                     <ChevronDown
                       className={cn(
@@ -187,7 +228,7 @@ export default function SiteHeader() {
                 href={item.href}
                 className="relative text-[13px] font-medium text-white/80 hover:text-white transition-colors group"
               >
-                {item.label}
+                {translateLabel(item.label)}
                 <span className="absolute -bottom-1 left-0 h-px w-0 bg-bekasi-gold-400 transition-all duration-300 group-hover:w-full" />
               </Link>
             ))}
@@ -206,7 +247,7 @@ export default function SiteHeader() {
           <Link href={NAV.cta.href} className="hidden sm:block">
             <Button className="h-10 rounded-full bg-bekasi-gold-500 hover:bg-bekasi-gold-400 text-bekasi-emerald-900 font-medium px-4 md:px-5 shadow-lg shadow-bekasi-gold-500/20 gap-2">
               <Sparkles className="h-4 w-4" />
-              <span className="hidden md:inline">{NAV.cta.label}</span>
+              <span className="hidden md:inline">{translateLabel(NAV.cta.label)}</span>
               <span className="md:hidden">Plan</span>
             </Button>
           </Link>
@@ -247,7 +288,7 @@ export default function SiteHeader() {
               {NAV.mobileGroups.map((group) => (
                 <div key={group.title}>
                   <div className="text-[11px] uppercase tracking-[0.22em] text-bekasi-gold-400 mb-3">
-                    {group.title}
+                    {translateLabel(group.title)}
                   </div>
                   <div className="flex flex-col divide-y divide-white/10 border-y border-white/10">
                     {group.links.map((l) => (
@@ -257,7 +298,7 @@ export default function SiteHeader() {
                         onClick={() => setOpen(false)}
                         className="py-4 flex items-center justify-between text-white/90 hover:text-bekasi-gold-400 transition-colors"
                       >
-                        <span className="font-display text-2xl md:text-3xl">{l.label}</span>
+                        <span className="font-display text-2xl md:text-3xl">{translateLabel(l.label)}</span>
                         <ChevronRight className="h-5 w-5 text-white/40" />
                       </Link>
                     ))}
@@ -267,18 +308,24 @@ export default function SiteHeader() {
 
               <Link href={NAV.cta.href} onClick={() => setOpen(false)}>
                 <Button className="w-full h-14 rounded-full bg-bekasi-gold-500 hover:bg-bekasi-gold-400 text-bekasi-emerald-900 font-medium text-base">
-                  <Sparkles className="h-5 w-5 mr-2" /> {NAV.cta.label}
+                  <Sparkles className="h-5 w-5 mr-2" /> {translateLabel(NAV.cta.label)}
                 </Button>
               </Link>
 
               <div className="pt-4 flex items-center justify-between text-xs text-white/50">
-                <span className="inline-flex items-center gap-1.5">
-                  <Globe className="h-3.5 w-3.5" /> EN / ID
-                </span>
+                <button
+                  onClick={() => changeLocale(locale === 'en' ? 'id' : 'en')}
+                  className="inline-flex items-center gap-1.5 hover:text-white transition-colors animate-none"
+                >
+                  <Globe className="h-3.5 w-3.5" />
+                  <span className={cn(locale === 'en' ? 'text-white font-semibold' : 'text-white/60')}>EN</span>
+                  <span className="text-white/30">/</span>
+                  <span className={cn(locale === 'id' ? 'text-white font-semibold' : 'text-white/60')}>ID</span>
+                </button>
                 <div className="flex items-center gap-4">
                   {NAV.utility.map((u) => (
                     <Link key={u.href} href={u.href} onClick={() => setOpen(false)} className="hover:text-white">
-                      {u.label}
+                      {translateLabel(u.label)}
                     </Link>
                   ))}
                 </div>
@@ -296,6 +343,12 @@ export default function SiteHeader() {
 /* ─────────────────────────────────────────────────────────────── */
 
 function MegaPanel({ item, onClose, onMouseEnter, onMouseLeave }) {
+  const { t } = useTranslation()
+  const translateLabel = (label) => {
+    const key = getTranslationKey(label)
+    return key ? t(key) : label
+  }
+
   if (!item?.mega) return null
   const { featured, groups } = item.mega
   return (
@@ -327,7 +380,7 @@ function MegaPanel({ item, onClose, onMouseEnter, onMouseLeave }) {
               {groups.map((g) => (
                 <div key={g.title}>
                   <div className="text-[11px] uppercase tracking-[0.22em] text-bekasi-gold-400 mb-4">
-                    {g.title}
+                    {translateLabel(g.title)}
                   </div>
                   <ul className="space-y-2.5">
                     {g.links.map((l) => {
@@ -346,7 +399,7 @@ function MegaPanel({ item, onClose, onMouseEnter, onMouseLeave }) {
                                 style={{ background: c.color }}
                               />
                             )}
-                            <span className="text-white text-[15px] font-medium">{l.label}</span>
+                            <span className="text-white text-[15px] font-medium">{translateLabel(l.label)}</span>
                             <ArrowUpRight className="h-4 w-4 text-white/30 group-hover:text-bekasi-gold-400 group-hover:-translate-y-px group-hover:translate-x-px transition-all" />
                           </Link>
                         </li>

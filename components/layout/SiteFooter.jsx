@@ -9,6 +9,8 @@ import {
 import { FOOTER, NAV } from '@/lib/content/homepage'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { cn } from '@/lib/utils'
+import { useTranslation } from '@/lib/i18n/LanguageProvider'
 
 const ICONS = {
   instagram: Instagram, youtube: Youtube, facebook: Facebook,
@@ -26,7 +28,58 @@ const ICONS = {
  *  • Bottom bar — legal · social · language
  *  • Oversized wordmark backdrop for cinematic depth
  */
+const getTranslationKey = (label) => {
+  switch (label?.toLowerCase()) {
+    case 'discover': return 'nav.mobile_discover';
+    case 'discover bekasi': return 'nav.discover';
+    case 'destinations': return 'nav.destinations';
+    case 'events': return 'nav.events';
+    case 'city stories': return 'nav.stories';
+    case 'explore map': return 'nav.map';
+    case 'smart trip planner': return 'nav.planner';
+    case 'press': return 'nav.press';
+    case 'partners': return 'nav.partners';
+    case 'by theme': return 'nav.group_theme';
+    case 'essentials': return 'nav.group_essential';
+    case 'heritage & culture': return 'nav.theme_heritage';
+    case 'urban lifestyle': return 'nav.theme_urban';
+    case 'nature & waterfront': return 'nav.theme_nature';
+    case 'waterfront & nature': return 'nav.theme_nature';
+    case 'family friendly': return 'nav.theme_family';
+    case 'food & drink': return 'nav.essential_food';
+    case 'stay': return 'nav.essential_stay';
+    case 'getting around': return 'nav.essential_transit';
+    case 'journal & news': return 'nav.essential_journal';
+    case 'about bekasigo': return 'nav.mobile_about';
+    case 'cms console': return 'nav.mobile_cms';
+    case 'explore': return 'footer.col_explore';
+    case 'experience': return 'footer.col_experience';
+    case 'plan': return 'footer.col_plan';
+    case 'read': return 'footer.col_read';
+    case 'about': return 'footer.col_about';
+    case 'home': return 'footer.lbl_home';
+    case 'where to stay': return 'footer.lbl_where_stay';
+    case 'weather': return 'footer.lbl_weather';
+    case 'currency & tips': return 'footer.lbl_currency';
+    case 'press kit': return 'footer.lbl_press_kit';
+    case 'newsletter': return 'footer.lbl_newsletter';
+    case 'city government': return 'footer.lbl_gov';
+    case 'contact': return 'footer.lbl_contact';
+    case 'careers': return 'footer.lbl_careers';
+    case 'privacy': return 'footer.lbl_privacy';
+    case 'terms': return 'footer.lbl_terms';
+    case 'accessibility': return 'footer.lbl_access';
+    case 'sitemap': return 'footer.lbl_sitemap';
+    default: return null;
+  }
+}
+
 export default function SiteFooter() {
+  const { t, locale, changeLocale } = useTranslation()
+  const translateLabel = (label) => {
+    const key = getTranslationKey(label)
+    return key ? t(key) : label
+  }
   return (
     <footer className="relative gradient-emerald text-white overflow-hidden">
       {/* Oversized brand wordmark backdrop */}
@@ -43,12 +96,12 @@ export default function SiteFooter() {
       <div className="relative border-b border-white/10">
         <div className="container relative py-14 md:py-20 grid gap-10 lg:grid-cols-2 items-center">
           <div className="relative z-10">
-            <span className="eyebrow eyebrow-dot text-bekasi-gold-400">Newsletter</span>
+            <span className="eyebrow eyebrow-dot text-bekasi-gold-400">{t('nav.essential_journal')}</span>
             <h3 className="mt-4 heading-display text-3xl md:text-5xl leading-tight text-balance">
-              A slower letter from Bekasi, once a month.
+              {t('footer.newsletter_title')}
             </h3>
             <p className="mt-4 text-white/70 max-w-md">
-              Stories, guides, and event drops — no spam, unsubscribe anytime.
+              {t('footer.newsletter_subtitle')}
             </p>
           </div>
 
@@ -75,14 +128,14 @@ export default function SiteFooter() {
           <form className="flex flex-col sm:flex-row gap-3 z-10">
             <Input
               type="email"
-              placeholder="you@email.com"
+              placeholder={t('footer.newsletter_placeholder')}
               className="h-12 flex-1 bg-white/5 border-white/20 text-white placeholder:text-white/40 focus-visible:ring-bekasi-gold-400"
             />
             <Button
               type="button"
               className="h-12 rounded-md bg-bekasi-gold-500 hover:bg-bekasi-gold-400 text-bekasi-emerald-900 font-medium px-6"
             >
-              Subscribe <ArrowRight className="h-4 w-4 ml-2" />
+              {t('footer.newsletter_subscribe')} <ArrowRight className="h-4 w-4 ml-2" />
             </Button>
           </form>
         </div>
@@ -111,13 +164,13 @@ export default function SiteFooter() {
             </Link>
 
             <p className="mt-5 text-sm text-white/60 leading-relaxed max-w-xs">
-              {FOOTER.tagline}
+              {t('footer.tagline')}
             </p>
 
             <div className="mt-6 space-y-2 text-xs text-white/60">
               <div className="flex items-start gap-2">
                 <MapPin className="h-3.5 w-3.5 mt-0.5 shrink-0" />
-                <span>Jl. Ahmad Yani No. 1<br />Kota Bekasi 17141, Jawa Barat</span>
+                <span>{t('footer.address')}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="h-3.5 w-3.5" />
@@ -136,7 +189,7 @@ export default function SiteFooter() {
           {FOOTER.columns.map((col) => (
             <div key={col.title}>
               <h4 className="text-xs uppercase tracking-[0.22em] text-bekasi-gold-400 mb-4">
-                {col.title}
+                {translateLabel(col.title)}
               </h4>
               <ul className="space-y-3">
                 {col.links.map((l) => (
@@ -145,7 +198,7 @@ export default function SiteFooter() {
                       href={l.href}
                       className="text-sm text-white/75 hover:text-white transition-colors"
                     >
-                      {l.label}
+                      {translateLabel(l.label)}
                     </Link>
                   </li>
                 ))}
@@ -161,15 +214,15 @@ export default function SiteFooter() {
               <Sparkles className="h-5 w-5 text-bekasi-gold-400" />
             </div>
             <div>
-              <p className="text-white font-medium">Not sure where to begin?</p>
+              <p className="text-white font-medium">{t('footer.cta_title')}</p>
               <p className="text-sm text-white/60">
-                Let the Smart Planner build a full itinerary in seconds.
+                {t('footer.cta_subtitle')}
               </p>
             </div>
           </div>
           <Link href={NAV.cta.href}>
             <Button className="h-11 rounded-full bg-bekasi-gold-500 hover:bg-bekasi-gold-400 text-bekasi-emerald-900 px-6 whitespace-nowrap">
-              Try the Smart Planner
+              {t('footer.cta_btn')}
             </Button>
           </Link>
         </div>
@@ -233,10 +286,10 @@ export default function SiteFooter() {
       <div className="relative border-t border-white/10">
         <div className="container py-6 flex flex-col md:flex-row items-center gap-6 md:gap-4 justify-between text-xs text-white/50">
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-2">
-            <span>© {new Date().getFullYear()} BekasiGo. All rights reserved.</span>
+            <span>© {new Date().getFullYear()} BekasiGo. {t('footer.rights')}</span>
             {FOOTER.meta.map((m) => (
               <Link key={m.href} href={m.href} className="hover:text-white transition-colors">
-                {m.label}
+                {translateLabel(m.label)}
               </Link>
             ))}
           </div>
@@ -256,9 +309,14 @@ export default function SiteFooter() {
                 )
               })}
             </div>
-            <button className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-3 py-1.5 hover:bg-white/10 hover:border-white/30 transition-colors">
+            <button 
+              onClick={() => changeLocale(locale === 'en' ? 'id' : 'en')}
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/15 px-3 py-1.5 hover:bg-white/10 hover:border-white/30 transition-colors"
+            >
               <Globe className="h-3.5 w-3.5" />
-              <span className="tracking-wider">EN&nbsp;/&nbsp;ID</span>
+              <span className={cn(locale === 'en' ? 'text-white font-semibold' : 'text-white/60')}>EN</span>
+              <span className="text-white/30">/</span>
+              <span className={cn(locale === 'id' ? 'text-white font-semibold' : 'text-white/60')}>ID</span>
             </button>
           </div>
         </div>

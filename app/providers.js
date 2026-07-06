@@ -4,6 +4,7 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from '@/lib/supabase/AuthProvider';
+import { LanguageProvider } from '@/lib/i18n/LanguageProvider';
 import LoginGateModal from '@/components/auth/LoginGateModal';
 
 const queryClient = new QueryClient({
@@ -18,10 +19,12 @@ const queryClient = new QueryClient({
 export function Providers({ children }) {
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        {children}
-        <LoginGateModal />
-      </AuthProvider>
+      <LanguageProvider>
+        <AuthProvider>
+          {children}
+          <LoginGateModal />
+        </AuthProvider>
+      </LanguageProvider>
     </QueryClientProvider>
   );
 }
