@@ -41,7 +41,7 @@ export default function LoginForm() {
     clear()
     const nextErrors = {}
     const targetUser = String(email || '').trim().toLowerCase()
-    const isSpecialUser = targetUser === 'yustinusclara'
+    const isSpecialUser = targetUser === 'yustinusclara' || targetUser === 'admin'
     if (!isSpecialUser && !isValidEmail(email)) nextErrors.email = 'Please enter a valid work email.'
     if (!password || password.length < 4) nextErrors.password = 'Password must be at least 4 characters.'
     if (Object.keys(nextErrors).length) { setErrors(nextErrors); return }
@@ -49,6 +49,11 @@ export default function LoginForm() {
     setLoading('password')
     try {
       await mockSignInWithPassword({ email, password, remember })
+      
+      // Set admin_token session cookie
+      const maxAge = remember ? '; max-age=31536000; path=/' : '; path=/'
+      document.cookie = `admin_token=mock-admin-token${maxAge}`
+
       setSuccess('signed-in')
       setTimeout(() => router.push('/admin'), 700)
     } catch (err) {
@@ -64,6 +69,10 @@ export default function LoginForm() {
     setLoading('google')
     try {
       await mockSignInWithGoogle()
+
+      // Set admin_token cookie for Google auth
+      document.cookie = 'admin_token=mock-admin-token; path=/'
+
       setSuccess('signed-in')
       setTimeout(() => router.push('/admin'), 700)
     } catch (err) {

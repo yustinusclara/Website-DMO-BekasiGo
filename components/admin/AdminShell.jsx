@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import {
   LayoutDashboard, MapPin, CalendarDays, BookOpen, Newspaper, ImageIcon,
   Settings, Bell, Search, LogOut, Menu, X, Plus, ChevronDown, ExternalLink,
@@ -30,10 +30,38 @@ const NAV = [
  */
 export default function AdminShell({ title, kicker, actions, children }) {
   const pathname = usePathname()
+  const router = useRouter()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [userMenu, setUserMenu]     = useState(false)
+  const [isAuthed, setIsAuthed]     = useState(false)
+
+  useEffect(() => {
+    const token = document.cookie.split('; ').find(row => row.startsWith('admin_token='))?.split('=')[1]
+    if (!token) {
+      router.replace('/admin/login')
+    } else {
+      setIsAuthed(true)
+    }
+  }, [router])
+
+  const handleSignOut = (e) => {
+    e.preventDefault()
+    document.cookie = 'admin_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+    router.replace('/admin/login')
+  }
 
   const active = (item) => item.exact ? pathname === item.href : pathname === item.href || pathname?.startsWith(item.href + '/')
+
+  if (!isAuthed) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-bekasi-cream text-bekasi-emerald-900">
+        <div className="flex flex-col items-center gap-3">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-bekasi-emerald-900"></div>
+          <span className="text-sm font-medium">Verifying access...</span>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-bekasi-cream text-bekasi-ink">
@@ -122,9 +150,12 @@ export default function AdminShell({ title, kicker, actions, children }) {
                   <ExternalLink className="h-3.5 w-3.5" /> View public site
                 </Link>
                 <div className="border-t border-white/10" />
-                <Link href="/admin/login" className="flex items-center gap-2 px-3 py-2 text-[13px] text-red-300 hover:bg-red-500/10">
+                <button
+                  onClick={handleSignOut}
+                  className="w-full flex items-center gap-2 px-3 py-2 text-[13px] text-red-300 hover:bg-red-500/10 text-left transition-colors"
+                >
                   <LogOut className="h-3.5 w-3.5" /> Sign out
-                </Link>
+                </button>
               </div>
             )}
           </div>
