@@ -13,6 +13,15 @@ export function middleware(request) {
     }
   }
 
+  // If user is already logged in and tries to access the login page, redirect to dashboard
+  if (pathname === '/admin/login') {
+    const token = request.cookies.get('admin_token')?.value
+    if (token) {
+      const dashboardUrl = new URL('/admin', request.url)
+      return NextResponse.redirect(dashboardUrl)
+    }
+  }
+
   return NextResponse.next()
 }
 

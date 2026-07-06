@@ -3,11 +3,44 @@ import { v4 as uuidv4 } from 'uuid'
 import { NextResponse } from 'next/server'
 import { generateItinerary, refineItinerary } from '@/lib/ai/planner'
 
+// Detect if MongoDB configuration is missing -> fallback to mock in-memory store
+const isMock = !process.env.MONGO_URL || !process.env.DB_NAME
+
+// Simple in-memory mock store for subscribers when DB not configured
+const mockSubscribers = []
+const mockDB = {
+  collection: (name) => {
+    if (name === 'subscribers') {
+      return {
+        async createIndex() {}, // no-op for mock
+        async findOne(filter) {
+          return mockSubscribers.find((s) => s.email === filter.email) || null
+        },
+        async insertOne(doc) {
+          mockSubscribers.push(doc)
+          return { insertedId: mockSubscribers.length - 1 }
+        },
+      }
+    }
+    // Return a generic mock collection with no-ops for other collections
+    return {
+      async createIndex() {},
+      async findOne() { return null },
+      async insertOne() { return { insertedId: null } },
+      async find() { return { limit: () => ({ toArray: async () => [] }) } }
+    }
+  },
+}
+
 // MongoDB connection
 let client
 let db
 
 async function connectToMongo() {
+  if (isMock) {
+    // Return mock DB when configuration is absent
+    return mockDB
+  }
   if (!client) {
     client = new MongoClient(process.env.MONGO_URL)
     await client.connect()
@@ -134,7 +167,7 @@ async function handleRoute(request, { params }) {
       const db = await connectToMongo()
       const collection = db.collection('subscribers')
 
-      // Ensure unique index on email
+      // Ensure unique index on email (noop for mock)
       await collection.createIndex({ email: 1 }, { unique: true })
 
       // Check if email already exists
@@ -166,6 +199,13 @@ async function handleRoute(request, { params }) {
 
   } catch (error) {
     console.error('API Error:', error)
+    // Provide more detailed error for missing DB config
+    if (error.message && error.message.includes('MONGO_URL')) {
+      return handleCORS(NextResponse.json(
+        { error: 'Database configuration missing. Newsletter subscription unavailable.' },
+        { status: 500 }
+      ))
+    }
     return handleCORS(NextResponse.json(
       { error: "Internal server error" }, 
       { status: 500 }
